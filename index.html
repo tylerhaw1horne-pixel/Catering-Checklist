@@ -1,339 +1,1362 @@
-export const STORE_ADDRESS = “3338 Cobb Pkwy NW, Acworth, GA 30101”;
-export const RECIPIENT_EMAIL = “Tylerhawthorne@hueylueys.com”;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Huey Luey's Catering Checklist</title>
+<style>
+  :root {
+    --brand: #c0392b;
+    --brand-dark: #922b21;
+    --brand-light: #f5b7b1;
+    --accent: #f39c12;
+    --accent-dark: #d68910;
+    --bg: #fdf6ec;
+    --surface: #fff;
+    --surface2: #fef9f3;
+    --border: #e8d5b7;
+    --text: #2c2c2c;
+    --text-muted: #7f8c8d;
+    --success: #27ae60;
+    --warning: #e67e22;
+    --danger: #e74c3c;
+    --radius: 12px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand) 60%, var(--accent) 100%);
+    color: #fff;
+    padding: 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .header-brand { display: flex; align-items: center; gap: 14px; }
+  .header-logo {
+    width: 52px; height: 52px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    border: 2px solid rgba(255,255,255,0.3);
+  }
+  .header-title h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; }
+  .header-title p { font-size: 0.8rem; opacity: 0.85; margin-top: 2px; }
+  .header-badge {
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  /* MAIN LAYOUT */
+  .main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+  /* TABS */
+  .tab-nav {
+    display: flex;
+    gap: 4px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 6px;
+    margin-bottom: 28px;
+    box-shadow: var(--shadow);
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    flex: 1;
+    min-width: 120px;
+    padding: 10px 16px;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { background: var(--surface2); color: var(--text); }
+  .tab-btn.active {
+    background: var(--brand);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(192,57,43,0.4);
+  }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+  }
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--brand-dark);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+  /* GUEST INPUT */
+  .guest-input-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .guest-input-wrap {
+    position: relative;
+    flex: 1;
+    max-width: 200px;
+  }
+  .guest-input-wrap label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .guest-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-align: center;
+    background: var(--surface2);
+    transition: border-color 0.2s;
+    color: var(--text);
+  }
+  .guest-input:focus { outline: none; border-color: var(--brand); }
+  .pan-info {
+    flex: 1;
+    background: linear-gradient(135deg, var(--brand-light), #fadbd8);
+    border: 1px solid var(--brand-light);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 0.85rem;
+  }
+  .pan-info strong { color: var(--brand-dark); font-size: 1rem; }
+  /* MENU GRID */
+  .menu-category { margin-bottom: 32px; }
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border);
+  }
+  .category-emoji { font-size: 1.5rem; }
+  .category-name { font-size: 1.1rem; font-weight: 800; color: var(--brand-dark); }
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+  .menu-item {
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--surface2);
+    position: relative;
+    overflow: hidden;
+  }
+  .menu-item:hover { border-color: var(--brand); box-shadow: 0 4px 16px rgba(192,57,43,0.12); }
+  .menu-item.selected {
+    border-color: var(--brand);
+    background: #fff5f5;
+    box-shadow: 0 4px 16px rgba(192,57,43,0.18);
+  }
+  .menu-item.selected::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--brand);
+  }
+  .item-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
+  .item-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; }
+  .item-tags { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+  .tag {
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .tag-popular { background: #fff3cd; color: #856404; }
+  .tag-veg { background: #d1e7dd; color: #155724; }
+  .tag-spicy { background: #f8d7da; color: #842029; }
+  .tag-serving { background: #e2e3e5; color: #41464b; }
+  .item-check {
+    position: absolute;
+    top: 12px; right: 12px;
+    width: 22px; height: 22px;
+    background: var(--brand);
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 12px;
+  }
+  .menu-item.selected .item-check { display: flex; }
+  /* SUB-CHOICES */
+  .sub-choices {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+    display: none;
+  }
+  .menu-item.selected .sub-choices { display: block; }
+  .sub-choice-label { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; }
+  .sub-choice-list { display: flex; flex-direction: column; gap: 4px; }
+  .sub-choice-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.82rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    transition: all 0.15s;
+  }
+  .sub-choice-item:hover { background: #fdf0f0; border-color: var(--brand-light); }
+  .sub-choice-item.picked { background: var(--brand); color: #fff; border-color: var(--brand); font-weight: 600; }
+  .sub-choice-item input { display: none; }
+  /* BEAN CHOICES */
+  .bean-choices { margin-top: 8px; }
+  /* GENERATE BUTTON */
+  .generate-wrap { text-align: center; margin: 32px 0; }
+  .generate-btn {
+    background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+    color: #fff;
+    border: none;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(192,57,43,0.35);
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .generate-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(192,57,43,0.45); }
+  .generate-btn:active { transform: translateY(0); }
+  /* PACKING OUTPUT */
+  .packing-output { display: none; }
+  .packing-output.show { display: block; }
+  .packing-header {
+    background: linear-gradient(135deg, var(--brand-dark), var(--brand));
+    color: #fff;
+    border-radius: var(--radius) var(--radius) 0 0;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .packing-header h2 { font-size: 1.2rem; font-weight: 800; }
+  .packing-header .meta { font-size: 0.85rem; opacity: 0.9; }
+  .packing-items {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 var(--radius) var(--radius);
+    overflow: hidden;
+  }
+  .packing-item {
+    border-bottom: 1px solid var(--border);
+    padding: 18px 24px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .packing-item:last-child { border-bottom: none; }
+  .packing-item-num {
+    width: 32px; height: 32px;
+    background: var(--brand);
+    color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .packing-item-body {}
+  .packing-item-title { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
+  .packing-item-container {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .container-badge {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2px 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-dark);
+  }
+  .packing-steps { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+  .packing-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    padding: 4px 0;
+  }
+  .packing-step.warning {
+    color: var(--brand-dark);
+    font-weight: 600;
+  }
+  .step-dot {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+  .warning .step-dot { background: var(--danger); }
+  /* PRINT BTN */
+  .action-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+  }
+  .btn-outline {
+    background: transparent;
+    border: 2px solid var(--brand);
+    color: var(--brand);
+  }
+  .btn-outline:hover { background: var(--brand); color: #fff; }
+  .btn-success {
+    background: var(--success);
+    color: #fff;
+  }
+  .btn-success:hover { background: #219a52; }
+  /* DRIVER CHECKLIST */
+  .checklist-section { margin-bottom: 28px; }
+  .checklist-section-header {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--brand-dark);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: linear-gradient(135deg, #fff5f5, #fef9f3);
+    border-radius: 8px;
+    border-left: 4px solid var(--brand);
+  }
+  .checklist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 8px;
+  }
+  .checklist-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .checklist-row:hover { border-color: var(--brand-light); background: #fef5f5; }
+  .checklist-row.checked {
+    background: #f0fff4;
+    border-color: var(--success);
+    opacity: 0.8;
+  }
+  .checklist-row.checked .checklist-item-name { text-decoration: line-through; color: var(--text-muted); }
+  .checkbox {
+    width: 20px; height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    color: #fff;
+    transition: all 0.2s;
+    margin-top: 1px;
+  }
+  .checklist-row.checked .checkbox { background: var(--success); border-color: var(--success); }
+  .checklist-item-name { font-weight: 600; font-size: 0.88rem; }
+  .checklist-item-note { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+  .checklist-progress {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .progress-bar-wrap {
+    flex: 1;
+    min-width: 160px;
+    height: 8px;
+    background: var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--brand), var(--accent));
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+  .progress-label { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); white-space: nowrap; }
+  .reset-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: all 0.2s;
+  }
+  .reset-btn:hover { border-color: var(--brand-light); color: var(--brand); }
+  /* QR CODE */
+  .qr-section {
+    text-align: center;
+    padding: 40px 24px;
+  }
+  .qr-placeholder {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 32px;
+    border: 3px dashed var(--border);
+    border-radius: var(--radius);
+    background: var(--surface2);
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  .qr-icon {
+    font-size: 64px;
+    line-height: 1;
+  }
+  .qr-placeholder h3 { font-size: 1.1rem; font-weight: 700; color: var(--brand-dark); }
+  .qr-placeholder p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+  .qr-img-wrap { display: none; }
+  .qr-img-wrap img { max-width: 240px; border-radius: 8px; box-shadow: var(--shadow-lg); }
+  .qr-upload-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--brand);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-top: 4px;
+    transition: background 0.2s;
+  }
+  .qr-upload-label:hover { background: var(--brand-dark); }
+  #qr-file-input { display: none; }
+  .qr-desc { margin-top: 16px; font-size: 0.85rem; color: var(--text-muted); max-width: 360px; margin-left: auto; margin-right: auto; }
+  /* EMPTY STATE */
+  .empty-state {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--text-muted);
+  }
+  .empty-state .emoji { font-size: 48px; margin-bottom: 12px; }
+  .empty-state p { font-size: 0.95rem; }
+  /* PRINT */
+  @media print {
+    header, .tab-nav, .generate-wrap, .action-row, .qr-section, .btn { display: none !important; }
+    .tab-panel { display: block !important; }
+    .packing-output { display: block !important; }
+    body { background: #fff; }
+    .card { box-shadow: none; border: 1px solid #ccc; }
+  }
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .header-inner { padding: 14px 16px; }
+    .header-title h1 { font-size: 1.2rem; }
+    .main { padding: 20px 12px 60px; }
+    .tab-btn { font-size: 0.78rem; padding: 8px 10px; min-width: 80px; }
+    .menu-grid { grid-template-columns: 1fr; }
+    .checklist-grid { grid-template-columns: 1fr; }
+  }
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--brand-dark);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    box-shadow: var(--shadow-lg);
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 999;
+    max-width: 300px;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div class="header-brand">
+      <div class="header-logo">🌮</div>
+      <div class="header-title">
+        <h1>Huey Luey's Catering</h1>
+        <p>3338 Cobb Pkwy NW, Acworth, GA 30101</p>
+      </div>
+    </div>
+    <div class="header-badge">📋 Driver & Packing Guide</div>
+  </div>
+</header>
 
-// ─── PAN SIZE CALCULATOR ─────────────────────────────────────────────
-export function getPanSize(guests) {
-if (guests <= 20) return “1/3 pan”;
-if (guests <= 30) return “1/2 pan”;
-if (guests <= 60) return “full shallow pan”;
-return “full deep pan”;
+<div class="main">
+  <nav class="tab-nav">
+    <button class="tab-btn active" data-tab="packing">📦 Packing Checklist</button>
+    <button class="tab-btn" data-tab="driver">🚗 Driver Checklist</button>
+    <button class="tab-btn" data-tab="qr">📱 QR Code</button>
+  </nav>
+
+  <!-- ===== PACKING CHECKLIST TAB ===== -->
+  <div id="tab-packing" class="tab-panel active">
+
+    <!-- Guest Count + Order Config -->
+    <div class="card">
+      <div class="card-title">⚙️ Order Setup</div>
+      <div class="guest-input-row">
+        <div class="guest-input-wrap">
+          <label for="guestCount">Number of Guests</label>
+          <input type="number" id="guestCount" class="guest-input" min="1" max="300" placeholder="e.g. 25" value="">
+        </div>
+        <div class="pan-info" id="panInfo" style="display:none">
+          <div style="font-size:0.75rem;color:#922b21;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;">Container Sizes</div>
+          <strong id="panInfoMain"></strong>
+          <div id="panInfoExtra" style="font-size:0.8rem;margin-top:4px;color:#555;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu Selector -->
+    <div class="card">
+      <div class="card-title">🍽️ Select Menu Items</div>
+      <div id="menuContainer"></div>
+    </div>
+
+    <!-- Generate -->
+    <div class="generate-wrap">
+      <button class="generate-btn" id="generateBtn">
+        📋 Generate Packing Checklist
+      </button>
+    </div>
+
+    <!-- Output -->
+    <div class="packing-output" id="packingOutput">
+      <div class="packing-header">
+        <div>
+          <h2>Packing Checklist</h2>
+          <div class="meta" id="outputMeta"></div>
+        </div>
+        <div class="action-row" style="margin-top:0">
+          <button class="btn btn-outline" onclick="window.print()" style="border-color:rgba(255,255,255,0.5);color:#fff">🖨️ Print</button>
+          <button class="btn btn-success" onclick="resetAll()">🔄 New Order</button>
+        </div>
+      </div>
+      <div class="packing-items" id="packingItems"></div>
+    </div>
+
+  </div>
+
+  <!-- ===== DRIVER CHECKLIST TAB ===== -->
+  <div id="tab-driver" class="tab-panel">
+    <div class="card" style="padding-bottom:0;overflow:hidden">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:12px">
+        <div class="card-title" style="margin:0">🚗 Driver Checklist</div>
+        <button class="reset-btn" onclick="resetDriverChecklist()">↺ Reset All</button>
+      </div>
+      <div class="checklist-progress">
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" id="driverProgress"></div>
+        </div>
+        <div class="progress-label" id="driverProgressLabel">0 / 0 items</div>
+      </div>
+
+      <div class="checklist-section">
+        <div class="checklist-section-header">✅ Always Bring — Every Order</div>
+        <div class="checklist-grid" id="alwaysBringList"></div>
+      </div>
+
+      <div class="checklist-section" style="padding-bottom:24px">
+        <div class="checklist-section-header">⚡ Conditional — Check Order</div>
+        <div class="checklist-grid" id="conditionalBringList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== QR CODE TAB ===== -->
+  <div id="tab-qr" class="tab-panel">
+    <div class="card">
+      <div class="card-title">📱 ezcater QR Code</div>
+      <div class="qr-section">
+        <div class="qr-placeholder" id="qrPlaceholder">
+          <div class="qr-icon">📲</div>
+          <h3>QR Code Coming Soon</h3>
+          <p>Your ezcater ordering QR code will appear here once added.</p>
+          <label class="qr-upload-label" for="qr-file-input">
+            ⬆️ Upload QR Code Image
+          </label>
+          <input type="file" id="qr-file-input" accept="image/*">
+        </div>
+        <div class="qr-img-wrap" id="qrImgWrap">
+          <img id="qrImg" src="" alt="ezcater QR Code">
+          <div style="margin-top:16px">
+            <label class="qr-upload-label" for="qr-file-input" style="background:#7f8c8d;">🔄 Replace QR Code</label>
+          </div>
+        </div>
+        <p class="qr-desc">Scan to place a catering order through ezcater. Share this page with customers or display it at the restaurant.</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end .main -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────
+const STORE_ADDRESS = "3338 Cobb Pkwy NW, Acworth, GA 30101";
+
+function getPanSize(g) {
+  if (g <= 20) return "1/3 pan";
+  if (g <= 30) return "1/2 pan";
+  if (g <= 60) return "full shallow pan";
+  return "full deep pan";
+}
+function getToppingContainer(g) {
+  if (g <= 13) return "16oz clamshell";
+  if (g <= 25) return "32oz clamshell";
+  if (g <= 60) return "1/3 pan";
+  return "1/2 pan";
+}
+function getSideContainer(g) {
+  if (g <= 13) return "16oz clamshell";
+  return "32oz clamshell";
+}
+function chipBags(g) { return Math.ceil(g / 10); }
+function salsaContainers(g) {
+  if (g <= 15) return "1x 16oz round container";
+  return Math.ceil(g / 15) + "x 32oz round containers";
+}
+function tortillaCount(g, type) {
+  return type === "taco" ? g * 3 : g * 2;
 }
 
-// Lettuce/toppings are fluffier — need more space
-export function getToppingContainer(guests) {
-if (guests <= 13) return “16oz clamshell”;
-if (guests <= 25) return “32oz clamshell”;
-if (guests <= 60) return “1/3 pan”;
-return “1/2 pan”;
-}
-
-// Sour cream, pico, guac (side style)
-export function getSideContainer(guests) {
-if (guests <= 13) return “16oz clamshell”;
-return “32oz clamshell”;
-}
-
-// 1 bag per 10 guests
-export function chipBags(guests) {
-return Math.ceil(guests / 10);
-}
-
-// 16oz per 10 guests / 32oz per 15 guests
-export function salsaContainers(guests) {
-if (guests <= 15) return “1x 16oz round container”;
-const count = Math.ceil(guests / 15);
-return `${count}x 32oz round containers`;
-}
-
-export function tortillaCount(guests, type = “fajita”) {
-return type === “fajita” ? guests * 2 : guests * 3;
-}
-
-// ─── DRIVER CHECKLIST ────────────────────────────────────────────────
-export const ALWAYS_BRING = [
-{ item: “Chafing dish wire racks”, note: “1 per full pan — always comes with water pan” },
-{ item: “Sterno burners”, note: “1 per chafing dish” },
-{ item: “Gallon of water”, note: “1 gallon per 3 water pans” },
-{ item: “Lighter”, note: “To light the sternos” },
-{ item: “Stickers / labels”, note: “Label EVERYTHING — simplifies orders for expo/kitchen” },
-{ item: “Serving utensils”, note: “Check item list for correct utensil per pan” },
-{ item: “Beverage napkins”, note: “Used for setup — utensil holders for toppings” },
-{ item: “Towel”, note: “Helpful for cleanup at the catering” },
-{ item: “Catering menu”, note: “1 per order” },
-{ item: “Marketing flyers”, note: “Minimum 2” },
-{ item: “Business card + mints”, note: “Handful of mints, 1 business card per order” },
-{ item: “‘Catered by Huey Luey’s’ card”, note: “1 per order (grab extra for large orders)” },
-{ item: “Cut limes”, note: “With every order + to top guacamole” },
+const ALWAYS_BRING = [
+  { item: "Chafing dish wire racks", note: "1 per full pan — always comes with water pan" },
+  { item: "Sterno burners", note: "1 per chafing dish" },
+  { item: "Gallon of water", note: "1 gallon per 3 water pans" },
+  { item: "Lighter", note: "To light the sternos" },
+  { item: "Stickers / labels", note: "Label EVERYTHING — simplifies orders for expo/kitchen" },
+  { item: "Serving utensils", note: "Check item list for correct utensil per pan" },
+  { item: "Beverage napkins", note: "Used for setup — utensil holders for toppings" },
+  { item: "Towel", note: "Helpful for cleanup at the catering" },
+  { item: "Catering menu", note: "1 per order" },
+  { item: "Marketing flyers", note: "Minimum 2" },
+  { item: "Business card + mints", note: "Handful of mints, 1 business card per order" },
+  { item: "'Catered by Huey Luey's' card", note: "1 per order (grab extra for large orders)" },
+  { item: "Cut limes", note: "With every order + to top guacamole" },
 ];
 
-export const CONDITIONAL_BRING = [
-{ item: “Utensil packs / plates”, note: “As requested — but take just in case” },
-{ item: “Cups (clear)”, note: “As requested only” },
-{ item: “Cut lemons”, note: “With any tea or lemonade orders” },
-{ item: “Ice”, note: “1 bag per 2 gallons of drinks ordered” },
-{ item: “Cold drinks / beverages”, note: “Per order” },
-{ item: “Sweeteners”, note: “Upon request” },
-{ item: “Salad dressing”, note: “MAKE SURE TO CHECK — goes with every salad order” },
+const CONDITIONAL_BRING = [
+  { item: "Utensil packs / plates", note: "As requested — but take just in case" },
+  { item: "Cups (clear)", note: "As requested only" },
+  { item: "Cut lemons", note: "With any tea or lemonade orders" },
+  { item: "Ice", note: "1 bag per 2 gallons of drinks ordered" },
+  { item: "Cold drinks / beverages", note: "Per order" },
+  { item: "Sweeteners", note: "Upon request" },
+  { item: "Salad dressing", note: "MAKE SURE TO CHECK — goes with every salad order" },
 ];
 
-// ─── SHARED FAJITA PACKING LOGIC ─────────────────────────────────────
-function fajitaPacking(guests, proteins, beanChoice) {
-const panSize = getPanSize(guests);
-const toppingContainer = getToppingContainer(guests);
-const items = [];
-
-proteins.forEach(protein => {
-items.push({
-title: `${protein} (fajita-style)`,
-container: panSize,
-steps: [`Pack in ${panSize}`, “⚠️ Bring TONGS for fajita meat”, `Label lid: ${protein.toUpperCase()}`],
-});
-});
-
-items.push({
-title: “Flour Tortillas”,
-container: “wrapped in foil”,
-steps: [
-`${tortillaCount(guests, "fajita")} total (2 per guest)`,
-“Wrap in foil, warm before packing”,
-“⚠️ Bring TONGS for tortillas”,
-],
-});
-
-items.push({ title: “Mexican Rice”, container: panSize, steps: [`Pack in ${panSize}`, “⚠️ Bring 10" SPOON”] });
-
-const beanLabel = beanChoice === “refried” ? “Refried Beans” : beanChoice === “charro” ? “Charro Beans” : “Black Beans”;
-const beanUtensil = (beanChoice === “black” || beanChoice === “charro”) ? “LADLE” : “10" SPOON”;
-items.push({
-title: beanLabel,
-container: panSize,
-steps: [
-`Pack in ${panSize}`,
-(beanChoice === “black” || beanChoice === “charro”) ? “PLASTIC WRAP top before lid” : “”,
-`⚠️ Bring ${beanUtensil}`,
-`Label lid: ${beanLabel.toUpperCase()}`,
-].filter(Boolean),
-});
-
-items.push({ title: “Pico de Gallo”, container: getSideContainer(guests), steps: [`Pack in ${getSideContainer(guests)} round container`, “⚠️ Bring SMALL SPOON”] });
-items.push({ title: “Sour Cream”, container: getSideContainer(guests), steps: [`Pack in ${getSideContainer(guests)} round container`, “⚠️ Bring SMALL SPOON”] });
-items.push({ title: “Lettuce”, container: toppingContainer, steps: [`Pack in ${toppingContainer} — *lettuce is fluffier, needs more space*`, “⚠️ Bring TONGS”] });
-items.push({ title: “Shredded Cheese”, container: toppingContainer, steps: [`Pack in ${toppingContainer}`, “⚠️ Bring SMALL SPOON”] });
-items.push({
-title: “Guacamole (morning-of)”,
-container: getSideContainer(guests),
-steps: [`Pack in ${getSideContainer(guests)} round container`, “Made morning-of — grab from kitchen”, “Place cut limes on top”, “⚠️ Bring SMALL SPOON (fajita style)”],
-});
-items.push({
-title: “Chips & Salsa”,
-container: “white paper bag + round container”,
-steps: [`Chips: ${chipBags(guests)} white paper bag(s) — 1 per 10 guests`, `Salsa: ${salsaContainers(guests)}`, “⚠️ Bring LADLE for salsa”],
-});
-
-return items;
+function fajitaPacking(g, proteins, bean) {
+  const p = getPanSize(g), tc = getToppingContainer(g), sc = getSideContainer(g);
+  const bLabel = bean === "refried" ? "Refried Beans" : bean === "charro" ? "Charro Beans" : "Black Beans";
+  const bUtensil = (bean === "black" || bean === "charro") ? "LADLE" : '10" SPOON';
+  const items = [];
+  proteins.forEach(pr => items.push({
+    title: pr + " (fajita-style)", container: p,
+    steps: ["Pack in " + p, "⚠️ Bring TONGS for fajita meat", "Label lid: " + pr.toUpperCase()]
+  }));
+  items.push({ title: "Flour Tortillas", container: "wrapped in foil",
+    steps: [tortillaCount(g,"fajita") + " total (2 per guest)", "Wrap in foil, warm before packing", "⚠️ Bring TONGS for tortillas"] });
+  items.push({ title: "Mexican Rice", container: p, steps: ["Pack in " + p, '⚠️ Bring 10" SPOON'] });
+  const bSteps = ["Pack in " + p];
+  if (bean === "black" || bean === "charro") bSteps.push("PLASTIC WRAP top before lid");
+  bSteps.push("⚠️ Bring " + bUtensil, "Label lid: " + bLabel.toUpperCase());
+  items.push({ title: bLabel, container: p, steps: bSteps });
+  items.push({ title: "Pico de Gallo", container: sc, steps: ["Pack in " + sc + " round container", "⚠️ Bring SMALL SPOON"] });
+  items.push({ title: "Sour Cream", container: sc, steps: ["Pack in " + sc + " round container", "⚠️ Bring SMALL SPOON"] });
+  items.push({ title: "Lettuce", container: tc, steps: ["Pack in " + tc + " — lettuce is fluffier, needs more space", "⚠️ Bring TONGS"] });
+  items.push({ title: "Shredded Cheese", container: tc, steps: ["Pack in " + tc, "⚠️ Bring SMALL SPOON"] });
+  items.push({ title: "Guacamole (morning-of)", container: sc,
+    steps: ["Pack in " + sc + " round container", "Made morning-of — grab from kitchen", "Place cut limes on top", "⚠️ Bring SMALL SPOON (fajita style)"] });
+  items.push({ title: "Chips & Salsa", container: "white paper bag + round container",
+    steps: ["Chips: " + chipBags(g) + " white paper bag(s) — 1 per 10 guests", "Salsa: " + salsaContainers(g), "⚠️ Bring LADLE for salsa"] });
+  return items;
 }
 
-// ─── MENU DATA ────────────────────────────────────────────────────────
-export const MENU = [
-{
-category: “Appetizers”,
-emoji: “🥑”,
-items: [
-{
-id: “app_mix2”,
-name: “Mix & Match 2 Appetizers”,
-minGuests: 10,
-popular: true,
-veg: true,
-description: “Your choice of 2 appetizers.”,
-hasSubChoices: true,
-selectCount: 2,
-subChoices: [
-{ id: “avocado_rolls”, name: “Avocado Rolls”, veg: true },
-{ id: “guac_chips”, name: “Guacamole & Chips”, veg: true },
-{ id: “queso_chips”, name: “Queso Dip & Chips”, veg: true },
-{ id: “spicy_queso_chips”, name: “Spicy Queso Dip & Chips”, veg: true, spicy: true },
-],
-packaging: (guests, choices) => {
-const items = [];
-if (!choices || choices.length === 0) return [{ title: “Select your 2 appetizer choices above”, container: “”, steps: [] }];
-choices.forEach(c => {
-if (c === “avocado_rolls”) {
-items.push({ title: “Avocado Rolls”, container: getPanSize(guests), steps: [`Pack in ${getPanSize(guests)}`, “Cover with foil — don’t seal too tight”, “⚠️ Bring TONGS for serving”] });
-}
-if (c === “guac_chips”) {
-items.push({ title: “Guacamole”, container: getSideContainer(guests), steps: [`Pack in ${getSideContainer(guests)} round container`, “Place cut limes on top”, “⚠️ Bring 10" SPOON (app style)”, “⚠️ Bring LADLE for salsa”] });
-items.push({ title: “Chips”, container: “white paper bag”, steps: [`${chipBags(guests)} white bag(s) — 1 per 10 guests`] });
-}
-if (c === “queso_chips”) {
-items.push({ title: “Queso Dip”, container: getPanSize(guests), steps: [`Pack in ${getPanSize(guests)}`, “PLASTIC WRAP top before lid”, “⚠️ Bring LADLE”] });
-items.push({ title: “Chips”, container: “white paper bag”, steps: [`${chipBags(guests)} white bag(s) — 1 per 10 guests`] });
-}
-if (c === “spicy_queso_chips”) {
-items.push({ title: “Spicy Queso Dip”, container: getPanSize(guests), steps: [`Pack in ${getPanSize(guests)}`, “PLASTIC WRAP top before lid”, “⚠️ Label lid: SPICY QUESO”, “⚠️ Bring LADLE”] });
-items.push({ title: “Chips”, container: “white paper bag”, steps: [`${chipBags(guests)} white bag(s) — 1 per 10 guests`] });
-}
-});
-return items;
-},
-},
-],
-},
-
-{
-category: “Buffets”,
-emoji: “🌮”,
-items: [
-{
-id: “taco_bar”,
-name: “Taco Bar”,
-minGuests: 10,
-popular: true,
-description: “Includes: flour tortillas & crispy shells, Mexican rice, choice of beans, tomatoes, shredded cheese, lettuce, chips & salsa.”,
-hasSubChoices: true,
-selectCount: 1,
-subChoices: [
-{ id: “taco_chicken”, name: “Salsa Chicken” },
-{ id: “taco_beef”, name: “Seasoned Ground Beef” },
-{ id: “taco_both”, name: “Both Chicken & Beef (+$2pp)” },
-],
-beanChoices: [
-{ id: “refried”, name: “Refried Beans” },
-{ id: “charro”, name: “Charro Beans” },
-{ id: “black”, name: “Black Beans (vegetarian)” },
-],
-packaging: (guests, choices, beanChoice) => {
-const panSize = getPanSize(guests);
-const toppingContainer = getToppingContainer(guests);
-const items = [];
-
-```
-      if (choices && choices.includes("taco_both")) {
-        items.push({ title: "Salsa Chicken", container: panSize, steps: [`Pack in ${panSize}`, "Label lid: SALSA CHICKEN", "⚠️ Bring 10\" SPOON"] });
-        items.push({ title: "Seasoned Ground Beef", container: panSize, steps: [`Pack in ${panSize}`, "Label lid: GROUND BEEF", "⚠️ Bring 10\" SPOON"] });
-      } else if (choices && choices.includes("taco_chicken")) {
-        items.push({ title: "Salsa Chicken", container: panSize, steps: [`Pack in ${panSize}`, "⚠️ Bring 10\" SPOON"] });
-      } else {
-        items.push({ title: "Seasoned Ground Beef", container: panSize, steps: [`Pack in ${panSize}`, "⚠️ Bring 10\" SPOON"] });
+const MENU = [
+  { category: "Appetizers", emoji: "🥑", items: [
+    { id: "app_mix2", name: "Mix & Match 2 Appetizers", minGuests: 10, popular: true, veg: true,
+      description: "Your choice of 2 appetizers (avocado rolls, guac & chips, queso & chips, spicy queso & chips).",
+      hasSubChoices: true, selectCount: 2,
+      subChoices: [
+        { id: "avocado_rolls", name: "Avocado Rolls", veg: true },
+        { id: "guac_chips", name: "Guacamole & Chips", veg: true },
+        { id: "queso_chips", name: "Queso Dip & Chips", veg: true },
+        { id: "spicy_queso_chips", name: "Spicy Queso Dip & Chips", veg: true, spicy: true },
+      ],
+      packaging: (g, choices) => {
+        const items = [];
+        if (!choices || choices.length === 0) return [{ title: "Select your 2 appetizers above", container: "", steps: [] }];
+        choices.forEach(c => {
+          if (c === "avocado_rolls") items.push({ title: "Avocado Rolls", container: getPanSize(g),
+            steps: ["Pack in " + getPanSize(g), "Cover with foil — don't seal too tight", "⚠️ Bring TONGS for serving"] });
+          if (c === "guac_chips") {
+            items.push({ title: "Guacamole", container: getSideContainer(g),
+              steps: ["Pack in " + getSideContainer(g) + " round container", "Place cut limes on top", '⚠️ Bring 10" SPOON (app style)', "⚠️ Bring LADLE for salsa"] });
+            items.push({ title: "Chips", container: "white paper bag",
+              steps: [chipBags(g) + " white bag(s) — 1 per 10 guests"] });
+          }
+          if (c === "queso_chips") {
+            items.push({ title: "Queso Dip", container: getPanSize(g),
+              steps: ["Pack in " + getPanSize(g), "PLASTIC WRAP top before lid", "⚠️ Bring LADLE"] });
+            items.push({ title: "Chips", container: "white paper bag",
+              steps: [chipBags(g) + " white bag(s) — 1 per 10 guests"] });
+          }
+          if (c === "spicy_queso_chips") {
+            items.push({ title: "Spicy Queso Dip", container: getPanSize(g),
+              steps: ["Pack in " + getPanSize(g), "PLASTIC WRAP top before lid", "⚠️ Label lid: SPICY QUESO", "⚠️ Bring LADLE"] });
+            items.push({ title: "Chips", container: "white paper bag",
+              steps: [chipBags(g) + " white bag(s) — 1 per 10 guests"] });
+          }
+        });
+        return items;
       }
-
-      const softCount = Math.ceil(tortillaCount(guests, "taco") / 2);
-      const hardCount = Math.floor(tortillaCount(guests, "taco") / 2);
-      items.push({
-        title: "Tortillas",
-        container: "foil wrap + original box",
-        steps: [`Soft: ${softCount} — wrap in foil, warm before packing`, `Crispy shells: ${hardCount} — keep in original box`, "3 per order total (half hard / half soft)", "⚠️ Bring TONGS"],
-      });
-
-      items.push({ title: "Mexican Rice", container: panSize, steps: [`Pack in ${panSize}`, "⚠️ Bring 10\" SPOON"] });
-
-      const beanLabel = beanChoice === "refried" ? "Refried Beans" : beanChoice === "charro" ? "Charro Beans" : "Black Beans";
-      const beanUtensil = (beanChoice === "black" || beanChoice === "charro") ? "LADLE" : "10\" SPOON";
-      items.push({
-        title: beanLabel, container: panSize,
-        steps: [`Pack in ${panSize}`, (beanChoice === "black" || beanChoice === "charro") ? "PLASTIC WRAP top before lid" : "", `⚠️ Bring ${beanUtensil}`, `Label: ${beanLabel.toUpperCase()}`].filter(Boolean),
-      });
-
-      items.push({ title: "Lettuce", container: toppingContainer, steps: [`Pack in ${toppingContainer} — *fluffier, needs more space*`, "⚠️ Bring TONGS"] });
-      items.push({ title: "Tomatoes (diced)", container: toppingContainer, steps: [`Pack in ${toppingContainer}`, "⚠️ Bring SMALL SPOON"] });
-      items.push({ title: "Shredded Cheese", container: toppingContainer, steps: [`Pack in ${toppingContainer}`, "⚠️ Bring SMALL SPOON"] });
-      items.push({ title: "Chips & Salsa", container: "white bag + round container", steps: [`Chips: ${chipBags(guests)} white bag(s) — 1 per 10 guests`, `Salsa: ${salsaContainers(guests)}`, "⚠️ Bring LADLE for salsa"] });
-
-      return items;
     },
-  },
-
-  {
-    id: "nacho_bar",
-    name: "Nacho Bar",
-    minGuests: 10,
-    description: "Includes: chips, chile con queso, beans, salsa, tomatoes, lettuce, jalapeños, sour cream.",
-    hasSubChoices: true,
-    selectCount: 1,
-    subChoices: [
-      { id: "nacho_chicken", name: "Salsa Chicken" },
-      { id: "nacho_beef", name: "Seasoned Ground Beef" },
-      { id: "nacho_both", name: "Both Chicken & Beef (+$2pp)" },
-      { id: "nacho_veggie", name: "Veggie (onions, green pepper, tomato, portobello)", veg: true },
-    ],
-    packaging: (guests, choices) => {
-      const panSize = getPanSize(guests);
-      const toppingContainer = getToppingContainer(guests);
-      const items = [];
-      const isVeggie = choices && choices.includes("nacho_veggie");
-
-      if (choices && choices.includes("nacho_both")) {
-        items.push({ title: "Salsa Chicken", container: panSize, steps: [`Pack in ${panSize}`, "Label: SALSA CHICKEN", "⚠️ Bring 10\" SPOON"] });
-        items.push({ title: "Seasoned Ground Beef", container: panSize, steps: [`Pack in ${panSize}`, "Label: GROUND BEEF", "⚠️ Bring 10\" SPOON"] });
-      } else if (isVeggie) {
-        items.push({ title: "Veggie Mix", container: panSize, steps: [`Pack in ${panSize}`, "Label: VEGGIE", "⚠️ Bring 10\" SPOON"] });
-      } else if (choices && choices.includes("nacho_chicken")) {
-        items.push({ title: "Salsa Chicken", container: panSize, steps: [`Pack in ${panSize}`, "⚠️ Bring 10\" SPOON"] });
-      } else {
-        items.push({ title: "Seasoned Ground Beef", container: panSize, steps: [`Pack in ${panSize}`, "⚠️ Bring 10\" SPOON"] });
+  ]},
+  { category: "Buffets", emoji: "🌮", items: [
+    { id: "taco_bar", name: "Taco Bar", minGuests: 10, popular: true,
+      description: "Flour tortillas & crispy shells, Mexican rice, choice of beans, tomatoes, shredded cheese, lettuce, chips & salsa.",
+      hasSubChoices: true, selectCount: 1,
+      subChoices: [
+        { id: "taco_chicken", name: "Salsa Chicken" },
+        { id: "taco_beef", name: "Seasoned Ground Beef" },
+        { id: "taco_both", name: "Both Chicken & Beef (+$2pp)" },
+      ],
+      beanChoices: [
+        { id: "refried", name: "Refried Beans" },
+        { id: "charro", name: "Charro Beans" },
+        { id: "black", name: "Black Beans (vegetarian)" },
+      ],
+      packaging: (g, choices, bean) => {
+        const p = getPanSize(g), tc = getToppingContainer(g);
+        const items = [];
+        if (choices && choices.includes("taco_both")) {
+          items.push({ title: "Salsa Chicken", container: p, steps: ["Pack in " + p, "Label lid: SALSA CHICKEN", '⚠️ Bring 10" SPOON'] });
+          items.push({ title: "Seasoned Ground Beef", container: p, steps: ["Pack in " + p, "Label lid: GROUND BEEF", '⚠️ Bring 10" SPOON'] });
+        } else if (choices && choices.includes("taco_chicken")) {
+          items.push({ title: "Salsa Chicken", container: p, steps: ["Pack in " + p, '⚠️ Bring 10" SPOON'] });
+        } else {
+          items.push({ title: "Seasoned Ground Beef", container: p, steps: ["Pack in " + p, '⚠️ Bring 10" SPOON'] });
+        }
+        const soft = Math.ceil(tortillaCount(g,"taco") / 2), hard = Math.floor(tortillaCount(g,"taco") / 2);
+        items.push({ title: "Tortillas", container: "foil wrap + original box",
+          steps: ["Soft: " + soft + " — wrap in foil, warm before packing",
+                  "Crispy shells: " + hard + " — keep in original box",
+                  "3 per guest total (half hard / half soft)", "⚠️ Bring TONGS"] });
+        items.push({ title: "Mexican Rice", container: p, steps: ["Pack in " + p, '⚠️ Bring 10" SPOON'] });
+        const bLabel = bean === "refried" ? "Refried Beans" : bean === "charro" ? "Charro Beans" : "Black Beans";
+        const bUtensil = (bean === "black" || bean === "charro") ? "LADLE" : '10" SPOON';
+        const bSteps = ["Pack in " + p];
+        if (bean === "black" || bean === "charro") bSteps.push("PLASTIC WRAP top before lid");
+        bSteps.push("⚠️ Bring " + bUtensil, "Label: " + bLabel.toUpperCase());
+        items.push({ title: bLabel, container: p, steps: bSteps });
+        items.push({ title: "Lettuce", container: tc, steps: ["Pack in " + tc + " — fluffier, needs more space", "⚠️ Bring TONGS"] });
+        items.push({ title: "Tomatoes (diced)", container: tc, steps: ["Pack in " + tc, "⚠️ Bring SMALL SPOON"] });
+        items.push({ title: "Shredded Cheese", container: tc, steps: ["Pack in " + tc, "⚠️ Bring SMALL SPOON"] });
+        items.push({ title: "Chips & Salsa", container: "white bag + round container",
+          steps: ["Chips: " + chipBags(g) + " white bag(s) — 1 per 10 guests", "Salsa: " + salsaContainers(g), "⚠️ Bring LADLE for salsa"] });
+        return items;
       }
-
-      items.push({ title: "Chile Con Queso", container: panSize, steps: [`Pack in ${panSize}`, "PLASTIC WRAP top before lid", "⚠️ Bring LADLE"] });
-      items.push({
-        title: isVeggie ? "Black Beans" : "Refried Beans", container: panSize,
-        steps: [`Pack in ${panSize}`, isVeggie ? "PLASTIC WRAP top before lid" : "", `⚠️ Bring ${isVeggie ? "LADLE" : "10\" SPOON"}`].filter(Boolean),
-      });
-      items.push({ title: "Lettuce", container: toppingContainer, steps: [`Pack in ${toppingContainer}`, "⚠️ Bring TONGS"] });
-      items.push({ title: "Tomatoes (diced)", container: toppingContainer, steps: [`Pack in ${toppingContainer}`, "⚠️ Bring SMALL SPOON"] });
-      items.push({ title: "Pickled Jalapeños", container: toppingContainer, steps: [`Pack in ${toppingContainer}`, "⚠️ Bring SMALL SPOON"] });
-      items.push({ title: "Sour Cream", container: getSideContainer(guests), steps: [`Pack in ${getSideContainer(guests)} round container`, "⚠️ Bring SMALL SPOON"] });
-      items.push({ title: "Chips & Salsa", container: "white bag + round container", steps: [`Chips: ${chipBags(guests)} white bag(s) — 1 per 10 guests`, `Salsa: ${salsaContainers(guests)}`, "⚠️ Bring LADLE for salsa"] });
-
-      return items;
     },
-  },
-],
-```
+    { id: "nacho_bar", name: "Nacho Bar", minGuests: 10,
+      description: "Chips, chile con queso, beans, salsa, tomatoes, lettuce, jalapeños, sour cream.",
+      hasSubChoices: true, selectCount: 1,
+      subChoices: [
+        { id: "nacho_chicken", name: "Salsa Chicken" },
+        { id: "nacho_beef", name: "Seasoned Ground Beef" },
+        { id: "nacho_both", name: "Both Chicken & Beef (+$2pp)" },
+        { id: "nacho_veggie", name: "Veggie (onions, green pepper, tomato, portobello)", veg: true },
+      ],
+      packaging: (g, choices) => {
+        const p = getPanSize(g), tc = getToppingContainer(g), sc = getSideContainer(g);
+        const items = [];
+        const isVeg = choices && choices.includes("nacho_veggie");
+        if (choices && choices.includes("nacho_both")) {
+          items.push({ title: "Salsa Chicken", container: p, steps: ["Pack in " + p, "Label: SALSA CHICKEN", '⚠️ Bring 10" SPOON'] });
+          items.push({ title: "Seasoned Ground Beef", container: p, steps: ["Pack in " + p, "Label: GROUND BEEF", '⚠️ Bring 10" SPOON'] });
+        } else if (isVeg) {
+          items.push({ title: "Veggie Mix", container: p, steps: ["Pack in " + p, "Label: VEGGIE", '⚠️ Bring 10" SPOON'] });
+        } else if (choices && choices.includes("nacho_chicken")) {
+          items.push({ title: "Salsa Chicken", container: p, steps: ["Pack in " + p, '⚠️ Bring 10" SPOON'] });
+        } else {
+          items.push({ title: "Seasoned Ground Beef", container: p, steps: ["Pack in " + p, '⚠️ Bring 10" SPOON'] });
+        }
+        items.push({ title: "Chile Con Queso", container: p, steps: ["Pack in " + p, "PLASTIC WRAP top before lid", "⚠️ Bring LADLE"] });
+        const bName = isVeg ? "Black Beans" : "Refried Beans";
+        const bSteps = ["Pack in " + p];
+        if (isVeg) bSteps.push("PLASTIC WRAP top before lid");
+        bSteps.push("⚠️ Bring " + (isVeg ? "LADLE" : '10" SPOON'));
+        items.push({ title: bName, container: p, steps: bSteps });
+        items.push({ title: "Lettuce", container: tc, steps: ["Pack in " + tc, "⚠️ Bring TONGS"] });
+        items.push({ title: "Tomatoes (diced)", container: tc, steps: ["Pack in " + tc, "⚠️ Bring SMALL SPOON"] });
+        items.push({ title: "Pickled Jalapeños", container: tc, steps: ["Pack in " + tc, "⚠️ Bring SMALL SPOON"] });
+        items.push({ title: "Sour Cream", container: sc, steps: ["Pack in " + sc + " round container", "⚠️ Bring SMALL SPOON"] });
+        items.push({ title: "Chips & Salsa", container: "white bag + round container",
+          steps: ["Chips: " + chipBags(g) + " white bag(s) — 1 per 10 guests", "Salsa: " + salsaContainers(g), "⚠️ Bring LADLE for salsa"] });
+        return items;
+      }
+    },
+  ]},
 
-},
-
-{
-category: “Fajitas”,
-emoji: “🥩”,
-items: [
-{ id: “fajita_chicken_steak”, name: “Chicken & Steak Fajita Bar”, minGuests: 10, popular: true, description: “Chicken & steak. Includes: flour tortillas, pico de gallo, sour cream, lettuce, cheese, guacamole, Mexican rice, choice of beans, chips & salsa.”, beanChoices: [{ id: “refried”, name: “Refried Beans” }, { id: “charro”, name: “Charro Beans” }, { id: “black”, name: “Black Beans” }], packaging: (g, _, b) => fajitaPacking(g, [“Chicken”, “Steak”], b) },
-{ id: “fajita_chicken”, name: “Chicken Fajita Bar”, minGuests: 10, description: “Chicken. Includes: flour tortillas, pico, sour cream, lettuce, cheese, guac, rice, beans, chips & salsa.”, beanChoices: [{ id: “refried”, name: “Refried Beans” }, { id: “charro”, name: “Charro Beans” }, { id: “black”, name: “Black Beans” }], packaging: (g, _, b) => fajitaPacking(g, [“Chicken”], b) },
-{ id: “fajita_steak”, name: “Steak Fajita Bar”, minGuests: 10, description: “Steak. Includes: flour tortillas, pico, sour cream, lettuce, cheese, guac, rice, beans, chips & salsa.”, beanChoices: [{ id: “refried”, name: “Refried Beans” }, { id: “charro”, name: “Charro Beans” }, { id: “black”, name: “Black Beans” }], packaging: (g, _, b) => fajitaPacking(g, [“Steak”], b) },
-{ id: “fajita_shrimp”, name: “Shrimp Fajita Bar”, minGuests: 10, description: “Shrimp. Includes: flour tortillas, pico, sour cream, lettuce, cheese, guac, rice, beans, chips & salsa.”, beanChoices: [{ id: “refried”, name: “Refried Beans” }, { id: “charro”, name: “Charro Beans” }, { id: “black”, name: “Black Beans” }], packaging: (g, _, b) => fajitaPacking(g, [“Shrimp”], b) },
-{ id: “fajita_steak_chicken_shrimp”, name: “Steak, Chicken & Shrimp Fajita Bar”, minGuests: 10, description: “Steak, chicken & shrimp. Includes: flour tortillas, pico, sour cream, lettuce, cheese, guac, rice, beans, chips & salsa.”, beanChoices: [{ id: “refried”, name: “Refried Beans” }, { id: “charro”, name: “Charro Beans” }, { id: “black”, name: “Black Beans” }], packaging: (g, _, b) => fajitaPacking(g, [“Steak”, “Chicken”, “Shrimp”], b) },
-{ id: “fajita_veggie”, name: “Veggie Fajita Bar”, minGuests: 10, veg: true, description: “Mixed vegetables. Includes: flour tortillas, pico, sour cream, lettuce, cheese, guac, rice, beans, chips & salsa.”, beanChoices: [{ id: “refried”, name: “Refried Beans” }, { id: “charro”, name: “Charro Beans” }, { id: “black”, name: “Black Beans” }], packaging: (g, _, b) => fajitaPacking(g, [“Veggie Mix”], b) },
-],
-},
-
-{
-category: “Salads”,
-emoji: “🥗”,
-items: [
-{ id: “house_salad”, name: “House Salad”, servingNote: “Serves 8–10”, popular: true, veg: true, description: “Mixed greens, tomatoes, avocados, cucumbers, cheese, onions, cilantro-lime ranch.”, packaging: () => [{ title: “House Salad”, container: “full shallow pan”, steps: [“Pack in full shallow pan”, “MAKE SALAD fresh — do NOT pre-dress”, “⚠️ Bring TONGS + 10" SPOON (one of each for salad)”] }, { title: “Cilantro Ranch Dressing”, container: “12oz round container”, steps: [“Pack in 12oz round container”, “⚠️ MAKE SURE TO CHECK dressing is included”, “⚠️ Bring SMALL SPOON”] }] },
-{ id: “kale_salad”, name: “Farmer’s Kale Salad”, servingNote: “Serves 8–10”, veg: true, description: “Chopped kale, avocado, cucumber, radishes, pickled onions, queso fresco, tortilla strips. Creamy oregano vinaigrette.”, packaging: () => [{ title: “Kale Salad”, container: “full shallow pan”, steps: [“Pack in full shallow pan”, “Keep tortilla strips SEPARATE — bag them so they stay crispy”, “MAKE SALAD fresh — do NOT pre-dress”, “⚠️ Bring TONGS + 10" SPOON”] }, { title: “Oregano Vinaigrette”, container: “12oz round container”, steps: [“Pack in 12oz round container”, “⚠️ MAKE SURE TO CHECK dressing is included”, “⚠️ Bring SMALL SPOON”] }] },
-{ id: “mexican_chopped_salad”, name: “Mexican Chopped Salad”, servingNote: “Serves 8–10”, description: “Mixed greens, grilled chicken, onions, tomatoes, black bean salsa, corn, queso fresco, tortilla strips. Mango vinaigrette.”, packaging: () => [{ title: “Mexican Chopped Salad”, container: “full shallow pan”, steps: [“Pack in full shallow pan”, “⚠️ ONLY salad that comes WITH chicken”, “Keep tortilla strips SEPARATE — bag them so they stay crispy”, “MAKE SALAD fresh — do NOT pre-dress”, “⚠️ Bring TONGS + 10" SPOON”] }, { title: “Mango Vinaigrette”, container: “12oz round container”, steps: [“Pack in 12oz round container”, “⚠️ MAKE SURE TO CHECK dressing is included”, “⚠️ Bring SMALL SPOON”] }] },
-],
-},
-
-{
-category: “Sides”,
-emoji: “🧀”,
-items: [
-{ id: “chips_queso”, name: “Chips & Regular Queso”, popular: true, veg: true, description: “Chips with chile con queso.”, packaging: (g) => [{ title: “Chile Con Queso”, container: getPanSize(g), steps: [`Pack in ${getPanSize(g)}`, “PLASTIC WRAP top before lid”, “⚠️ Bring LADLE”] }, { title: “Chips”, container: “white paper bag”, steps: [`${chipBags(g)} white paper bag(s)`] }] },
-{ id: “chips_spicy_queso”, name: “Chip & Spicy Queso”, veg: true, spicy: true, description: “Chips with spicy queso.”, packaging: (g) => [{ title: “Spicy Queso”, container: getPanSize(g), steps: [`Pack in ${getPanSize(g)}`, “PLASTIC WRAP top before lid”, “⚠️ Label lid: SPICY QUESO”, “⚠️ Bring LADLE”] }, { title: “Chips”, container: “white paper bag”, steps: [`${chipBags(g)} white paper bag(s)`] }] },
-{ id: “chips_guac”, name: “Chips & Guacamole”, veg: true, description: “Chips with guacamole.”, packaging: (g) => [{ title: “Guacamole (morning-of)”, container: getSideContainer(g), steps: [`Pack in ${getSideContainer(g)} round container`, “Made morning-of — grab from kitchen”, “Place cut limes on top”, “⚠️ Bring 10" SPOON (side style)”] }, { title: “Chips”, container: “white paper bag”, steps: [`${chipBags(g)} white paper bag(s)`] }] },
-{ id: “salsa_chips”, name: “Extra Homemade Salsa w/ Chips”, servingNote: “Serves 10”, veg: true, description: “Homemade salsa with chips.”, packaging: (g) => [{ title: “Salsa”, container: “round container”, steps: [salsaContainers(g || 10), “⚠️ Bring LADLE”] }, { title: “Chips”, container: “white paper bag”, steps: [`${chipBags(g || 10)} white paper bag(s)`] }] },
-{ id: “sour_cream”, name: “Sour Cream”, minGuests: 10, veg: true, description: “Side of sour cream.”, packaging: (g) => [{ title: “Sour Cream”, container: getSideContainer(g), steps: [`Pack in ${getSideContainer(g)} round container`, “Label: SOUR CREAM”, “⚠️ Bring SMALL SPOON”] }] },
-],
-},
-
-{
-category: “Desserts”,
-emoji: “🍩”,
-items: [
-{ id: “sopapillas”, name: “Sopapillas”, servingNote: “Serves 12”, popular: true, description: “Deep-fried pastries tossed in cinnamon sugar, served with honey.”, packaging: () => [{ title: “Sopapillas”, container: “small dome”, steps: [“Pack in small dome”, “Do NOT seal too tight — they’ll get soggy”, “⚠️ Bring TONGS”, “⚠️ Deliver as fresh as possible”] }, { title: “Honey”, container: “8oz container”, steps: [“Pack in 8oz container”, “⚠️ Bring SMALL SPOON for honey”] }] },
-{ id: “brownies”, name: “Double Fudge Brownies”, servingNote: “Serves 12”, description: “Served with caramel and chocolate sauce.”, packaging: () => [{ title: “Brownies”, container: “small dome”, steps: [“Pack in small dome”, “⚠️ Bring TONGS”] }, { title: “Chocolate Sauce”, container: “5oz round container”, steps: [“Pack in 5oz container”, “⚠️ Bring SMALL SPOON”] }, { title: “Caramel Sauce”, container: “5oz round container”, steps: [“Pack in 5oz container”, “⚠️ Bring SMALL SPOON”] }] },
-],
-},
-
-{
-category: “Beverages”,
-emoji: “🍹”,
-items: [
-{ id: “sweet_tea”, name: “Gallon Sweet Tea”, servingNote: “Serves 8”, popular: true, description: “Black sweet tea.”, packaging: () => [{ title: “Sweet Tea”, container: “gallon jug”, steps: [“Sealed gallon jug — stand upright”, “Label: SWEET TEA”, “⚠️ Bring cut lemons + sweeteners”, “Ice: 1 bag per 2 gallons”] }] },
-{ id: “unsweet_tea”, name: “Gallon Unsweet Tea”, servingNote: “Serves 8”, description: “Black unsweetened tea.”, packaging: () => [{ title: “Unsweet Tea”, container: “gallon jug”, steps: [“Sealed gallon jug — stand upright”, “Label: UNSWEET TEA”, “⚠️ Bring cut lemons + sweeteners”, “Ice: 1 bag per 2 gallons”] }] },
-{ id: “pink_lemonade”, name: “Gallon Pink Lemonade”, servingNote: “Serves 8”, description: “Pink lemonade.”, packaging: () => [{ title: “Pink Lemonade”, container: “gallon jug”, steps: [“Sealed gallon jug — stand upright”, “⚠️ Bring cut lemons”, “Ice: 1 bag per 2 gallons”] }] },
-{ id: “peach_tea”, name: “Gallon Peach Tea”, servingNote: “Serves 8”, description: “Peach tea.”, packaging: () => [{ title: “Peach Tea”, container: “gallon jug”, steps: [“Sealed gallon jug — stand upright”, “Label: PEACH TEA”, “⚠️ Bring cut lemons + sweeteners”, “Ice: 1 bag per 2 gallons”] }] },
-],
-},
+  { category: "Fajitas", emoji: "🥩", items: [
+    { id: "fajita_chicken_steak", name: "Chicken & Steak Fajita Bar", minGuests: 10, popular: true,
+      description: "Chicken & steak. Flour tortillas, pico, sour cream, lettuce, cheese, guacamole, Mexican rice, choice of beans, chips & salsa.",
+      beanChoices: [{id:"refried",name:"Refried Beans"},{id:"charro",name:"Charro Beans"},{id:"black",name:"Black Beans"}],
+      packaging: (g,_,b) => fajitaPacking(g,["Chicken","Steak"],b) },
+    { id: "fajita_chicken", name: "Chicken Fajita Bar", minGuests: 10,
+      description: "Chicken. Flour tortillas, pico, sour cream, lettuce, cheese, guac, rice, beans, chips & salsa.",
+      beanChoices: [{id:"refried",name:"Refried Beans"},{id:"charro",name:"Charro Beans"},{id:"black",name:"Black Beans"}],
+      packaging: (g,_,b) => fajitaPacking(g,["Chicken"],b) },
+    { id: "fajita_steak", name: "Steak Fajita Bar", minGuests: 10,
+      description: "Steak. Flour tortillas, pico, sour cream, lettuce, cheese, guac, rice, beans, chips & salsa.",
+      beanChoices: [{id:"refried",name:"Refried Beans"},{id:"charro",name:"Charro Beans"},{id:"black",name:"Black Beans"}],
+      packaging: (g,_,b) => fajitaPacking(g,["Steak"],b) },
+    { id: "fajita_shrimp", name: "Shrimp Fajita Bar", minGuests: 10,
+      description: "Shrimp. Flour tortillas, pico, sour cream, lettuce, cheese, guac, rice, beans, chips & salsa.",
+      beanChoices: [{id:"refried",name:"Refried Beans"},{id:"charro",name:"Charro Beans"},{id:"black",name:"Black Beans"}],
+      packaging: (g,_,b) => fajitaPacking(g,["Shrimp"],b) },
+    { id: "fajita_all", name: "Steak, Chicken & Shrimp Fajita Bar", minGuests: 10,
+      description: "Steak, chicken & shrimp. Flour tortillas, pico, sour cream, lettuce, cheese, guac, rice, beans, chips & salsa.",
+      beanChoices: [{id:"refried",name:"Refried Beans"},{id:"charro",name:"Charro Beans"},{id:"black",name:"Black Beans"}],
+      packaging: (g,_,b) => fajitaPacking(g,["Steak","Chicken","Shrimp"],b) },
+    { id: "fajita_veggie", name: "Veggie Fajita Bar", minGuests: 10, veg: true,
+      description: "Mixed vegetables. Flour tortillas, pico, sour cream, lettuce, cheese, guac, rice, beans, chips & salsa.",
+      beanChoices: [{id:"refried",name:"Refried Beans"},{id:"charro",name:"Charro Beans"},{id:"black",name:"Black Beans"}],
+      packaging: (g,_,b) => fajitaPacking(g,["Veggie Mix"],b) },
+  ]},
+  { category: "Salads", emoji: "🥗", items: [
+    { id: "house_salad", name: "House Salad", servingNote: "Serves 8–10", popular: true, veg: true,
+      description: "Mixed greens, tomatoes, avocados, cucumbers, cheese, onions, cilantro-lime ranch.",
+      packaging: () => [
+        { title: "House Salad", container: "full shallow pan",
+          steps: ["Pack in full shallow pan", "MAKE SALAD fresh — do NOT pre-dress", '⚠️ Bring TONGS + 10" SPOON (one of each for salad)'] },
+        { title: "Cilantro Ranch Dressing", container: "12oz round container",
+          steps: ["Pack in 12oz round container", "⚠️ MAKE SURE TO CHECK dressing is included", "⚠️ Bring SMALL SPOON"] },
+      ]},
+    { id: "kale_salad", name: "Farmer's Kale Salad", servingNote: "Serves 8–10", veg: true,
+      description: "Chopped kale, avocado, cucumber, radishes, pickled onions, queso fresco, tortilla strips. Creamy oregano vinaigrette.",
+      packaging: () => [
+        { title: "Kale Salad", container: "full shallow pan",
+          steps: ["Pack in full shallow pan", "Keep tortilla strips SEPARATE — bag them so they stay crispy", "MAKE SALAD fresh — do NOT pre-dress", '⚠️ Bring TONGS + 10" SPOON'] },
+        { title: "Oregano Vinaigrette", container: "12oz round container",
+          steps: ["Pack in 12oz round container", "⚠️ MAKE SURE TO CHECK dressing is included", "⚠️ Bring SMALL SPOON"] },
+      ]},
+    { id: "mexican_chopped_salad", name: "Mexican Chopped Salad", servingNote: "Serves 8–10",
+      description: "Mixed greens, grilled chicken, onions, tomatoes, black bean salsa, corn, queso fresco, tortilla strips. Mango vinaigrette.",
+      packaging: () => [
+        { title: "Mexican Chopped Salad", container: "full shallow pan",
+          steps: ["Pack in full shallow pan", "⚠️ ONLY salad that comes WITH chicken", "Keep tortilla strips SEPARATE — bag them so they stay crispy", "MAKE SALAD fresh — do NOT pre-dress", '⚠️ Bring TONGS + 10" SPOON'] },
+        { title: "Mango Vinaigrette", container: "12oz round container",
+          steps: ["Pack in 12oz round container", "⚠️ MAKE SURE TO CHECK dressing is included", "⚠️ Bring SMALL SPOON"] },
+      ]},
+  ]},
+  { category: "Sides", emoji: "🧀", items: [
+    { id: "chips_queso", name: "Chips & Regular Queso", popular: true, veg: true,
+      description: "Chips with chile con queso.",
+      packaging: (g) => [
+        { title: "Chile Con Queso", container: getPanSize(g), steps: ["Pack in " + getPanSize(g), "PLASTIC WRAP top before lid", "⚠️ Bring LADLE"] },
+        { title: "Chips", container: "white paper bag", steps: [chipBags(g) + " white paper bag(s)"] },
+      ]},
+    { id: "chips_spicy_queso", name: "Chips & Spicy Queso", veg: true, spicy: true,
+      description: "Chips with spicy queso.",
+      packaging: (g) => [
+        { title: "Spicy Queso", container: getPanSize(g), steps: ["Pack in " + getPanSize(g), "PLASTIC WRAP top before lid", "⚠️ Label lid: SPICY QUESO", "⚠️ Bring LADLE"] },
+        { title: "Chips", container: "white paper bag", steps: [chipBags(g) + " white paper bag(s)"] },
+      ]},
+    { id: "chips_guac", name: "Chips & Guacamole", veg: true,
+      description: "Chips with guacamole.",
+      packaging: (g) => [
+        { title: "Guacamole (morning-of)", container: getSideContainer(g),
+          steps: ["Pack in " + getSideContainer(g) + " round container", "Made morning-of — grab from kitchen", "Place cut limes on top", '⚠️ Bring 10" SPOON (side style)'] },
+        { title: "Chips", container: "white paper bag", steps: [chipBags(g) + " white paper bag(s)"] },
+      ]},
+    { id: "salsa_chips", name: "Extra Homemade Salsa w/ Chips", servingNote: "Serves 10", veg: true,
+      description: "Homemade salsa with chips.",
+      packaging: (g) => [
+        { title: "Salsa", container: "round container", steps: [salsaContainers(g||10), "⚠️ Bring LADLE"] },
+        { title: "Chips", container: "white paper bag", steps: [chipBags(g||10) + " white paper bag(s)"] },
+      ]},
+    { id: "sour_cream", name: "Sour Cream (side)", minGuests: 10, veg: true,
+      description: "Side of sour cream.",
+      packaging: (g) => [
+        { title: "Sour Cream", container: getSideContainer(g),
+          steps: ["Pack in " + getSideContainer(g) + " round container", "Label: SOUR CREAM", "⚠️ Bring SMALL SPOON"] },
+      ]},
+  ]},
+  { category: "Desserts", emoji: "🍩", items: [
+    { id: "sopapillas", name: "Sopapillas", servingNote: "Serves 12", popular: true,
+      description: "Deep-fried pastries tossed in cinnamon sugar, served with honey.",
+      packaging: () => [
+        { title: "Sopapillas", container: "small dome",
+          steps: ["Pack in small dome", "Do NOT seal too tight — they'll get soggy", "⚠️ Bring TONGS", "⚠️ Deliver as fresh as possible"] },
+        { title: "Honey", container: "8oz container",
+          steps: ["Pack in 8oz container", "⚠️ Bring SMALL SPOON for honey"] },
+      ]},
+    { id: "brownies", name: "Double Fudge Brownies", servingNote: "Serves 12",
+      description: "Served with caramel and chocolate sauce.",
+      packaging: () => [
+        { title: "Brownies", container: "small dome", steps: ["Pack in small dome", "⚠️ Bring TONGS"] },
+        { title: "Chocolate Sauce", container: "5oz round container", steps: ["Pack in 5oz container", "⚠️ Bring SMALL SPOON"] },
+        { title: "Caramel Sauce", container: "5oz round container", steps: ["Pack in 5oz container", "⚠️ Bring SMALL SPOON"] },
+      ]},
+  ]},
+  { category: "Beverages", emoji: "🍹", items: [
+    { id: "sweet_tea", name: "Gallon Sweet Tea", servingNote: "Serves 8", popular: true,
+      description: "Black sweet tea.",
+      packaging: () => [{ title: "Sweet Tea", container: "gallon jug",
+        steps: ["Sealed gallon jug — stand upright", "Label: SWEET TEA", "⚠️ Bring cut lemons + sweeteners", "Ice: 1 bag per 2 gallons"] }]},
+    { id: "unsweet_tea", name: "Gallon Unsweet Tea", servingNote: "Serves 8",
+      description: "Black unsweetened tea.",
+      packaging: () => [{ title: "Unsweet Tea", container: "gallon jug",
+        steps: ["Sealed gallon jug — stand upright", "Label: UNSWEET TEA", "⚠️ Bring cut lemons + sweeteners", "Ice: 1 bag per 2 gallons"] }]},
+    { id: "pink_lemonade", name: "Gallon Pink Lemonade", servingNote: "Serves 8",
+      description: "Pink lemonade.",
+      packaging: () => [{ title: "Pink Lemonade", container: "gallon jug",
+        steps: ["Sealed gallon jug — stand upright", "⚠️ Bring cut lemons", "Ice: 1 bag per 2 gallons"] }]},
+    { id: "peach_tea", name: "Gallon Peach Tea", servingNote: "Serves 8",
+      description: "Peach tea.",
+      packaging: () => [{ title: "Peach Tea", container: "gallon jug",
+        steps: ["Sealed gallon jug — stand upright", "Label: PEACH TEA", "⚠️ Bring cut lemons + sweeteners", "Ice: 1 bag per 2 gallons"] }]},
+  ]},
 ];
+
+// ─── APP STATE ──────────────────────────────────────────────────────
+const state = {
+  guests: 0,
+  selectedItems: {},   // itemId -> true
+  subChoices: {},      // itemId -> [choiceId, ...]
+  beanChoices: {},     // itemId -> beanId
+};
+
+// ─── INIT ────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  renderMenu();
+  renderDriverChecklist();
+  setupTabs();
+  setupGuestInput();
+  setupGenerateBtn();
+  setupQRUpload();
+});
+
+// ─── TABS ────────────────────────────────────────────────────────────
+function setupTabs() {
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + tab).classList.add('active');
+    });
+  });
+}
+
+// ─── GUEST INPUT ──────────────────────────────────────────────────────
+function setupGuestInput() {
+  const input = document.getElementById('guestCount');
+  const panInfo = document.getElementById('panInfo');
+  input.addEventListener('input', () => {
+    const g = parseInt(input.value) || 0;
+    state.guests = g;
+    if (g > 0) {
+      panInfo.style.display = 'block';
+      document.getElementById('panInfoMain').textContent =
+        'Main pans: ' + getPanSize(g) + '  |  Topping containers: ' + getToppingContainer(g);
+      document.getElementById('panInfoExtra').textContent =
+        'Side containers: ' + getSideContainer(g) +
+        '  |  Chip bags: ' + chipBags(g) +
+        '  |  Salsa: ' + salsaContainers(g);
+    } else {
+      panInfo.style.display = 'none';
+    }
+  });
+}
+
+// ─── MENU RENDER ──────────────────────────────────────────────────────
+function renderMenu() {
+  const container = document.getElementById('menuContainer');
+  container.innerHTML = '';
+  MENU.forEach(cat => {
+    const catDiv = document.createElement('div');
+    catDiv.className = 'menu-category';
+    catDiv.innerHTML = '<div class="category-header"><span class="category-emoji">' + cat.emoji + '</span><span class="category-name">' + cat.category + '</span></div>';
+    const grid = document.createElement('div');
+    grid.className = 'menu-grid';
+    cat.items.forEach(item => {
+      grid.appendChild(createMenuItemEl(item));
+    });
+    catDiv.appendChild(grid);
+    container.appendChild(catDiv);
+  });
+}
+
+function createMenuItemEl(item) {
+  const div = document.createElement('div');
+  div.className = 'menu-item';
+  div.dataset.id = item.id;
+
+  // Tags
+  const tags = [];
+  if (item.popular) tags.push('<span class="tag tag-popular">⭐ Popular</span>');
+  if (item.veg) tags.push('<span class="tag tag-veg">🌿 Veg</span>');
+  if (item.spicy) tags.push('<span class="tag tag-spicy">🌶️ Spicy</span>');
+  if (item.servingNote) tags.push('<span class="tag tag-serving">' + item.servingNote + '</span>');
+  if (item.minGuests) tags.push('<span class="tag tag-serving">Min ' + item.minGuests + '</span>');
+
+  div.innerHTML =
+    '<div class="item-check">✓</div>' +
+    '<div class="item-name">' + item.name + '</div>' +
+    '<div class="item-desc">' + item.description + '</div>' +
+    (tags.length ? '<div class="item-tags">' + tags.join('') + '</div>' : '') +
+    buildSubChoicesHTML(item) +
+    buildBeanChoicesHTML(item);
+
+  div.addEventListener('click', (e) => {
+    // Ignore clicks on sub-choice buttons
+    if (e.target.closest('.sub-choices')) return;
+    toggleItem(item, div);
+  });
+
+  // Sub-choice clicks
+  div.querySelectorAll('.sub-choice-item').forEach(sc => {
+    sc.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const cid = sc.dataset.cid;
+      const limit = item.selectCount || 1;
+      if (!state.subChoices[item.id]) state.subChoices[item.id] = [];
+      const arr = state.subChoices[item.id];
+      const idx = arr.indexOf(cid);
+      if (idx >= 0) {
+        arr.splice(idx, 1);
+        sc.classList.remove('picked');
+      } else {
+        if (arr.length >= limit) {
+          // Remove first, add new
+          const oldId = arr.shift();
+          div.querySelector('[data-cid="' + oldId + '"]')?.classList.remove('picked');
+        }
+        arr.push(cid);
+        sc.classList.add('picked');
+      }
+    });
+  });
+
+  // Bean choice clicks
+  div.querySelectorAll('.bean-choice-item').forEach(bc => {
+    bc.addEventListener('click', (e) => {
+      e.stopPropagation();
+      div.querySelectorAll('.bean-choice-item').forEach(b => b.classList.remove('picked'));
+      bc.classList.add('picked');
+      state.beanChoices[item.id] = bc.dataset.bid;
+    });
+  });
+
+  return div;
+}
+
+function buildSubChoicesHTML(item) {
+  if (!item.hasSubChoices) return '';
+  const label = item.selectCount > 1
+    ? 'Choose ' + item.selectCount + ':'
+    : 'Choose protein:';
+  const choicesHTML = item.subChoices.map(c =>
+    '<div class="sub-choice-item" data-cid="' + c.id + '">' +
+    (c.veg ? '🌿 ' : '') + (c.spicy ? '🌶️ ' : '') + c.name +
+    '</div>'
+  ).join('');
+  return '<div class="sub-choices"><div class="sub-choice-label">' + label + '</div><div class="sub-choice-list">' + choicesHTML + '</div></div>';
+}
+
+function buildBeanChoicesHTML(item) {
+  if (!item.beanChoices) return '';
+  const choicesHTML = item.beanChoices.map(c =>
+    '<div class="sub-choice-item bean-choice-item" data-bid="' + c.id + '">' + c.name + '</div>'
+  ).join('');
+  return '<div class="sub-choices bean-choices"><div class="sub-choice-label">Choose beans:</div><div class="sub-choice-list">' + choicesHTML + '</div></div>';
+}
+
+function toggleItem(item, div) {
+  const selected = state.selectedItems[item.id];
+  if (selected) {
+    delete state.selectedItems[item.id];
+    div.classList.remove('selected');
+  } else {
+    state.selectedItems[item.id] = true;
+    div.classList.add('selected');
+    // Auto-select first bean if needed
+    if (item.beanChoices && !state.beanChoices[item.id]) {
+      state.beanChoices[item.id] = item.beanChoices[0].id;
+      const firstBean = div.querySelector('.bean-choice-item');
+      if (firstBean) firstBean.classList.add('picked');
+    }
+  }
+}
+
+// ─── GENERATE ──────────────────────────────────────────────────────
+function setupGenerateBtn() {
+  document.getElementById('generateBtn').addEventListener('click', generateChecklist);
+}
+
+function generateChecklist() {
+  const g = state.guests;
+  if (!g || g < 1) { showToast('⚠️ Please enter a guest count first!'); return; }
+
+  const selectedIds = Object.keys(state.selectedItems);
+  if (selectedIds.length === 0) { showToast('⚠️ Please select at least one menu item!'); return; }
+
+  // Build all packing items
+  const allItems = [];
+  MENU.forEach(cat => {
+    cat.items.forEach(item => {
+      if (!state.selectedItems[item.id]) return;
+      const choices = state.subChoices[item.id] || [];
+      const bean = state.beanChoices[item.id] || (item.beanChoices ? item.beanChoices[0].id : null);
+      const packed = item.packaging(g, choices, bean);
+      allItems.push(...packed);
+    });
+  });
+
+  // Render
+  const output = document.getElementById('packingOutput');
+  const itemsDiv = document.getElementById('packingItems');
+  document.getElementById('outputMeta').textContent =
+    g + ' guests • ' + selectedIds.length + ' menu item' + (selectedIds.length > 1 ? 's' : '') + ' • ' + allItems.length + ' packing steps';
+
+  itemsDiv.innerHTML = '';
+  allItems.forEach((item, idx) => {
+    const div = document.createElement('div');
+    div.className = 'packing-item';
+    const stepsHTML = item.steps.map(s => {
+      const isWarning = s.startsWith('⚠️');
+      return '<li class="packing-step ' + (isWarning ? 'warning' : '') + '"><span class="step-dot"></span>' + s + '</li>';
+    }).join('');
+    div.innerHTML =
+      '<div class="packing-item-num">' + (idx + 1) + '</div>' +
+      '<div class="packing-item-body">' +
+        '<div class="packing-item-title">' + item.title + '</div>' +
+        (item.container ? '<div class="packing-item-container">Container: <span class="container-badge">' + item.container + '</span></div>' : '') +
+        '<ul class="packing-steps">' + stepsHTML + '</ul>' +
+      '</div>';
+    itemsDiv.appendChild(div);
+  });
+
+  output.classList.add('show');
+  output.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  showToast('✅ Checklist generated! ' + allItems.length + ' items');
+}
+
+function resetAll() {
+  state.selectedItems = {};
+  state.subChoices = {};
+  state.beanChoices = {};
+  state.guests = 0;
+  document.getElementById('guestCount').value = '';
+  document.getElementById('panInfo').style.display = 'none';
+  document.querySelectorAll('.menu-item').forEach(el => {
+    el.classList.remove('selected');
+    el.querySelectorAll('.sub-choice-item').forEach(sc => sc.classList.remove('picked'));
+    el.querySelectorAll('.bean-choice-item').forEach(bc => bc.classList.remove('picked'));
+  });
+  document.getElementById('packingOutput').classList.remove('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  showToast('🔄 Reset! Ready for a new order.');
+}
+
+// ─── DRIVER CHECKLIST ───────────────────────────────────────────────
+function renderDriverChecklist() {
+  renderChecklistSection('alwaysBringList', ALWAYS_BRING, 'always');
+  renderChecklistSection('conditionalBringList', CONDITIONAL_BRING, 'cond');
+  updateDriverProgress();
+}
+
+function renderChecklistSection(containerId, items, prefix) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  items.forEach((item, i) => {
+    const id = prefix + '_' + i;
+    const div = document.createElement('div');
+    div.className = 'checklist-row';
+    div.dataset.id = id;
+    div.innerHTML =
+      '<div class="checkbox"></div>' +
+      '<div>' +
+        '<div class="checklist-item-name">' + item.item + '</div>' +
+        '<div class="checklist-item-note">' + item.note + '</div>' +
+      '</div>';
+    div.addEventListener('click', () => {
+      div.classList.toggle('checked');
+      if (div.classList.contains('checked')) div.querySelector('.checkbox').textContent = '✓';
+      else div.querySelector('.checkbox').textContent = '';
+      updateDriverProgress();
+    });
+    container.appendChild(div);
+  });
+}
+
+function updateDriverProgress() {
+  const all = document.querySelectorAll('#tab-driver .checklist-row');
+  const checked = document.querySelectorAll('#tab-driver .checklist-row.checked');
+  const pct = all.length ? (checked.length / all.length * 100) : 0;
+  document.getElementById('driverProgress').style.width = pct + '%';
+  document.getElementById('driverProgressLabel').textContent = checked.length + ' / ' + all.length + ' items';
+}
+
+function resetDriverChecklist() {
+  document.querySelectorAll('#tab-driver .checklist-row').forEach(row => {
+    row.classList.remove('checked');
+    row.querySelector('.checkbox').textContent = '';
+  });
+  updateDriverProgress();
+  showToast('↺ Driver checklist reset');
+}
+
+// ─── QR UPLOAD ──────────────────────────────────────────────────────
+function setupQRUpload() {
+  const input = document.getElementById('qr-file-input');
+  input.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      document.getElementById('qrImg').src = ev.target.result;
+      document.getElementById('qrPlaceholder').style.display = 'none';
+      document.getElementById('qrImgWrap').style.display = 'block';
+      showToast('✅ QR code uploaded!');
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+// ─── TOAST ──────────────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
