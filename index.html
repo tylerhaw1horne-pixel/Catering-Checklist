@@ -1,1817 +1,1319 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <title>Huey Luey's Catering Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,600;0,700;1,400&display=swap');
-
 :root {
-  --orange: #ff6b0b;
-  --orange-dark: #d95500;
-  --orange-light: #ff8c3a;
-  --green: #648b1a;
-  --green-dark: #4e6d14;
-  --green-light: #7aaa20;
-  --dark: #252525;
-  --dark2: #1a1a1a;
-  --off-white: #faf9f5;
+  --orange: #D4581A;
+  --orange-light: #f0793a;
+  --orange-pale: #fdf0e8;
+  --green: #4a7c3f;
+  --green-light: #5c9e50;
+  --green-pale: #eef4ec;
+  --cream: #FAF7F2;
+  --cream-dark: #F0EBE1;
+  --brown: #3a2a1a;
+  --text: #2c1f0f;
+  --muted: #8a7560;
+  --border: #e0d5c5;
   --white: #ffffff;
-  --gray: #f0eeea;
-  --gray2: #e0ddd7;
-  --text: #252525;
-  --text-muted: #6b6b6b;
-  --text-light: #999;
-  --radius: 14px;
-  --radius-sm: 8px;
-  --shadow: 0 2px 16px rgba(0,0,0,0.10);
-  --shadow-lg: 0 8px 32px rgba(0,0,0,0.18);
+  --shadow-sm: 0 1px 4px rgba(60,40,10,0.08);
+  --shadow: 0 3px 16px rgba(60,40,10,0.11);
+  --radius: 12px;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-html { scroll-behavior: smooth; }
+html, body { height: 100%; }
 body {
-  font-family: 'Cabin', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--dark2);
+  font-family: 'Open Sans', sans-serif;
+  background: var(--cream);
   color: var(--text);
-  min-height: 100vh;
-  max-width: 480px;
-  margin: 0 auto;
-  position: relative;
-  overflow-x: hidden;
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ── HEADER ── */
-.app-header {
-  background: var(--dark);
-  padding: 0;
-  position: sticky;
-  top: 0;
-  z-index: 200;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.4);
+.header {
+  background: var(--white);
+  border-bottom: 2px solid var(--orange);
+  padding: 14px 18px 12px;
+  text-align: center;
+  position: sticky; top: 0; z-index: 200;
+  box-shadow: 0 2px 10px rgba(212,88,26,0.1);
 }
-.app-header-inner {
-  display: flex;
-  align-items: center;
-  padding: 14px 18px;
-  gap: 12px;
-}
-.app-logo {
-  width: 46px; height: 46px;
-  background: var(--orange);
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 26px;
-  flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(255,107,11,0.4);
-}
-.app-header-text h1 {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--white);
-  letter-spacing: 0.5px;
+.header img { height: 44px; display: block; margin: 0 auto 4px; }
+.header-sub {
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-}
-.app-header-text p {
-  font-size: 0.72rem;
   color: var(--orange);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-top: 1px;
+  font-weight: 700;
 }
 
-/* ── PROGRESS BAR ── */
-.progress-track {
-  background: var(--dark);
-  padding: 0 18px 14px;
-}
-.progress-steps {
+/* ── STEP BAR ── */
+.steps {
   display: flex;
-  align-items: center;
-  gap: 0;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
 }
-.progress-step {
-  display: flex;
-  align-items: center;
+.step {
   flex: 1;
+  padding: 10px 4px 9px;
+  text-align: center;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
 }
-.step-dot {
-  width: 28px; height: 28px;
+.step.active { color: var(--orange); border-bottom-color: var(--orange); }
+.step.done   { color: var(--green);  border-bottom-color: var(--green); }
+.step-num {
+  display: inline-block;
+  width: 20px; height: 20px;
   border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
+  background: var(--cream-dark);
+  color: var(--muted);
   font-size: 0.7rem;
   font-weight: 700;
-  flex-shrink: 0;
-  border: 2px solid #444;
-  background: #333;
-  color: #666;
-  transition: all 0.3s;
-  position: relative;
-  z-index: 1;
+  line-height: 20px;
+  margin-bottom: 3px;
 }
-.step-dot.active { background: var(--orange); border-color: var(--orange); color: #fff; box-shadow: 0 0 12px rgba(255,107,11,0.5); }
-.step-dot.done { background: var(--green); border-color: var(--green); color: #fff; }
-.step-line {
-  flex: 1;
-  height: 2px;
-  background: #444;
-  margin: 0 2px;
-  transition: background 0.3s;
-}
-.step-line.done { background: var(--green); }
-.step-labels {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 6px;
-}
-.step-label {
-  font-size: 0.58rem;
-  color: #666;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-weight: 600;
-  flex: 1;
-  transition: color 0.3s;
-}
-.step-label.active { color: var(--orange); }
-.step-label.done { color: var(--green); }
+.step.active .step-num { background: var(--orange); color: white; }
+.step.done .step-num   { background: var(--green);  color: white; }
 
-/* ── SCREENS ── */
-.screen { display: none; padding: 20px 18px 100px; }
-.screen.active { display: block; }
+/* ── PAGES ── */
+.page { display: none; padding: 16px 14px 40px; }
+.page.active { display: block; }
 
-/* ── SCREEN TITLE ── */
-.screen-title {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--white);
-  margin-bottom: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-.screen-title span { color: var(--orange); }
-.screen-subtitle {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-bottom: 24px;
-  line-height: 1.4;
-}
-
-/* ── CARDS ── */
+/* ── SECTION CARD ── */
 .card {
   background: var(--white);
   border-radius: var(--radius);
-  padding: 20px;
-  margin-bottom: 16px;
-  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  margin-bottom: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
-.card-dark {
-  background: var(--dark);
-  border-radius: var(--radius);
-  padding: 20px;
-  margin-bottom: 16px;
-  border: 1px solid #333;
+.card-head {
+  padding: 13px 16px 11px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
 }
-.card-orange {
-  background: linear-gradient(135deg, var(--orange-dark), var(--orange));
-  border-radius: var(--radius);
-  padding: 20px;
-  margin-bottom: 16px;
-  color: #fff;
+.card-head h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
 }
-.card-green {
-  background: linear-gradient(135deg, var(--green-dark), var(--green));
-  border-radius: var(--radius);
-  padding: 20px;
-  margin-bottom: 16px;
-  color: #fff;
+.card-head .icon {
+  width: 30px; height: 30px;
+  background: var(--orange-pale);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.card-body { padding: 16px; }
+
+/* ── FORM ── */
+.field { margin-bottom: 14px; }
+.field:last-child { margin-bottom: 0; }
+label.lbl {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 5px;
+}
+input[type=text], input[type=time], input[type=number], select {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1.5px solid var(--border);
+  border-radius: 9px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: var(--cream);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.18s, box-shadow 0.18s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+input:focus, select:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(212,88,26,0.1);
+  background: var(--white);
 }
 
-/* ── FORM ELEMENTS ── */
-.field { margin-bottom: 18px; }
-.field:last-child { margin-bottom: 0; }
-.field label {
-  display: block;
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  margin-bottom: 8px;
-}
-.field-dark label { color: #888; }
-.input {
-  width: 100%;
+/* ── TRAVEL BOX ── */
+.travel-box {
+  background: var(--green-pale);
+  border: 1.5px solid var(--green);
+  border-radius: 10px;
   padding: 14px 16px;
-  border: 2px solid var(--gray2);
-  border-radius: var(--radius-sm);
-  font-size: 1rem;
-  font-family: inherit;
-  background: var(--off-white);
-  color: var(--text);
-  transition: border-color 0.2s, box-shadow 0.2s;
-  -webkit-appearance: none;
+  margin-top: 14px;
+  display: none;
 }
-.input:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px rgba(255,107,11,0.15); }
-.input-dark {
-  background: #2e2e2e;
-  border: 2px solid #3a3a3a;
-  color: var(--white);
+.travel-box.show { display: block; }
+.travel-leave {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--orange);
+  line-height: 1;
 }
-.input-dark:focus { border-color: var(--orange); }
-.input-dark::placeholder { color: #555; }
-.input-lg { font-size: 1.2rem; font-weight: 700; text-align: center; padding: 16px; }
-.input[type="number"] { text-align: center; font-size: 1.3rem; font-weight: 700; }
-.input[type="time"] { text-align: center; }
+.travel-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 3px;
+}
+.travel-detail { font-size: 0.8rem; color: var(--muted); margin-top: 6px; }
 
 /* ── BUTTONS ── */
 .btn {
-  width: 100%;
-  padding: 16px;
-  border: none;
-  border-radius: var(--radius-sm);
-  font-size: 1rem;
-  font-weight: 700;
-  font-family: inherit;
+  display: block; width: 100%;
+  padding: 14px;
+  border: none; border-radius: 10px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  -webkit-appearance: none;
+  transition: transform 0.12s, box-shadow 0.12s, background 0.15s;
+  letter-spacing: 0.03em;
 }
+.btn:active { transform: scale(0.975); }
 .btn-orange {
   background: var(--orange);
-  color: #fff;
-  box-shadow: 0 4px 16px rgba(255,107,11,0.35);
+  color: white;
+  box-shadow: 0 3px 12px rgba(212,88,26,0.28);
 }
-.btn-orange:hover, .btn-orange:active { background: var(--orange-dark); transform: translateY(1px); }
+.btn-orange:hover { background: var(--orange-light); }
 .btn-green {
   background: var(--green);
-  color: #fff;
-  box-shadow: 0 4px 16px rgba(100,139,26,0.35);
+  color: white;
+  box-shadow: 0 3px 12px rgba(74,124,63,0.25);
 }
-.btn-green:hover, .btn-green:active { background: var(--green-dark); }
+.btn-green:hover { background: var(--green-light); }
 .btn-outline {
   background: transparent;
-  border: 2px solid var(--gray2);
-  color: var(--text-muted);
-}
-.btn-outline:active { background: var(--gray); }
-.btn-dark {
-  background: #333;
-  color: var(--white);
-  border: 1px solid #444;
-}
-.btn-sm {
-  padding: 10px 16px;
-  font-size: 0.82rem;
-  width: auto;
-  border-radius: 6px;
-}
-.btn-icon { font-size: 1.1rem; }
-.btn-row { display: flex; gap: 10px; margin-top: 16px; }
-.btn-row .btn { flex: 1; }
-
-/* ── DRIVE TIME CARD ── */
-.drive-result {
-  display: none;
-  background: var(--dark);
-  border-radius: var(--radius);
-  padding: 18px 20px;
-  margin-top: 16px;
-  border-left: 4px solid var(--orange);
-}
-.drive-result.show { display: block; }
-.drive-result-title { font-size: 0.72rem; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
-.drive-stat { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.drive-stat-label { font-size: 0.82rem; color: #888; }
-.drive-stat-value { font-size: 0.95rem; font-weight: 700; color: var(--white); }
-.drive-stat-value.highlight { color: var(--orange); font-size: 1.1rem; }
-.drive-stat-value.green { color: #7aaa20; }
-
-/* ── ITEM SELECTOR ── */
-.category-section { margin-bottom: 28px; }
-.category-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.72rem;
-  font-weight: 700;
+  border: 2px solid var(--orange);
   color: var(--orange);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin-bottom: 12px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #333;
-}
-.item-card {
-  background: var(--dark);
-  border: 2px solid #333;
-  border-radius: var(--radius);
-  padding: 16px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  transition: all 0.2s;
-  position: relative;
-  overflow: hidden;
-}
-.item-card:active { transform: scale(0.99); }
-.item-card.selected {
-  border-color: var(--orange);
-  background: #2a1800;
-}
-.item-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 3px; height: 100%;
-  background: transparent;
-  transition: background 0.2s;
-}
-.item-card.selected::before { background: var(--orange); }
-.item-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
-.item-card-name { font-weight: 700; font-size: 0.95rem; color: var(--white); margin-bottom: 3px; }
-.item-card-desc { font-size: 0.78rem; color: #888; line-height: 1.4; }
-.item-check {
-  width: 24px; height: 24px;
-  border-radius: 50%;
-  border: 2px solid #444;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  margin-top: 1px;
-  transition: all 0.2s;
-  font-size: 12px;
-  color: transparent;
-}
-.item-card.selected .item-check { background: var(--orange); border-color: var(--orange); color: #fff; }
-.item-tags { display: flex; gap: 5px; margin-top: 8px; flex-wrap: wrap; }
-.tag {
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 20px;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-}
-.tag-pop { background: rgba(255,107,11,0.2); color: var(--orange); }
-.tag-veg { background: rgba(100,139,26,0.2); color: #7aaa20; }
-.tag-spicy { background: rgba(220,50,50,0.2); color: #ff6b6b; }
-.tag-info { background: rgba(255,255,255,0.1); color: #aaa; }
-
-/* SUB-CHOICES inline */
-.sub-choices-panel {
-  display: none;
-  margin-top: 14px;
-  padding-top: 14px;
-  border-top: 1px dashed #3a3a3a;
-}
-.item-card.selected .sub-choices-panel { display: block; }
-.sub-choice-label { font-size: 0.72rem; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
-.sub-choice-list { display: flex; flex-direction: column; gap: 6px; }
-.sub-choice-btn {
-  padding: 10px 14px;
-  background: #2e2e2e;
-  border: 1.5px solid #3a3a3a;
-  border-radius: 8px;
+  font-family: 'Open Sans', sans-serif;
   font-size: 0.85rem;
-  font-family: inherit;
-  color: #ccc;
-  cursor: pointer;
-  text-align: left;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.15s;
-  font-weight: 600;
-  -webkit-appearance: none;
 }
-.sub-choice-btn:active { transform: scale(0.99); }
-.sub-choice-btn.picked { background: var(--orange); border-color: var(--orange); color: #fff; }
-.sub-choice-btn .pick-dot {
-  width: 16px; height: 16px;
-  border-radius: 50%;
-  border: 2px solid #555;
-  flex-shrink: 0;
-  transition: all 0.15s;
-}
-.sub-choice-btn.picked .pick-dot { background: rgba(255,255,255,0.4); border-color: rgba(255,255,255,0.6); }
+.btn + .btn, .btn + .btn-outline { margin-top: 10px; }
 
-/* ── QUANTITY INPUT ── */
-.qty-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #2e2e2e;
-  border-radius: 10px;
-  padding: 10px 14px;
-  margin-top: 10px;
-}
-.qty-label { font-size: 0.8rem; font-weight: 600; color: #aaa; }
-.qty-controls { display: flex; align-items: center; gap: 12px; }
-.qty-btn {
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  border: none;
-  background: #444;
-  color: #fff;
-  font-size: 1.2rem;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.15s;
-  font-weight: 700;
-  line-height: 1;
-}
-.qty-btn:active { background: var(--orange); }
-.qty-val { font-size: 1.1rem; font-weight: 700; color: #fff; min-width: 30px; text-align: center; }
-
-/* ── CART ── */
-.cart-bar {
-  position: fixed;
-  bottom: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 480px;
-  background: var(--dark);
-  border-top: 1px solid #333;
-  padding: 14px 18px;
-  z-index: 150;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  box-shadow: 0 -4px 24px rgba(0,0,0,0.4);
-  transition: all 0.3s;
-}
-.cart-bar.hidden { transform: translateX(-50%) translateY(100%); }
-.cart-info { display: flex; align-items: center; gap: 10px; }
-.cart-count {
-  width: 36px; height: 36px;
-  background: var(--orange);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 800;
-  font-size: 0.95rem;
-  color: #fff;
-}
-.cart-text { font-size: 0.82rem; color: #aaa; }
-.cart-text strong { color: #fff; display: block; font-size: 0.9rem; }
-.cart-btn {
-  background: var(--green);
-  color: #fff;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  font-family: inherit;
-  cursor: pointer;
+/* ── BACK LINK ── */
+.back-btn {
   display: flex; align-items: center; gap: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  flex-shrink: 0;
+  background: none; border: none;
+  color: var(--orange); font-size: 0.82rem; font-weight: 700;
+  cursor: pointer; padding: 0 0 14px;
+  font-family: inherit;
 }
-.cart-btn:active { background: var(--green-dark); }
 
-/* ── PACKING LIST ── */
-.order-summary {
-  background: var(--dark);
+/* ── ACCORDION CATEGORY ── */
+.cat-block {
+  border: 1px solid var(--border);
   border-radius: var(--radius);
+  margin-bottom: 10px;
   overflow: hidden;
-  margin-bottom: 16px;
-  border: 1px solid #333;
-}
-.order-summary-header {
-  background: var(--orange);
-  padding: 14px 18px;
-  font-weight: 700;
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: #fff;
-}
-.order-row {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding: 12px 18px;
-  border-bottom: 1px solid #2e2e2e;
-  gap: 10px;
-}
-.order-row:last-child { border-bottom: none; }
-.order-row-name { font-size: 0.9rem; font-weight: 600; color: var(--white); }
-.order-row-detail { font-size: 0.78rem; color: #888; margin-top: 2px; }
-.order-row-right { text-align: right; flex-shrink: 0; }
-.order-row-qty { font-size: 0.78rem; color: var(--orange); font-weight: 700; }
-
-/* ── PACKING ITEM ── */
-.pack-section { margin-bottom: 20px; }
-.pack-section-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--orange);
-  color: #fff;
-  padding: 12px 18px;
-  border-radius: var(--radius) var(--radius) 0 0;
-  font-weight: 700;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-.pack-section-title .pack-num {
-  width: 26px; height: 26px;
-  background: rgba(0,0,0,0.25);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.75rem;
-  font-weight: 800;
-  flex-shrink: 0;
-}
-.pack-steps {
   background: var(--white);
-  border-radius: 0 0 var(--radius) var(--radius);
-  overflow: hidden;
 }
-.pack-step {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 13px 18px;
-  border-bottom: 1px solid var(--gray2);
+.cat-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 15px;
+  cursor: pointer;
+  user-select: none;
+  background: var(--white);
+  transition: background 0.15s;
 }
-.pack-step:last-child { border-bottom: none; }
-.pack-step-icon {
-  width: 28px; height: 28px;
-  background: var(--gray);
-  border-radius: 6px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 14px;
+.cat-header:active { background: var(--cream); }
+.cat-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.97rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.cat-badge {
+  background: var(--orange);
+  color: white;
+  border-radius: 20px;
+  padding: 2px 9px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  display: none;
+  margin-right: 6px;
+}
+.cat-badge.show { display: inline-block; }
+.cat-chev {
+  width: 18px; height: 18px;
+  color: var(--orange);
+  transition: transform 0.22s;
   flex-shrink: 0;
 }
-.pack-step.warning .pack-step-icon { background: #fff0e8; }
-.pack-step-text { font-size: 0.88rem; line-height: 1.45; color: var(--text); flex: 1; }
-.pack-step.warning .pack-step-text { color: var(--orange-dark); font-weight: 600; }
-.container-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  background: var(--dark);
-  color: var(--orange);
-  padding: 3px 10px;
-  border-radius: 20px;
+.cat-chev.open { transform: rotate(180deg); }
+.cat-body {
+  display: none;
+  border-top: 1px solid var(--border);
+}
+.cat-body.open { display: block; }
+
+/* ── MENU ITEM ── */
+.menu-item {
+  padding: 13px 15px;
+  border-bottom: 1px solid var(--cream-dark);
+}
+.menu-item:last-child { border-bottom: none; }
+.item-name { font-weight: 700; font-size: 0.92rem; color: var(--text); }
+.item-meta {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin: 2px 0 10px;
+}
+.item-hot { color: var(--orange); font-weight: 700; }
+.item-cold { color: #4a7fbf; font-weight: 700; }
+.item-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.qty-wrap { display: flex; align-items: center; gap: 6px; }
+.qty-input {
+  width: 72px;
+  padding: 9px 8px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: var(--cream);
+}
+.qty-unit { font-size: 0.75rem; color: var(--muted); font-weight: 600; }
+.add-btn {
+  background: var(--orange);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 16px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.add-btn:active { background: var(--orange-light); }
+.added-badge {
+  background: var(--green-pale);
+  color: var(--green);
+  border: 1px solid var(--green);
+  border-radius: 6px;
+  padding: 4px 10px;
   font-size: 0.72rem;
   font-weight: 700;
-  margin-top: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
+  display: none;
 }
+.added-badge.show { display: inline-block; }
 
-/* ── EMAIL FORM ── */
-.email-preview {
-  background: var(--off-white);
-  border-radius: var(--radius);
-  padding: 20px;
-  font-size: 0.82rem;
-  line-height: 1.7;
-  color: var(--text);
-  border: 1px solid var(--gray2);
-  white-space: pre-wrap;
-  margin-bottom: 16px;
-  max-height: 300px;
-  overflow-y: auto;
-  font-family: 'Courier New', monospace;
-}
-
-/* ── TOAST ── */
-.toast {
-  position: fixed;
-  bottom: 90px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  background: var(--dark);
+/* ── SUBSTITUTIONS ── */
+.sub-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: var(--orange-pale);
   border: 1px solid var(--orange);
-  color: var(--white);
-  padding: 10px 20px;
-  border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  opacity: 0;
-  transition: all 0.3s;
-  z-index: 300;
-  white-space: nowrap;
-  pointer-events: none;
-}
-.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-/* ── DIVIDER ── */
-.divider { height: 1px; background: #333; margin: 16px 0; }
-
-/* ── INFO ROW ── */
-.info-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid #333;
-}
-.info-row:last-child { border-bottom: none; }
-.info-row-label { font-size: 0.78rem; color: #888; }
-.info-row-value { font-size: 0.88rem; font-weight: 700; color: var(--white); text-align: right; }
-
-/* ── SPINNER ── */
-.spinner {
-  width: 20px; height: 20px;
-  border: 2px solid rgba(255,255,255,0.3);
-  border-top-color: #fff;
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-  display: inline-block;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* ── DRIVER CHECKLIST IN STEP 5 ── */
-.driver-check-list { list-style: none; }
-.driver-check-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--gray2);
-  cursor: pointer;
-}
-.driver-check-item:last-child { border-bottom: none; }
-.dcheck {
-  width: 22px; height: 22px;
-  border: 2px solid var(--gray2);
-  border-radius: 4px;
-  flex-shrink: 0;
-  margin-top: 1px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px;
-  color: transparent;
-  transition: all 0.2s;
-}
-.driver-check-item.checked .dcheck { background: var(--green); border-color: var(--green); color: #fff; }
-.driver-check-item.checked .dcheck-name { text-decoration: line-through; color: var(--text-muted); }
-.dcheck-body {}
-.dcheck-name { font-weight: 600; font-size: 0.88rem; }
-.dcheck-note { font-size: 0.76rem; color: var(--text-muted); margin-top: 2px; }
-
-/* ── SUCCESS SCREEN ── */
-.success-icon {
-  width: 80px; height: 80px;
-  background: var(--green);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 40px;
-  margin: 0 auto 20px;
-  box-shadow: 0 4px 24px rgba(100,139,26,0.4);
-}
-.success-title {
-  text-align: center;
-  font-size: 1.5rem;
+  color: var(--orange);
+  border-radius: 6px;
+  padding: 5px 11px;
+  font-size: 0.72rem;
   font-weight: 700;
-  color: var(--white);
+  font-family: inherit;
+  cursor: pointer;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
+  margin-top: 8px;
+}
+.sub-panel {
+  background: var(--orange-pale);
+  border: 1px solid var(--orange);
+  border-radius: 9px;
+  padding: 12px;
+  margin-top: 9px;
+  display: none;
+}
+.sub-panel.open { display: block; }
+.sub-panel-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--orange);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   margin-bottom: 8px;
 }
-.success-sub {
-  text-align: center;
+.sub-option {
+  display: flex; align-items: center; gap: 8px;
   font-size: 0.85rem;
-  color: #888;
-  margin-bottom: 28px;
+  color: var(--text);
+  margin-bottom: 7px;
+  cursor: pointer;
+}
+.sub-option:last-child { margin-bottom: 0; }
+.sub-option input { accent-color: var(--orange); width: auto; padding: 0; border: none; background: none; }
+
+/* ── CART ── */
+.cart-empty { text-align: center; padding: 24px; color: var(--muted); font-size: 0.88rem; }
+.cart-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--cream-dark);
+}
+.cart-item:last-child { border-bottom: none; }
+.cart-item-info { flex: 1; }
+.cart-item-name { font-weight: 700; font-size: 0.88rem; color: var(--text); }
+.cart-item-detail { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+.cart-remove {
+  background: none; border: none;
+  color: #c0392b; font-size: 1.1rem;
+  cursor: pointer; padding: 2px 6px;
+  line-height: 1;
+}
+
+/* ── INCLUDED ITEMS NOTE ── */
+.included-note {
+  background: var(--green-pale);
+  border-left: 3px solid var(--green);
+  border-radius: 0 8px 8px 0;
+  padding: 8px 12px;
+  margin-top: 8px;
+  font-size: 0.75rem;
+  color: var(--green);
+  font-weight: 600;
+}
+
+/* ── SUMMARY ── */
+.sum-section { margin-bottom: 20px; }
+.sum-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+  border-bottom: 2px solid var(--orange);
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+.sum-row {
+  display: flex; justify-content: space-between;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--cream-dark);
+  font-size: 0.85rem;
+  gap: 10px;
+}
+.sum-row:last-child { border-bottom: none; }
+.sum-key { font-weight: 700; color: var(--text); flex-shrink: 0; max-width: 45%; }
+.sum-val { color: var(--muted); text-align: right; font-size: 0.82rem; }
+
+.info-pill {
+  background: var(--cream-dark);
+  border-radius: 8px;
+  padding: 9px 13px;
+  margin-bottom: 8px;
+  font-size: 0.83rem;
+}
+.info-pill strong { color: var(--orange); }
+
+.supply-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--green-pale);
+  border: 1px solid var(--green);
+  border-radius: 8px;
+  padding: 7px 12px;
+  margin: 4px 4px 4px 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--green);
+}
+.supply-qty {
+  background: var(--green);
+  color: white;
+  border-radius: 5px;
+  padding: 1px 7px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+/* ── EMAIL ── */
+.email-status {
+  text-align: center; padding: 12px; border-radius: 8px;
+  font-size: 0.85rem; font-weight: 600; margin-top: 10px; display: none;
+}
+.email-status.ok  { background: var(--green-pale); color: var(--green); display: block; }
+.email-status.err { background: #fdecea; color: #c0392b; display: block; }
+
+.section-note {
+  background: var(--orange-pale);
+  border-left: 3px solid var(--orange);
+  border-radius: 0 8px 8px 0;
+  padding: 9px 12px;
+  font-size: 0.78rem;
+  color: var(--orange);
+  margin-bottom: 14px;
   line-height: 1.5;
-}
-
-/* ── ANIMATIONS ── */
-.slide-in {
-  animation: slideIn 0.3s ease-out;
-}
-@keyframes slideIn {
-  from { opacity: 0; transform: translateX(20px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-.fade-in {
-  animation: fadeIn 0.25s ease-out;
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* PRINT */
-@media print {
-  body { background: #fff; max-width: 100%; }
-  .app-header, .progress-track, .cart-bar, .toast { display: none !important; }
-  .screen { display: block !important; padding: 20px; }
-  .screen:not(#screen-summary) { display: none !important; }
-  #screen-summary { display: block !important; }
-  .btn-row { display: none !important; }
-  .card { box-shadow: none; border: 1px solid #ccc; }
-  .pack-steps { background: #fff; }
-  .pack-step { border-bottom: 1px solid #eee; }
-  .pack-section-title { background: #333 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
 </style>
 </head>
 <body>
+
 <!-- HEADER -->
-<header class="app-header">
-  <div class="app-header-inner">
-    <div class="app-logo">🌮</div>
-    <div class="app-header-text">
-      <h1>Huey Luey's</h1>
-      <p>Catering Guide</p>
-    </div>
-  </div>
-  <div class="progress-track">
-    <div class="progress-steps">
-      <div class="step-dot active" id="dot-1">1</div>
-      <div class="step-line" id="line-1"></div>
-      <div class="step-dot" id="dot-2">2</div>
-      <div class="step-line" id="line-2"></div>
-      <div class="step-dot" id="dot-3">3</div>
-      <div class="step-line" id="line-3"></div>
-      <div class="step-dot" id="dot-4">4</div>
-      <div class="step-line" id="line-4"></div>
-      <div class="step-dot" id="dot-5">5</div>
-    </div>
-    <div class="step-labels">
-      <span class="step-label active" id="lbl-1">Info</span>
-      <span class="step-label" id="lbl-2">Items</span>
-      <span class="step-label" id="lbl-3">Packing</span>
-      <span class="step-label" id="lbl-4">Checklist</span>
-      <span class="step-label" id="lbl-5">Send</span>
-    </div>
-  </div>
-</header>
+<div class="header">
+  <img src="https://hueylueys.com/wp-content/uploads/2016/09/hllogo-light.png" alt="Huey Luey's" onerror="this.style.display='none'" />
+  <div class="header-sub">Catering Guide</div>
+</div>
 
-<!-- ═══ SCREEN 1: ORDER INFO ═══ -->
-<div class="screen active slide-in" id="screen-1">
-  <div class="screen-title">Order <span>Info</span></div>
-  <div class="screen-subtitle">Enter the details for this catering order.</div>
+<!-- STEP BAR -->
+<div class="steps">
+  <div class="step active" id="s1">
+    <div class="step-num">1</div><br>Info
+  </div>
+  <div class="step" id="s2">
+    <div class="step-num">2</div><br>Items
+  </div>
+  <div class="step" id="s3">
+    <div class="step-num">3</div><br>Review
+  </div>
+</div>
 
+<!-- ════════════════════════════
+     PAGE 1 — ORDER INFO
+════════════════════════════ -->
+<div class="page active" id="pg1">
   <div class="card">
-    <div class="field">
-      <label>Driver Name</label>
-      <input type="text" class="input" id="driverName" placeholder="Your name..." autocomplete="off">
+    <div class="card-head">
+      <div class="icon">📋</div>
+      <h2>Order Details</h2>
     </div>
-    <div class="field">
-      <label>Number of Guests</label>
-      <input type="number" class="input" id="guestCount" placeholder="25" min="1" max="500" inputmode="numeric">
-    </div>
-    <div class="field">
-      <label>Food Arrival Time</label>
-      <input type="time" class="input" id="arrivalTime">
-    </div>
-    <div class="field" style="margin-bottom:0">
-      <label>Delivery Address</label>
-      <input type="text" class="input" id="deliveryAddress" placeholder="123 Main St, City, GA..." autocomplete="off">
-      <div style="margin-top:8px">
-        <button class="btn btn-dark" style="padding:10px;font-size:0.8rem;gap:6px" onclick="calcDriveTime()">
-          <span id="driveTimeBtn">🗺️ Calculate Drive Time</span>
-        </button>
+    <div class="card-body">
+      <div class="field">
+        <label class="lbl">Your Name</label>
+        <input type="text" id="fName" placeholder="First & Last Name" autocomplete="name"/>
+      </div>
+      <div class="field">
+        <label class="lbl">Catering Order Name</label>
+        <input type="text" id="fOrder" placeholder="e.g. Smith Wedding, ABC Corp"/>
+      </div>
+      <div class="field">
+        <label class="lbl">Food Arrival Time</label>
+        <input type="time" id="fTime"/>
       </div>
     </div>
   </div>
 
-  <div class="drive-result" id="driveResult">
-    <div class="drive-result-title">🚗 Drive Info</div>
-    <div class="drive-stat">
-      <span class="drive-stat-label">Distance</span>
-      <span class="drive-stat-value" id="drDist">—</span>
-    </div>
-    <div class="drive-stat">
-      <span class="drive-stat-label">Drive Time</span>
-      <span class="drive-stat-value" id="drTime">—</span>
-    </div>
-    <div class="drive-stat">
-      <span class="drive-stat-label">Leave Store By</span>
-      <span class="drive-stat-value highlight" id="drLeave">—</span>
-    </div>
-    <div class="drive-stat" style="margin-bottom:0">
-      <span class="drive-stat-label">Arrive By</span>
-      <span class="drive-stat-value green" id="drArrive">—</span>
-    </div>
-  </div>
-
-  <div class="btn-row" style="margin-top:20px">
-    <button class="btn btn-orange" onclick="goToStep(2)">Next: Add Items →</button>
-  </div>
-</div>
-
-<!-- ═══ SCREEN 2: ITEM SELECTOR ═══ -->
-<div class="screen slide-in" id="screen-2">
-  <div class="screen-title">Select <span>Items</span></div>
-  <div class="screen-subtitle">Tap items ordered. Add quantities per item.</div>
-  <div id="menuContainer"></div>
-</div>
-
-<!-- ═══ SCREEN 3: PACKING GUIDE ═══ -->
-<div class="screen slide-in" id="screen-3">
-  <div class="screen-title">Packing <span>Guide</span></div>
-  <div class="screen-subtitle">Step-by-step packing for every item.</div>
-  <div id="packingContainer"></div>
-  <div class="btn-row">
-    <button class="btn btn-outline" onclick="goToStep(2)">← Back</button>
-    <button class="btn btn-orange" onclick="goToStep(4)">Driver Checklist →</button>
-  </div>
-</div>
-
-<!-- ═══ SCREEN 4: DRIVER CHECKLIST ═══ -->
-<div class="screen slide-in" id="screen-4">
-  <div class="screen-title">Driver <span>Checklist</span></div>
-  <div class="screen-subtitle">Check off everything before you leave.</div>
-
   <div class="card">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-      <div style="font-size:0.82rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">✅ Always Bring</div>
-      <div style="font-size:0.8rem;color:var(--orange);font-weight:700" id="alwaysProgress">0 / 13</div>
+    <div class="card-head">
+      <div class="icon">📍</div>
+      <h2>Delivery Address</h2>
     </div>
-    <ul class="driver-check-list" id="alwaysList"></ul>
+    <div class="card-body">
+      <div class="field">
+        <label class="lbl">Delivery Address</label>
+        <input type="text" id="fAddr" placeholder="Street address, City, State" autocomplete="street-address"/>
+      </div>
+      <button class="btn btn-outline" onclick="calcTravel()" style="margin-top:4px">
+        🗺 Calculate Drive Time
+      </button>
+      <div class="travel-box" id="travelBox">
+        <div class="travel-label">Leave Store By</div>
+        <div class="travel-leave" id="leaveTime">—</div>
+        <div class="travel-detail" id="travelDetail"></div>
+      </div>
+    </div>
   </div>
 
+  <button class="btn btn-orange" onclick="goPage2()">Continue to Menu Items →</button>
+</div>
+
+<!-- ════════════════════════════
+     PAGE 2 — MENU ITEMS
+════════════════════════════ -->
+<div class="page" id="pg2">
+  <button class="back-btn" onclick="goPage(1)">← Back to Order Info</button>
+
+  <div class="section-note">
+    Tap a category to expand. Enter quantity and tap <strong>Add</strong>. Items build your order below.
+  </div>
+
+  <div id="menuWrap"></div>
+
+  <!-- CART -->
+  <div class="card" id="cartCard">
+    <div class="card-head">
+      <div class="icon">🛒</div>
+      <h2>Your Order</h2>
+    </div>
+    <div class="card-body">
+      <div id="cartList"><div class="cart-empty">No items added yet</div></div>
+    </div>
+  </div>
+
+  <button class="btn btn-orange" onclick="goPage3()" id="reviewBtn" style="display:none">
+    Review & Send Order →
+  </button>
+</div>
+
+<!-- ════════════════════════════
+     PAGE 3 — SUMMARY
+════════════════════════════ -->
+<div class="page" id="pg3">
+  <button class="back-btn" onclick="goPage(2)">← Back to Menu</button>
   <div class="card">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-      <div style="font-size:0.82rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">⚡ Check Order</div>
-      <div style="font-size:0.8rem;color:var(--orange);font-weight:700" id="condProgress">0 / 7</div>
-    </div>
-    <ul class="driver-check-list" id="condList"></ul>
+    <div class="card-head"><div class="icon">✅</div><h2>Order Summary</h2></div>
+    <div class="card-body" id="summaryBody"></div>
   </div>
-
-  <div class="btn-row">
-    <button class="btn btn-outline" onclick="goToStep(3)">← Back</button>
-    <button class="btn btn-green" onclick="goToStep(5)">Review & Send →</button>
-  </div>
-</div>
-
-<!-- ═══ SCREEN 5: SUMMARY + EMAIL ═══ -->
-<div class="screen slide-in" id="screen-5">
-  <div class="screen-title">Review <span>&</span> Send</div>
-  <div class="screen-subtitle">Confirm everything looks good, then send.</div>
-
-  <div class="card-dark" id="summaryCard"></div>
-
-  <div id="packingSummaryContainer"></div>
-
   <div class="card">
-    <div class="field" style="margin-bottom:12px">
-      <label>Send To</label>
-      <input type="email" class="input" id="emailTo" value="Tylerhawthorne@hueylueys.com" readonly style="background:#f5f5f5;color:#666">
+    <div class="card-head"><div class="icon">📧</div><h2>Send to Tyler</h2></div>
+    <div class="card-body">
+      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:12px">
+        Sends a formatted catering sheet to <strong>tylerhawthorne@hueylueys.com</strong>
+      </p>
+      <button class="btn btn-green" onclick="sendEmail()">📧 Send Catering Sheet</button>
+      <div class="email-status" id="emailStatus"></div>
     </div>
-    <div class="field" style="margin-bottom:0">
-      <label>Notes (optional)</label>
-      <input type="text" class="input" id="orderNotes" placeholder="Any special notes...">
-    </div>
-  </div>
-
-  <div class="btn-row" style="flex-direction:column;gap:10px">
-    <button class="btn btn-orange" onclick="sendEmail()">📧 Send Catering Sheet</button>
-    <button class="btn btn-outline" style="font-size:0.82rem" onclick="window.print()">🖨️ Print Sheet</button>
-    <button class="btn btn-dark" style="font-size:0.82rem" onclick="startOver()">🔄 New Order</button>
   </div>
 </div>
-
-<!-- CART BAR -->
-<div class="cart-bar hidden" id="cartBar">
-  <div class="cart-info">
-    <div class="cart-count" id="cartCount">0</div>
-    <div class="cart-text">
-      <strong id="cartLabel">Items selected</strong>
-      <span id="cartGuests"></span>
-    </div>
-  </div>
-  <button class="cart-btn" onclick="goToStep(3)">Generate List →</button>
-</div>
-
-<div class="toast" id="toast"></div>
 
 <script>
-// ═══════════════════════════════════════════════════════════
-// DATA
-// ═══════════════════════════════════════════════════════════
-const STORE_ADDR = "3338 Cobb Pkwy NW, Acworth, GA 30101";
-const STORE_COORDS = { lat: 34.0633, lng: -84.6378 };
-const RECIPIENT = "Tylerhawthorne@hueylueys.com";
-
-function getPanSize(g) {
-  if (g <= 20) return "1/3 pan";
-  if (g <= 30) return "1/2 pan";
-  if (g <= 60) return "full shallow pan";
-  return "full deep pan";
-}
-function getToppingCont(g) {
-  if (g <= 13) return "16oz clamshell";
-  if (g <= 25) return "32oz clamshell";
-  if (g <= 60) return "1/3 pan";
-  return "1/2 pan";
-}
-function getSideCont(g) {
-  return g <= 13 ? "16oz clamshell" : "32oz clamshell";
-}
-function chipBags(g) { return Math.ceil(g / 10); }
-function salsaCont(g) {
-  if (g <= 15) return "1x 16oz round container";
-  return Math.ceil(g/15) + "x 32oz round containers";
-}
-function tortillas(g, type) {
-  return type === "taco" ? g * 3 : g * 2;
-}
-
-const ALWAYS_BRING = [
-  { item: "Chafing dish wire racks", note: "1 per full pan — always comes with water pan" },
-  { item: "Sterno burners", note: "1 per chafing dish" },
-  { item: "Gallon of water", note: "1 gallon per 3 water pans" },
-  { item: "Lighter", note: "To light the sternos" },
-  { item: "Stickers / labels", note: "Label EVERYTHING — simplifies orders for expo/kitchen" },
-  { item: "Serving utensils", note: "Check packing list for correct utensil per pan" },
-  { item: "Beverage napkins", note: "Used for setup — utensil holders for toppings" },
-  { item: "Towel", note: "Helpful for cleanup at the catering" },
-  { item: "Catering menu", note: "1 per order" },
-  { item: "Marketing flyers", note: "Minimum 2" },
-  { item: "Business card + mints", note: "Handful of mints, 1 business card per order" },
-  { item: "'Catered by Huey Luey's' card", note: "1 per order (grab extra for large orders)" },
-  { item: "Cut limes", note: "With every order + to top guacamole" },
-];
-const COND_BRING = [
-  { item: "Utensil packs / plates", note: "As requested — but take just in case" },
-  { item: "Cups (clear)", note: "As requested only" },
-  { item: "Cut lemons", note: "With any tea or lemonade orders" },
-  { item: "Ice", note: "1 bag per 2 gallons of drinks ordered" },
-  { item: "Cold drinks / beverages", note: "Per order" },
-  { item: "Sweeteners", note: "Upon request" },
-  { item: "Salad dressing", note: "⚠️ MAKE SURE TO CHECK — goes with every salad order" },
-];
-
-// Fajita packing shared logic
-function fajitaPacking(g, proteins, bean) {
-  const p = getPanSize(g), tc = getToppingCont(g), sc = getSideCont(g);
-  const bLabel = bean === "refried" ? "Refried Beans" : bean === "charro" ? "Charro Beans" : "Black Beans";
-  const bUtensil = (bean === "black" || bean === "charro") ? "LADLE" : '10" SPOON';
-  const items = [];
-  proteins.forEach(pr => {
-    items.push({ title: pr + " (fajita-style)", container: p,
-      steps: ["Pack in " + p, "⚠️ Bring TONGS for fajita meat", "Label lid: " + pr.toUpperCase()] });
-  });
-  const tCount = tortillas(g,"fajita");
-  items.push({ title: "Flour Tortillas", container: "wrapped in foil",
-    steps: [tCount + " total (2 per guest)", "Wrap in foil, warm before packing", "⚠️ Bring TONGS for tortillas"] });
-  items.push({ title: "Mexican Rice", container: p,
-    steps: ["Pack in " + p, '⚠️ Bring 10" SPOON'] });
-  const bSteps = ["Pack in " + p];
-  if (bean === "black" || bean === "charro") bSteps.push("PLASTIC WRAP top before lid");
-  bSteps.push("⚠️ Bring " + bUtensil, "Label lid: " + bLabel.toUpperCase());
-  items.push({ title: bLabel, container: p, steps: bSteps });
-  items.push({ title: "Pico de Gallo", container: sc,
-    steps: ["Pack in " + sc + " round container", "⚠️ Bring SMALL SPOON"] });
-  items.push({ title: "Sour Cream", container: sc,
-    steps: ["Pack in " + sc + " round container", "⚠️ Bring SMALL SPOON"] });
-  items.push({ title: "Lettuce", container: tc,
-    steps: ["Pack in " + tc + " — lettuce is fluffier, needs more space", "⚠️ Bring TONGS"] });
-  items.push({ title: "Shredded Cheese", container: tc,
-    steps: ["Pack in " + tc, "⚠️ Bring SMALL SPOON"] });
-  items.push({ title: "Guacamole (morning-of)", container: sc,
-    steps: ["Pack in " + sc + " round container", "Made morning-of — grab from kitchen", "Place cut limes on top", "⚠️ Bring SMALL SPOON (fajita style)"] });
-  items.push({ title: "Chips & Salsa", container: "white paper bag + round container",
-    steps: [chipBags(g) + " white paper bag(s) — 1 per 10 guests", "Salsa: " + salsaCont(g), "⚠️ Bring LADLE for salsa"] });
-  return items;
-}
-
-const MENU = [
-  { category: "Appetizers", emoji: "🥑", items: [
-    { id: "app_mix2", name: "Mix & Match 2 Appetizers", popular: true, veg: true,
-      description: "Choose any 2: Avocado Rolls, Guac & Chips, Queso & Chips, Spicy Queso & Chips",
-      hasSubChoices: true, selectCount: 2,
-      subChoices: [
-        { id: "avocado_rolls", name: "Avocado Rolls", emoji: "🥑" },
-        { id: "guac_chips", name: "Guacamole & Chips", emoji: "🥑" },
-        { id: "queso_chips", name: "Queso Dip & Chips", emoji: "🧀" },
-        { id: "spicy_queso_chips", name: "Spicy Queso & Chips", emoji: "🌶️", spicy: true },
-      ],
-      packaging: (g, choices) => {
-        const items = [];
-        if (!choices || choices.length === 0) return [{ title: "Select your 2 appetizers above", container: "", steps: ["No choices selected yet"] }];
-        choices.forEach(c => {
-          if (c === "avocado_rolls") items.push({ title: "Avocado Rolls", container: getPanSize(g),
-            steps: ["Pack in " + getPanSize(g), "Cover with foil — don't seal too tight", "⚠️ Bring TONGS for serving"] });
-          if (c === "guac_chips") {
-            items.push({ title: "Guacamole", container: getSideCont(g),
-              steps: ["Pack in " + getSideCont(g) + " round container", "Place cut limes on top", '⚠️ Bring 10" SPOON (app style)'] });
-            items.push({ title: "Chips (Appetizer)", container: "white paper bag",
-              steps: [chipBags(g) + " white bag(s) — 1 per 10 guests"] });
-          }
-          if (c === "queso_chips") {
-            items.push({ title: "Queso Dip", container: getPanSize(g),
-              steps: ["Pack in " + getPanSize(g), "PLASTIC WRAP top before lid", "⚠️ Bring LADLE"] });
-            items.push({ title: "Chips (Queso)", container: "white paper bag",
-              steps: [chipBags(g) + " white bag(s) — 1 per 10 guests"] });
-          }
-          if (c === "spicy_queso_chips") {
-            items.push({ title: "Spicy Queso Dip", container: getPanSize(g),
-              steps: ["Pack in " + getPanSize(g), "PLASTIC WRAP top before lid", "⚠️ Label lid: SPICY QUESO", "⚠️ Bring LADLE"] });
-            items.push({ title: "Chips (Spicy Queso)", container: "white paper bag",
-              steps: [chipBags(g) + " white bag(s) — 1 per 10 guests"] });
-          }
-        });
-        return items;
-      }
-    },
-  ]},
-  { category: "Buffets", emoji: "🌮", items: [
-    { id: "taco_bar", name: "Taco Bar", popular: true,
-      description: "Flour tortillas & crispy shells, Mexican rice, choice of beans, tomatoes, cheese, lettuce, chips & salsa.",
-      hasSubChoices: true, selectCount: 1,
-      subChoices: [
-        { id: "taco_chicken", name: "Salsa Chicken", emoji: "🍗" },
-        { id: "taco_beef", name: "Seasoned Ground Beef", emoji: "🥩" },
-        { id: "taco_both", name: "Both Chicken & Beef (+$2pp)", emoji: "🍗🥩" },
-      ],
-      beanChoices: [
-        { id: "refried", name: "Refried Beans" },
-        { id: "charro", name: "Charro Beans" },
-        { id: "black", name: "Black Beans (veg)", veg: true },
-      ],
-      packaging: (g, choices, bean) => {
-        const p = getPanSize(g), tc = getToppingCont(g);
-        const items = [];
-        if (choices && choices.includes("taco_both")) {
-          items.push({ title: "Salsa Chicken", container: p, steps: ["Pack in " + p, "Label lid: SALSA CHICKEN", '⚠️ Bring 10" SPOON'] });
-          items.push({ title: "Seasoned Ground Beef", container: p, steps: ["Pack in " + p, "Label lid: GROUND BEEF", '⚠️ Bring 10" SPOON'] });
-        } else if (choices && choices.includes("taco_chicken")) {
-          items.push({ title: "Salsa Chicken", container: p, steps: ["Pack in " + p, '⚠️ Bring 10" SPOON'] });
-        } else {
-          items.push({ title: "Seasoned Ground Beef", container: p, steps: ["Pack in " + p, '⚠️ Bring 10" SPOON'] });
-        }
-        const soft = Math.ceil(tortillas(g,"taco") / 2), hard = Math.floor(tortillas(g,"taco") / 2);
-        items.push({ title: "Tortillas", container: "foil + original box",
-          steps: ["Soft: " + soft + " — wrap in foil, warm before packing", "Crispy shells: " + hard + " — keep in original box", "3 per guest (half hard / half soft)", "⚠️ Bring TONGS"] });
-        items.push({ title: "Mexican Rice", container: p, steps: ["Pack in " + p, '⚠️ Bring 10" SPOON'] });
-        const bLabel = bean === "refried" ? "Refried Beans" : bean === "charro" ? "Charro Beans" : "Black Beans";
-        const bSteps = ["Pack in " + p];
-        if (bean === "black" || bean === "charro") bSteps.push("PLASTIC WRAP top before lid");
-        bSteps.push("⚠️ Bring " + ((bean === "black" || bean === "charro") ? "LADLE" : '10" SPOON'), "Label: " + bLabel.toUpperCase());
-        items.push({ title: bLabel, container: p, steps: bSteps });
-        items.push({ title: "Lettuce", container: tc, steps: ["Pack in " + tc + " — fluffier, needs more space", "⚠️ Bring TONGS"] });
-        items.push({ title: "Tomatoes (diced)", container: tc, steps: ["Pack in " + tc, "⚠️ Bring SMALL SPOON"] });
-        items.push({ title: "Shredded Cheese", container: tc, steps: ["Pack in " + tc, "⚠️ Bring SMALL SPOON"] });
-        items.push({ title: "Chips & Salsa", container: "white bag + round container",
-          steps: [chipBags(g) + " white bag(s) — 1 per 10 guests", "Salsa: " + salsaCont(g), "⚠️ Bring LADLE for salsa"] });
-        return items;
-      }
-    },
-    { id: "nacho_bar", name: "Nacho Bar",
-      description: "Chips, chile con queso, beans, salsa, tomatoes, lettuce, jalapeños, sour cream.",
-      hasSubChoices: true, selectCount: 1,
-      subChoices: [
-        { id: "nacho_chicken", name: "Salsa Chicken", emoji: "🍗" },
-        { id: "nacho_beef", name: "Seasoned Ground Beef", emoji: "🥩" },
-        { id: "nacho_both", name: "Both Chicken & Beef (+$2pp)", emoji: "🍗🥩" },
-        { id: "nacho_veggie", name: "Veggie (onions, peppers, portobello)", emoji: "🌿", veg: true },
-      ],
-      packaging: (g, choices) => {
-        const p = getPanSize(g), tc = getToppingCont(g), sc = getSideCont(g);
-        const items = [];
-        const isVeg = choices && choices.includes("nacho_veggie");
-        if (choices && choices.includes("nacho_both")) {
-          items.push({ title: "Salsa Chicken", container: p, steps: ["Pack in " + p, "Label: SALSA CHICKEN", '⚠️ Bring 10" SPOON'] });
-          items.push({ title: "Seasoned Ground Beef", container: p, steps: ["Pack in " + p, "Label: GROUND BEEF", '⚠️ Bring 10" SPOON'] });
-        } else if (isVeg) {
-          items.push({ title: "Veggie Mix", container: p, steps: ["Pack in " + p, "Label: VEGGIE", '⚠️ Bring 10" SPOON'] });
-        } else if (choices && choices.includes("nacho_chicken")) {
-          items.push({ title: "Salsa Chicken", container: p, steps: ["Pack in " + p, '⚠️ Bring 10" SPOON'] });
-        } else {
-          items.push({ title: "Seasoned Ground Beef", container: p, steps: ["Pack in " + p, '⚠️ Bring 10" SPOON'] });
-        }
-        items.push({ title: "Chile Con Queso", container: p, steps: ["Pack in " + p, "PLASTIC WRAP top before lid", "⚠️ Bring LADLE"] });
-        const bName = isVeg ? "Black Beans" : "Refried Beans";
-        const bSteps = ["Pack in " + p];
-        if (isVeg) bSteps.push("PLASTIC WRAP top before lid");
-        bSteps.push("⚠️ Bring " + (isVeg ? "LADLE" : '10" SPOON'));
-        items.push({ title: bName, container: p, steps: bSteps });
-        items.push({ title: "Lettuce", container: tc, steps: ["Pack in " + tc, "⚠️ Bring TONGS"] });
-        items.push({ title: "Tomatoes (diced)", container: tc, steps: ["Pack in " + tc, "⚠️ Bring SMALL SPOON"] });
-        items.push({ title: "Pickled Jalapeños", container: tc, steps: ["Pack in " + tc, "⚠️ Bring SMALL SPOON"] });
-        items.push({ title: "Sour Cream", container: sc, steps: ["Pack in " + sc + " round container", "⚠️ Bring SMALL SPOON"] });
-        items.push({ title: "Chips & Salsa", container: "white bag + round container",
-          steps: [chipBags(g) + " white bag(s) — 1 per 10 guests", "Salsa: " + salsaCont(g), "⚠️ Bring LADLE for salsa"] });
-        return items;
-      }
-    },
-  ]},
-  { category: "Fajitas", emoji: "🥩", items: [
-    { id: "fajita_chicken_steak", name: "Chicken & Steak Fajita Bar", popular: true,
-      description: "Chicken & steak. Flour tortillas, pico, sour cream, lettuce, cheese, guac, rice, beans, chips & salsa.",
-      beanChoices: [{id:"refried",name:"Refried Beans"},{id:"charro",name:"Charro Beans"},{id:"black",name:"Black Beans",veg:true}],
-      packaging: (g,_,b) => fajitaPacking(g,["Chicken","Steak"],b) },
-    { id: "fajita_chicken", name: "Chicken Fajita Bar",
-      description: "Chicken. Flour tortillas, pico, sour cream, lettuce, cheese, guac, rice, beans, chips & salsa.",
-      beanChoices: [{id:"refried",name:"Refried Beans"},{id:"charro",name:"Charro Beans"},{id:"black",name:"Black Beans",veg:true}],
-      packaging: (g,_,b) => fajitaPacking(g,["Chicken"],b) },
-    { id: "fajita_steak", name: "Steak Fajita Bar",
-      description: "Steak. Flour tortillas, pico, sour cream, lettuce, cheese, guac, rice, beans, chips & salsa.",
-      beanChoices: [{id:"refried",name:"Refried Beans"},{id:"charro",name:"Charro Beans"},{id:"black",name:"Black Beans",veg:true}],
-      packaging: (g,_,b) => fajitaPacking(g,["Steak"],b) },
-    { id: "fajita_shrimp", name: "Shrimp Fajita Bar",
-      description: "Shrimp. Flour tortillas, pico, sour cream, lettuce, cheese, guac, rice, beans, chips & salsa.",
-      beanChoices: [{id:"refried",name:"Refried Beans"},{id:"charro",name:"Charro Beans"},{id:"black",name:"Black Beans",veg:true}],
-      packaging: (g,_,b) => fajitaPacking(g,["Shrimp"],b) },
-    { id: "fajita_all3", name: "Steak, Chicken & Shrimp Fajita Bar",
-      description: "All three proteins. Flour tortillas, pico, sour cream, lettuce, cheese, guac, rice, beans, chips & salsa.",
-      beanChoices: [{id:"refried",name:"Refried Beans"},{id:"charro",name:"Charro Beans"},{id:"black",name:"Black Beans",veg:true}],
-      packaging: (g,_,b) => fajitaPacking(g,["Steak","Chicken","Shrimp"],b) },
-    { id: "fajita_veggie", name: "Veggie Fajita Bar", veg: true,
-      description: "Mixed vegetables. Flour tortillas, pico, sour cream, lettuce, cheese, guac, rice, beans, chips & salsa.",
-      beanChoices: [{id:"refried",name:"Refried Beans"},{id:"charro",name:"Charro Beans"},{id:"black",name:"Black Beans",veg:true}],
-      packaging: (g,_,b) => fajitaPacking(g,["Veggie Mix"],b) },
-  ]},
-  { category: "Salads", emoji: "🥗", items: [
-    { id: "house_salad", name: "House Salad", popular: true, veg: true,
-      description: "Serves 8–10. Mixed greens, tomatoes, avocados, cucumbers, cheese, onions, cilantro-lime ranch.",
-      packaging: () => [
-        { title: "House Salad", container: "full shallow pan",
-          steps: ["Pack in full shallow pan", "MAKE SALAD fresh — do NOT pre-dress", '⚠️ Bring TONGS + 10" SPOON (one of each)'] },
-        { title: "Cilantro Ranch Dressing", container: "12oz round container",
-          steps: ["Pack in 12oz round container", "⚠️ MAKE SURE TO CHECK dressing is included", "⚠️ Bring SMALL SPOON"] },
-      ]},
-    { id: "kale_salad", name: "Farmer's Kale Salad", veg: true,
-      description: "Serves 8–10. Chopped kale, avocado, cucumber, radishes, pickled onions, queso fresco, tortilla strips. Creamy oregano vinaigrette.",
-      packaging: () => [
-        { title: "Kale Salad", container: "full shallow pan",
-          steps: ["Pack in full shallow pan", "Keep tortilla strips SEPARATE — bag them so they stay crispy", "MAKE SALAD fresh — do NOT pre-dress", '⚠️ Bring TONGS + 10" SPOON'] },
-        { title: "Oregano Vinaigrette", container: "12oz round container",
-          steps: ["Pack in 12oz round container", "⚠️ MAKE SURE TO CHECK dressing is included", "⚠️ Bring SMALL SPOON"] },
-      ]},
-    { id: "mexican_chopped", name: "Mexican Chopped Salad",
-      description: "Serves 8–10. Mixed greens, grilled chicken, onions, tomatoes, black bean salsa, corn, queso fresco, tortilla strips. Mango vinaigrette.",
-      packaging: () => [
-        { title: "Mexican Chopped Salad", container: "full shallow pan",
-          steps: ["Pack in full shallow pan", "⚠️ ONLY salad that comes WITH chicken", "Keep tortilla strips SEPARATE in bag — stay crispy", "MAKE SALAD fresh — do NOT pre-dress", '⚠️ Bring TONGS + 10" SPOON'] },
-        { title: "Mango Vinaigrette", container: "12oz round container",
-          steps: ["Pack in 12oz round container", "⚠️ MAKE SURE TO CHECK dressing is included", "⚠️ Bring SMALL SPOON"] },
-      ]},
-  ]},
-  { category: "Sides", emoji: "🧀", items: [
-    { id: "chips_queso", name: "Chips & Regular Queso", popular: true, veg: true,
-      description: "Chips with chile con queso.",
-      packaging: (g) => [
-        { title: "Chile Con Queso", container: getPanSize(g), steps: ["Pack in " + getPanSize(g), "PLASTIC WRAP top before lid", "⚠️ Bring LADLE"] },
-        { title: "Chips", container: "white paper bag", steps: [chipBags(g) + " white paper bag(s) — 1 per 10 guests"] },
-      ]},
-    { id: "chips_spicy_queso", name: "Chips & Spicy Queso", veg: true, spicy: true,
-      description: "Chips with spicy queso.",
-      packaging: (g) => [
-        { title: "Spicy Queso", container: getPanSize(g), steps: ["Pack in " + getPanSize(g), "PLASTIC WRAP top before lid", "⚠️ Label lid: SPICY QUESO", "⚠️ Bring LADLE"] },
-        { title: "Chips", container: "white paper bag", steps: [chipBags(g) + " white paper bag(s)"] },
-      ]},
-    { id: "chips_guac", name: "Chips & Guacamole", veg: true,
-      description: "Chips with guacamole.",
-      packaging: (g) => [
-        { title: "Guacamole (morning-of)", container: getSideCont(g),
-          steps: ["Pack in " + getSideCont(g) + " round container", "Made morning-of — grab from kitchen", "Place cut limes on top", '⚠️ Bring 10" SPOON (side style)'] },
-        { title: "Chips", container: "white paper bag", steps: [chipBags(g) + " white paper bag(s)"] },
-      ]},
-    { id: "salsa_chips", name: "Extra Salsa w/ Chips", veg: true,
-      description: "Serves 10. Homemade salsa with chips.",
-      packaging: (g) => [
-        { title: "Salsa", container: "round container", steps: [salsaCont(g||10), "⚠️ Bring LADLE"] },
-        { title: "Chips", container: "white paper bag", steps: [chipBags(g||10) + " white paper bag(s)"] },
-      ]},
-    { id: "sour_cream_side", name: "Sour Cream (side)", veg: true,
-      description: "Min. 10 guests. Side of sour cream.",
-      packaging: (g) => [
-        { title: "Sour Cream", container: getSideCont(g),
-          steps: ["Pack in " + getSideCont(g) + " round container", "Label: SOUR CREAM", "⚠️ Bring SMALL SPOON"] },
-      ]},
-  ]},
-  { category: "Desserts", emoji: "🍩", items: [
-    { id: "sopapillas", name: "Sopapillas", popular: true,
-      description: "Serves 12. Deep-fried pastries in cinnamon sugar, served with honey.",
-      packaging: () => [
-        { title: "Sopapillas", container: "small dome",
-          steps: ["Pack in small dome", "Do NOT seal too tight — they'll get soggy", "⚠️ Bring TONGS", "⚠️ Deliver as fresh as possible"] },
-        { title: "Honey", container: "8oz container",
-          steps: ["Pack in 8oz container", "⚠️ Bring SMALL SPOON for honey"] },
-      ]},
-    { id: "brownies", name: "Double Fudge Brownies",
-      description: "Serves 12. Served with caramel and chocolate sauce.",
-      packaging: () => [
-        { title: "Brownies", container: "small dome", steps: ["Pack in small dome", "⚠️ Bring TONGS"] },
-        { title: "Chocolate Sauce", container: "5oz round container", steps: ["Pack in 5oz container", "⚠️ Bring SMALL SPOON"] },
-        { title: "Caramel Sauce", container: "5oz round container", steps: ["Pack in 5oz container", "⚠️ Bring SMALL SPOON"] },
-      ]},
-  ]},
-  { category: "Beverages", emoji: "🍹", items: [
-    { id: "sweet_tea", name: "Gallon Sweet Tea", popular: true,
-      description: "Serves 8. Black sweet tea.",
-      qty: true,
-      packaging: (g,_,__,qty) => [{ title: "Sweet Tea x" + (qty||1), container: "gallon jug(s)",
-        steps: [(qty||1) + " sealed gallon jug(s) — stand upright", "Label each: SWEET TEA", "⚠️ Bring cut lemons + sweeteners", "Ice: 1 bag per 2 gallons"] }]},
-    { id: "unsweet_tea", name: "Gallon Unsweet Tea",
-      description: "Serves 8. Black unsweetened tea.",
-      qty: true,
-      packaging: (g,_,__,qty) => [{ title: "Unsweet Tea x" + (qty||1), container: "gallon jug(s)",
-        steps: [(qty||1) + " sealed gallon jug(s) — stand upright", "Label each: UNSWEET TEA", "⚠️ Bring cut lemons + sweeteners", "Ice: 1 bag per 2 gallons"] }]},
-    { id: "pink_lemonade", name: "Gallon Pink Lemonade",
-      description: "Serves 8. Pink lemonade.",
-      qty: true,
-      packaging: (g,_,__,qty) => [{ title: "Pink Lemonade x" + (qty||1), container: "gallon jug(s)",
-        steps: [(qty||1) + " sealed gallon jug(s) — stand upright", "⚠️ Bring cut lemons", "Ice: 1 bag per 2 gallons"] }]},
-    { id: "peach_tea", name: "Gallon Peach Tea",
-      description: "Serves 8. Peach tea.",
-      qty: true,
-      packaging: (g,_,__,qty) => [{ title: "Peach Tea x" + (qty||1), container: "gallon jug(s)",
-        steps: [(qty||1) + " sealed gallon jug(s) — stand upright", "Label each: PEACH TEA", "⚠️ Bring cut lemons + sweeteners", "Ice: 1 bag per 2 gallons"] }]},
-  ]},
-];
-
-// ═══════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════
 // STATE
-// ═══════════════════════════════════════════════════════════
-const S = {
-  step: 1,
-  driverName: '',
-  guests: 0,
-  arrivalTime: '',
-  deliveryAddress: '',
-  driveMinutes: 0,
-  selected: {},    // id -> true
-  subChoices: {},  // id -> [choiceId, ...]
-  beanChoices: {}, // id -> beanId
-  itemQty: {},     // id -> number (for beverages)
+// ══════════════════════════════════════════════════
+const state = {
+  name:'', order:'', time:'', address:'',
+  leaveTime:'', travelInfo:'',
+  cart:[]
 };
 
-// ═══════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════
+// MENU DATA — from Google Sheet
+// Columns: name, hot/cold, portionPerPerson, pan, servingsPerPan, substitutions, includes, category
+// ══════════════════════════════════════════════════
+const MENU = [
+  {
+    cat: 'Appetizers',
+    icon: '🥑',
+    note: 'Mix & Match Apps: Each item = ½ portion when split. Serves 10 persons per app.',
+    items: [
+      {
+        id:'queso-reg', name:'Regular Queso', temp:'Hot', portion:'3 oz per person',
+        pan:'Full Pan — Hot Items — Main',
+        servings:{ full:100, half:35, third:null, container:'32oz Deli: 10 persons' },
+        includes:['Chips (Large White Bag — 20 persons/bag)', 'Pico de Gallo Garnish'],
+        subs:[],
+        setupItems:['Tongs 9" (Large)', 'Ladle', 'Wire Rack + Full Pan']
+      },
+      {
+        id:'queso-spicy', name:'Spicy Queso', temp:'Hot', portion:'3 oz per person',
+        pan:'Full Pan — Hot Items — Main',
+        servings:{ full:100, half:35, third:null, container:'32oz Deli: 10 persons' },
+        includes:['Chips (Large White Bag — 20 persons/bag)', 'Pico de Gallo Garnish'],
+        subs:[{id:'reg-swap', label:'Swap to Regular Queso'}],
+        setupItems:['Tongs 9" (Large)', 'Ladle', 'Wire Rack + Full Pan']
+      },
+      {
+        id:'avo-rolls', name:'Avocado Rolls', temp:'Hot', portion:'1 per 2 persons',
+        pan:'Full Pan — avocado side (120 rolls = 240 persons)',
+        servings:{ full:120, half:40, container:'N/A' },
+        includes:[],
+        subs:[],
+        setupItems:['Tongs 6" (Small)', 'Wire Rack + Full Pan']
+      },
+      {
+        id:'taquitos', name:'Brisket Taquitos', temp:'Hot', portion:'1 per 2 persons',
+        pan:'Full Pan — taquito side (45 taquitos = 90 persons)',
+        servings:{ full:45, half:null },
+        includes:[],
+        subs:[],
+        setupItems:['Tongs 6" (Small)', 'Wire Rack + Full Pan']
+      }
+    ]
+  },
+  {
+    cat: 'Taco Bar',
+    icon: '🌮',
+    note: 'Includes proteins, tortillas, rice, beans, and all toppings. Tortilla type selected below.',
+    items: [
+      {
+        id:'taco-bar', name:'Taco Bar', temp:'Hot', portion:'3 tacos per person',
+        pan:'Full Pan — proteins. Half Pan — each topping.',
+        servings:{ full_protein:100, half_topping:35 },
+        includes:[
+          'Ground Beef — Included / Main',
+          'Salsa Chicken — Included / Main',
+          'Mexican Rice — Included / Main (3 oz)',
+          'Charro Beans — Included / Main (3 oz)',
+          'Shredded Lettuce — Included / Side',
+          'Shredded Cheese — Included / Side',
+          'Pico de Gallo — Included / Side',
+          'Sour Cream — Included / Main (3 oz)',
+          'Chips & Salsa — Included / Main'
+        ],
+        subs:[
+          {id:'flour-sm', label:'Small Flour Tortillas'},
+          {id:'flour-lg', label:'Large Flour Tortillas'},
+          {id:'corn', label:'Corn Tortillas'},
+          {id:'hard-shell', label:'Hard Shell Tortillas'},
+          {id:'mixed-chicken-beef', label:'Mixed Salsa Chicken + Ground Beef'},
+          {id:'chicken-beef-upcharge', label:'Chicken & Beef +$3 Option'}
+        ],
+        setupItems:['Tongs 6" (Small) ×2', 'Ladle ×2', 'Serving Spoons ×4', 'Wire Rack + Full Pans', 'Half Pans for Toppings', 'Label Cards']
+      },
+      {
+        id:'veggie-fajitas', name:'Veggie Fajitas', temp:'Hot', portion:'5 oz per person',
+        pan:'Half Pan — Hot Items — Main (15 persons per pan)',
+        servings:{ half:15 },
+        includes:[
+          'Fire Roasted Veggies — Included / Main',
+          'Grilled Onions — Included / Main',
+          'Grilled Peppers — Included / Main',
+          'Tortillas — select type below',
+          'Sour Cream — Included / Side',
+          'Shredded Cheese — Included / Side'
+        ],
+        subs:[
+          {id:'vf-flour-sm', label:'Small Flour Tortillas (25 persons/pan)'},
+          {id:'vf-corn', label:'Corn Tortillas (15 persons/pan)'},
+          {id:'vf-hard', label:'Hard Shell Tortillas (10 persons/pan)'}
+        ],
+        setupItems:['Tongs 6" (Small)', 'Serving Spoon', 'Wire Rack + Half Pan']
+      }
+    ]
+  },
+  {
+    cat: 'Nacho Bar',
+    icon: '🧀',
+    note: 'Ground Beef: 100 persons/full pan. Salsa Chicken: 85 persons/full pan. Veggies: 75 persons/full pan.',
+    items: [
+      {
+        id:'nacho-bar', name:'Nacho Bar', temp:'Hot', portion:'Per person',
+        pan:'Full Pan — protein. Chips in Large White Bags (20 persons/bag). Queso in Full Pan.',
+        servings:{ full_beef:100, full_chicken:85, full_veggie:75 },
+        includes:[
+          'Ground Beef — Included / Main',
+          'Salsa Chicken — Included / Main',
+          'Regular Queso — Included / Main',
+          'Chips — Included / Main',
+          'Shredded Lettuce — Included / Side',
+          'Shredded Cheese — Included / Side',
+          'Pico de Gallo — Included / Side',
+          'Sour Cream — Included / Side',
+          'Pickled Jalapeños — Included / Side'
+        ],
+        subs:[
+          {id:'nacho-spicy-queso', label:'Spicy Queso'},
+          {id:'nacho-veggies', label:'Nacho Veggies (75 persons/pan)'},
+          {id:'nacho-mixed', label:'Mixed Salsa Chicken + Ground Beef'},
+          {id:'nacho-chicken-beef', label:'Chicken & Beef +$3 Option'}
+        ],
+        setupItems:['Tongs 9" (Large) for Chips', 'Ladle for Queso', 'Serving Spoons ×4', 'Wire Rack + Full Pans']
+      }
+    ]
+  },
+  {
+    cat: 'Burrito Bar',
+    icon: '🌯',
+    note: 'Full bar includes proteins, rice, beans, all toppings and tortillas.',
+    items: [
+      {
+        id:'burrito-bar', name:'Burrito Bar', temp:'Hot', portion:'Per person',
+        pan:'Full Pan — proteins (100 persons/pan). Half Pan — sides (35 persons/pan).',
+        servings:{ full:100, half:35 },
+        includes:[
+          'Ground Beef — Included / Main',
+          'Salsa Chicken — Included / Main',
+          'Mexican Rice — Included / Main (3 oz)',
+          'Charro Beans — Included / Main (3 oz)',
+          'Refried Beans — Included / Main',
+          'Shredded Lettuce — Included / Side',
+          'Shredded Cheese — Included / Side',
+          'Sour Cream — Included / Main (3 oz)',
+          'Pico de Gallo — Included / Side',
+          'Chips & Salsa — Included / Main'
+        ],
+        subs:[
+          {id:'bb-flour-lg', label:'Large Flour Tortillas'},
+          {id:'bb-flour-sm', label:'Small Flour Tortillas'},
+          {id:'bb-corn', label:'Corn Tortillas'},
+          {id:'bb-bowl', label:'Burrito Bowl (no tortilla)'},
+          {id:'bb-mixed', label:'Mixed Salsa Chicken + Ground Beef'},
+          {id:'bb-chicken-beef', label:'Chicken & Beef +$3 Option'},
+          {id:'bb-black-beans', label:'Black Beans'},
+          {id:'bb-charro', label:'Charro Beans'}
+        ],
+        setupItems:['Tongs 6" (Small) ×2', 'Ladle ×2', 'Serving Spoons ×4', 'Wire Rack + Full Pans', 'Foil Wrap Squares']
+      }
+    ]
+  },
+  {
+    cat: 'Salads',
+    icon: '🥗',
+    note: 'All salads come with dressing. Farmers Kale Salad comes tossed in default dressing; sub dressing comes on the side.',
+    items: [
+      {
+        id:'house-salad', name:'House Salad', temp:'Cold', portion:'Per person',
+        pan:'16 oz Clamshell Cold Items or Half Pan Cold Items',
+        servings:{ half_cold:35, clamshell_lettuce:5 },
+        includes:[
+          'Mixed Power Greens — Included / Main',
+          'Red Onions — Included / Main',
+          'Sliced Avocados — Included / Main',
+          'Shredded Cheese — Included / Side',
+          'Cubed Cucumber — Included / Main',
+          'Diced Tomato — Included / Side',
+          'Cilantro Ranch — Included / Main'
+        ],
+        subs:[
+          {id:'hs-mango', label:'Mango Vinaigrette'},
+          {id:'hs-oregano', label:'Oregano Vinaigrette'},
+          {id:'hs-chipotle', label:'Chipotle Ranch'}
+        ],
+        setupItems:['Tongs 6" (Small)', 'Serving Spoon', 'Dressing Cups']
+      },
+      {
+        id:'kale-salad', name:"Farmer's Kale Salad", temp:'Cold', portion:'Per person',
+        pan:'16 oz Clamshell Cold Items or Half Pan Cold Items',
+        servings:{ half_cold:35 },
+        includes:[
+          'Kale Greens — Main',
+          'Radish — Included / Main',
+          'Cubed Avocado — Included / Main',
+          'Shredded Cheese — Included / Side',
+          'Cubed Cucumber — Included / Main',
+          'Pickled Onions — Included / Main',
+          'Oregano Vinaigrette — Included / Main (tossed)'
+        ],
+        subs:[
+          {id:'ks-mango', label:'Mango Vinaigrette (served on side)'},
+          {id:'ks-cilantro', label:'Cilantro Ranch (served on side)'},
+          {id:'ks-chipotle', label:'Chipotle Ranch (served on side)'},
+          {id:'ks-mixed', label:'Mixed Greens Add-on'}
+        ],
+        setupItems:['Tongs 6" (Small)', 'Serving Spoon', 'Dressing Cups']
+      },
+      {
+        id:'mexican-chopped', name:'Mexican Chopped Salad', temp:'Cold', portion:'Per person',
+        pan:'16 oz Clamshell Cold Items or Half Pan Cold Items',
+        servings:{ half_cold:35 },
+        includes:[
+          'Mixed Power Greens — Included / Main',
+          'Salsa Chicken — Included / Main (only salad with chicken)',
+          'Cubed Avocado — Included / Main',
+          'Shredded Cheese — Included / Side',
+          'Pickled Onions — Included / Main',
+          'Diced Tomato — Included / Side',
+          'Cilantro Ranch — Included / Main'
+        ],
+        subs:[
+          {id:'mc-oregano', label:'Oregano Vinaigrette'},
+          {id:'mc-mango', label:'Mango Vinaigrette'},
+          {id:'mc-chipotle', label:'Chipotle Ranch'}
+        ],
+        setupItems:['Tongs 6" (Small)', 'Serving Spoon', 'Dressing Cups']
+      }
+    ]
+  },
+  {
+    cat: 'Buffets',
+    icon: '🍽',
+    note: 'Full spread buffet. Includes proteins, all sides, toppings and beverages.',
+    items: [
+      {
+        id:'buffet', name:'Buffet Spread', temp:'Hot', portion:'Per person',
+        pan:'Full Pans — proteins (100 persons). Half Pans — sides (35 persons). Cold items in Clamshells.',
+        servings:{ full:100, half:35, half_cold:35 },
+        includes:[
+          'Ground Beef — Add-on / Side',
+          'Salsa Chicken — Add-on / Side',
+          'Fire Roasted Veggies — Add-on / Side',
+          'Mexican Rice — Included / Main',
+          'Charro Beans / Black Beans — Included / Main',
+          'Refried Beans — Included / Main',
+          'Shredded Lettuce — Add-on / Main',
+          'Sour Cream — Add-on / Main',
+          'Chips — Included / Main',
+          'Salsa — Add-on / Side'
+        ],
+        subs:[
+          {id:'buf-grilled-shrimp', label:'Grilled Shrimp +$$ (3 ea per person)'},
+          {id:'buf-veggies', label:'Fire Roasted Veggies'},
+          {id:'buf-mild-salsa', label:'Mild Salsa'},
+          {id:'buf-chicken-beef', label:'Chicken & Beef +$3 Option'}
+        ],
+        setupItems:['Tongs 9" (Large)', 'Tongs 6" (Small) ×2', 'Ladles ×2', 'Serving Spoons ×6', 'Wire Racks', 'Full Pans + Half Pans', 'Label Cards', 'Gallon of Water per 5 Full Pans']
+      }
+    ]
+  },
+  {
+    cat: 'Beverages',
+    icon: '🥤',
+    note: 'Fill plastic gallon jugs to the top. Include correct label sticker on front-facing side.',
+    items: [
+      {
+        id:'sweet-tea', name:'Gallon Sweet Tea', temp:'Cold', portion:'Per gallon',
+        pan:'Plastic Gallon Jug — fill to top. Include sticker.',
+        servings:{ gallon:'~16 persons per gallon' },
+        includes:['Ice — Included / Main', 'Plastic Cups — Included'],
+        subs:[],
+        setupItems:['Plastic Gallon Jug', 'Correct Label Sticker', 'Large Plastic Bag of Ice (16 persons/bag = 2 gallons)']
+      },
+      {
+        id:'unsweet-tea', name:'Gallon Unsweet Tea', temp:'Cold', portion:'Per gallon',
+        pan:'Plastic Gallon Jug — fill to top. Include sticker.',
+        servings:{ gallon:'~16 persons per gallon' },
+        includes:['Ice — Included / Main', 'Plastic Cups — Included'],
+        subs:[],
+        setupItems:['Plastic Gallon Jug', 'Correct Label Sticker', 'Large Plastic Bag of Ice']
+      },
+      {
+        id:'pink-lemonade', name:'Gallon Pink Lemonade', temp:'Cold', portion:'Per gallon',
+        pan:'Plastic Gallon Jug — fill to top. Include sticker.',
+        servings:{ gallon:'~16 persons per gallon' },
+        includes:['Ice — Included / Main'],
+        subs:[],
+        setupItems:['Plastic Gallon Jug', 'Correct Label Sticker', 'Large Plastic Bag of Ice']
+      },
+      {
+        id:'peach-tea', name:'Gallon Peach Tea', temp:'Cold', portion:'Per gallon',
+        pan:'Plastic Gallon Jug — fill to top. Include sticker.',
+        servings:{ gallon:'~16 persons per gallon' },
+        includes:['Ice — Included / Main'],
+        subs:[],
+        setupItems:['Plastic Gallon Jug', 'Correct Label Sticker', 'Large Plastic Bag of Ice']
+      }
+    ]
+  },
+  {
+    cat: 'Desserts & Extras',
+    icon: '🍰',
+    note: 'Sopapillas & Brownies: 50 persons per pan. Serve in 12 Inch Cake Pan.',
+    items: [
+      {
+        id:'sopapillas', name:'Sopapillas', temp:'Hot', portion:'Per person',
+        pan:'12 Inch Cake Pan — 24 persons per container. Full Pan: 50 persons.',
+        servings:{ full:50, cake_pan:24 },
+        includes:[],
+        subs:[],
+        setupItems:['Tongs 9" (Large)', '12 Inch Cake Pan', 'Wire Rack']
+      },
+      {
+        id:'brownies', name:'Brownies', temp:'Hot/Room Temp', portion:'Per person',
+        pan:'12 Inch Cake Pan — 24 persons per container. Full Pan: 50 persons.',
+        servings:{ full:50, cake_pan:24 },
+        includes:[],
+        subs:[],
+        setupItems:['Tongs 9" (Large)', '12 Inch Cake Pan']
+      },
+      {
+        id:'grilled-shrimp', name:'Grilled Shrimp', temp:'Hot', portion:'3 ea per person (main) / 1 ea add-on',
+        pan:'Full Pan — Hot Items',
+        servings:{ full:100 },
+        includes:[],
+        subs:[],
+        setupItems:['Tongs 6" (Small)', 'Wire Rack + Full Pan']
+      }
+    ]
+  }
+];
+
+// ══════════════════════════════════════════════════
 // NAVIGATION
-// ═══════════════════════════════════════════════════════════
-function goToStep(n) {
-  // Validate step 1
-  if (n > 1) {
-    S.driverName = document.getElementById('driverName').value.trim();
-    S.guests = parseInt(document.getElementById('guestCount').value) || 0;
-    S.arrivalTime = document.getElementById('arrivalTime').value;
-    S.deliveryAddress = document.getElementById('deliveryAddress').value.trim();
-    if (!S.driverName) { showToast('⚠️ Enter driver name'); document.getElementById('driverName').focus(); return; }
-    if (!S.guests) { showToast('⚠️ Enter guest count'); document.getElementById('guestCount').focus(); return; }
-    if (!S.arrivalTime) { showToast('⚠️ Enter arrival time'); document.getElementById('arrivalTime').focus(); return; }
-    if (!S.deliveryAddress) { showToast('⚠️ Enter delivery address'); document.getElementById('deliveryAddress').focus(); return; }
-  }
-  // Validate step 2
-  if (n > 2) {
-    const sel = Object.keys(S.selected);
-    if (sel.length === 0) { showToast('⚠️ Select at least one item'); return; }
-    buildPackingGuide();
-    buildPackingSummary();
-  }
-  // Show correct screen
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('screen-' + n).classList.add('slide-in');
-  document.getElementById('screen-' + n).classList.add('active');
-  S.step = n;
-  updateProgress();
-  // Cart bar
-  document.getElementById('cartBar').classList.toggle('hidden', n !== 2);
-  // Scroll top
+// ══════════════════════════════════════════════════
+function goPage(n) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('pg' + n).classList.add('active');
+  ['s1','s2','s3'].forEach((id, i) => {
+    const el = document.getElementById(id);
+    el.classList.remove('active','done');
+    if (i + 1 < n) el.classList.add('done');
+    else if (i + 1 === n) el.classList.add('active');
+  });
   window.scrollTo({ top: 0, behavior: 'smooth' });
-  // Build driver checklist on step 4
-  if (n === 4) buildDriverChecklist();
-  // Build summary on step 5
-  if (n === 5) buildSummaryCard();
 }
 
-function updateProgress() {
-  for (let i = 1; i <= 5; i++) {
-    const dot = document.getElementById('dot-' + i);
-    const lbl = document.getElementById('lbl-' + i);
-    dot.className = 'step-dot' + (i < S.step ? ' done' : i === S.step ? ' active' : '');
-    dot.textContent = i < S.step ? '✓' : i;
-    lbl.className = 'step-label' + (i < S.step ? ' done' : i === S.step ? ' active' : '');
-    if (i < 5) {
-      const line = document.getElementById('line-' + i);
-      line.className = 'step-line' + (i < S.step ? ' done' : '');
-    }
-  }
+function goPage2() {
+  const name  = document.getElementById('fName').value.trim();
+  const order = document.getElementById('fOrder').value.trim();
+  const time  = document.getElementById('fTime').value;
+  const addr  = document.getElementById('fAddr').value.trim();
+  if (!name)  { alert('Please enter your name.'); return; }
+  if (!order) { alert('Please enter the order name.'); return; }
+  if (!time)  { alert('Please enter arrival time.'); return; }
+  if (!addr)  { alert('Please enter delivery address.'); return; }
+  state.name = name; state.order = order;
+  state.time = time; state.address = addr;
+  buildMenu();
+  goPage(2);
 }
 
-// ═══════════════════════════════════════════════════════════
-// DRIVE TIME CALCULATOR
-// ═══════════════════════════════════════════════════════════
-async function calcDriveTime() {
-  const addr = document.getElementById('deliveryAddress').value.trim();
-  const arrTime = document.getElementById('arrivalTime').value;
-  if (!addr) { showToast('⚠️ Enter delivery address first'); return; }
-
-  const btn = document.getElementById('driveTimeBtn');
-  btn.innerHTML = '<span class="spinner"></span> Calculating...';
-
-  try {
-    // Use OSRM (free, no API key) for routing via geocoding + routing
-    // Step 1: Geocode destination with Nominatim
-    const geoUrl = 'https://nominatim.openstreetmap.org/search?q=' + encodeURIComponent(addr) + '&format=json&limit=1';
-    const geoRes = await fetch(geoUrl, { headers: { 'Accept-Language': 'en' } });
-    const geoData = await geoRes.json();
-    
-    if (!geoData.length) {
-      showToast('❌ Could not find that address');
-      btn.textContent = '🗺️ Calculate Drive Time';
-      return;
-    }
-    const dest = { lat: parseFloat(geoData[0].lat), lng: parseFloat(geoData[0].lon) };
-    
-    // Step 2: OSRM routing
-    const osrmUrl = 'https://router.project-osrm.org/route/v1/driving/' +
-      STORE_COORDS.lng + ',' + STORE_COORDS.lat + ';' + dest.lng + ',' + dest.lat +
-      '?overview=false';
-    const routeRes = await fetch(osrmUrl);
-    const routeData = await routeRes.json();
-    
-    if (routeData.code !== 'Ok') throw new Error('Route not found');
-    
-    const durationSecs = routeData.routes[0].duration;
-    const distMeters = routeData.routes[0].distance;
-    const driveMin = Math.ceil(durationSecs / 60);
-    const distMiles = (distMeters * 0.000621371).toFixed(1);
-    S.driveMinutes = driveMin;
-    
-    // Calculate leave time (arrival - drive - 5 min buffer)
-    let leaveMin = null, leaveStr = '--', arriveStr = '--';
-    if (arrTime) {
-      const [h, m] = arrTime.split(':').map(Number);
-      const arrTotalMin = h * 60 + m;
-      const leaveTotalMin = arrTotalMin - driveMin - 5;
-      const leaveH = Math.floor(((leaveTotalMin % (24*60)) + 24*60) % (24*60) / 60);
-      const leaveM = ((leaveTotalMin % 60) + 60) % 60;
-      leaveStr = fmt12(leaveH, leaveM);
-      arriveStr = fmt12(h, m);
-    }
-    
-    document.getElementById('drDist').textContent = distMiles + ' miles';
-    document.getElementById('drTime').textContent = driveMin + ' min';
-    document.getElementById('drLeave').textContent = leaveStr;
-    document.getElementById('drArrive').textContent = arriveStr;
-    document.getElementById('driveResult').classList.add('show');
-    btn.textContent = '✅ Drive Time Calculated';
-    showToast('🚗 ' + distMiles + ' miles • ' + driveMin + ' min drive');
-  } catch(e) {
-    btn.textContent = '🗺️ Calculate Drive Time';
-    showToast('❌ Could not calculate. Try again.');
-  }
+function goPage3() {
+  if (state.cart.length === 0) { alert('Please add at least one item.'); return; }
+  buildSummary();
+  goPage(3);
 }
 
-function fmt12(h, m) {
-  const ampm = h >= 12 ? 'PM' : 'AM';
-  const h12 = h % 12 || 12;
-  return h12 + ':' + String(m).padStart(2,'0') + ' ' + ampm;
-}
+// ══════════════════════════════════════════════════
+// TRAVEL TIME
+// ══════════════════════════════════════════════════
+function calcTravel() {
+  const addr = document.getElementById('fAddr').value.trim();
+  const time = document.getElementById('fTime').value;
+  if (!addr) { alert('Enter delivery address first.'); return; }
+  if (!time) { alert('Enter arrival time first.'); return; }
 
-// ═══════════════════════════════════════════════════════════
-// MENU RENDER
-// ═══════════════════════════════════════════════════════════
-function renderMenu() {
-  const container = document.getElementById('menuContainer');
-  container.innerHTML = '';
-  MENU.forEach(cat => {
-    const sec = document.createElement('div');
-    sec.className = 'category-section fade-in';
-    sec.innerHTML = '<div class="category-label">' + cat.emoji + ' ' + cat.category + '</div>';
-    cat.items.forEach(item => {
-      sec.appendChild(buildItemCard(item));
+  const box = document.getElementById('travelBox');
+  const leaveEl = document.getElementById('leaveTime');
+  const detailEl = document.getElementById('travelDetail');
+  box.classList.add('show');
+  leaveEl.textContent = '…';
+  detailEl.textContent = 'Calculating with live traffic…';
+
+  const STORE = '3338 Cobb Pkwy NW, Acworth, GA 30101';
+  const KEY = 'YOUR_GOOGLE_MAPS_API_KEY'; // ← insert key here
+
+  const [h, m] = time.split(':').map(Number);
+  const arrDate = new Date();
+  arrDate.setHours(h, m, 0, 0);
+  if (arrDate < new Date()) arrDate.setDate(arrDate.getDate() + 1);
+
+  const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${encodeURIComponent(STORE)}&destinations=${encodeURIComponent(addr)}&departure_time=now&traffic_model=best_guess&key=${KEY}`;
+
+  fetch(url)
+    .then(r => r.json())
+    .then(data => {
+      const el = data.rows[0].elements[0];
+      if (el.status !== 'OK') throw new Error('Route error');
+      const secs = (el.duration_in_traffic || el.duration).value;
+      const bufferSecs = 5 * 60;
+      const leaveMs = arrDate.getTime() - (secs + bufferSecs) * 1000;
+      const leaveDate = new Date(leaveMs);
+      const leaveStr = leaveDate.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+      const distText = el.distance.text;
+      const durText  = (el.duration_in_traffic || el.duration).text;
+      leaveEl.textContent = leaveStr;
+      detailEl.textContent = `${distText} · ~${durText} with traffic`;
+      state.leaveTime = leaveStr;
+      state.travelInfo = `${distText}, ~${durText}`;
+    })
+    .catch(() => {
+      // Fallback — use Google Maps link
+      const mapsUrl = `https://www.google.com/maps/dir/${encodeURIComponent(STORE)}/${encodeURIComponent(addr)}`;
+      leaveEl.textContent = 'Check Maps';
+      detailEl.innerHTML = `<a href="${mapsUrl}" target="_blank" style="color:var(--green);font-weight:700">Open in Google Maps →</a><br><small>Add your Maps API key in the code for auto-calculation.</small>`;
     });
-    container.appendChild(sec);
-  });
-  // Event delegation for sub-choice and bean buttons
-  container.addEventListener('click', function(e) {
-    const subBtn = e.target.closest('.sub-choice-btn[data-cid]');
-    const beanBtn = e.target.closest('.sub-choice-btn[data-bid]');
-    if (subBtn) {
-      e.stopPropagation();
-      const itemId = subBtn.dataset.item;
-      const cid = subBtn.dataset.cid;
-      const limit = parseInt(subBtn.dataset.limit) || 1;
-      if (!S.subChoices[itemId]) S.subChoices[itemId] = [];
-      const arr = S.subChoices[itemId];
-      const idx = arr.indexOf(cid);
-      if (idx >= 0) { arr.splice(idx, 1); subBtn.classList.remove('picked'); }
-      else {
-        if (arr.length >= limit) {
-          const oldId = arr.shift();
-          container.querySelector('[data-item="'+itemId+'"][data-cid="'+oldId+'"]')?.classList.remove('picked');
-        }
-        arr.push(cid); subBtn.classList.add('picked');
-      }
-    } else if (beanBtn) {
-      e.stopPropagation();
-      const itemId = beanBtn.dataset.item;
-      S.beanChoices[itemId] = beanBtn.dataset.bid;
-      container.querySelectorAll('[data-item="'+itemId+'"][data-bid]').forEach(b => b.classList.remove('picked'));
-      beanBtn.classList.add('picked');
-    }
-  });
 }
 
-function buildItemCard(item) {
-  const div = document.createElement('div');
-  div.className = 'item-card' + (S.selected[item.id] ? ' selected' : '');
-  div.dataset.id = item.id;
-
-  const tags = [];
-  if (item.popular) tags.push('<span class="tag tag-pop">⭐ Popular</span>');
-  if (item.veg) tags.push('<span class="tag tag-veg">🌿 Veg</span>');
-  if (item.spicy) tags.push('<span class="tag tag-spicy">🌶️ Spicy</span>');
-
-  let subHTML = '';
-  if (item.hasSubChoices) {
-    const label = item.selectCount > 1 ? 'Choose ' + item.selectCount + ':' : 'Choose protein:';
-    const btns = item.subChoices.map(c =>
-      '<button class="sub-choice-btn' + ((S.subChoices[item.id]||[]).includes(c.id) ? ' picked' : '') + '" data-cid="' + c.id + '" data-item="' + item.id + '" data-limit="' + (item.selectCount||1) + '">' +
-      '<span class="pick-dot"></span>' + (c.emoji ? c.emoji + ' ' : '') + c.name + (c.veg ? ' 🌿' : '') + '</button>'
-    ).join('');
-    subHTML += '<div class="sub-choices-panel"><div class="sub-choice-label">' + label + '</div><div class="sub-choice-list">' + btns + '</div></div>';
-  }
-  if (item.beanChoices) {
-    const btns = item.beanChoices.map(c =>
-      '<button class="sub-choice-btn' + (S.beanChoices[item.id] === c.id ? ' picked' : '') + '" data-item="' + item.id + '" data-bid="' + c.id + '">' +
-      '<span class="pick-dot"></span>' + c.name + '</button>'
-    ).join('');
-    subHTML += '<div class="sub-choices-panel"><div class="sub-choice-label">Choose beans:</div><div class="sub-choice-list">' + btns + '</div></div>';
-  }
-  // Quantity for beverages
-  let qtyHTML = '';
-  if (item.qty) {
-    const qty = S.itemQty[item.id] || 1;
-    qtyHTML = '<div class="sub-choices-panel"><div class="qty-row"><span class="qty-label">How many gallons?</span><div class="qty-controls">' +
-      '<button class="qty-btn" onclick="changeQty(event,'' + item.id + '',-1)">−</button>' +
-      '<span class="qty-val" id="qty-' + item.id + '">' + qty + '</span>' +
-      '<button class="qty-btn" onclick="changeQty(event,'' + item.id + '',1)">+</button>' +
-      '</div></div></div>';
-  }
-
-  div.innerHTML =
-    '<div class="item-card-header">' +
-      '<div><div class="item-card-name">' + item.name + '</div>' +
-      '<div class="item-card-desc">' + item.description + '</div>' +
-      (tags.length ? '<div class="item-tags">' + tags.join('') + '</div>' : '') + '</div>' +
-      '<div class="item-check">✓</div>' +
-    '</div>' + subHTML + qtyHTML;
-
-  div.addEventListener('click', (e) => {
-    if (e.target.closest('.sub-choices-panel')) return;
-    toggleItem(item, div);
-  });
-
-  return div;
-}
-
-function toggleItem(item, div) {
-  if (S.selected[item.id]) {
-    delete S.selected[item.id];
-    div.classList.remove('selected');
-  } else {
-    S.selected[item.id] = true;
-    div.classList.add('selected');
-    // Auto-select first bean
-    if (item.beanChoices && !S.beanChoices[item.id]) {
-      S.beanChoices[item.id] = item.beanChoices[0].id;
-      div.querySelectorAll('.sub-choice-btn')[0]?.classList.add('picked');
-    }
-    // Init qty
-    if (item.qty && !S.itemQty[item.id]) S.itemQty[item.id] = 1;
-  }
-  updateCartBar();
-}
-
-function pickSub(e, itemId, choiceId, limit) {
-  e.stopPropagation();
-  if (!S.subChoices[itemId]) S.subChoices[itemId] = [];
-  const arr = S.subChoices[itemId];
-  const idx = arr.indexOf(choiceId);
-  const btn = e.currentTarget;
-  if (idx >= 0) {
-    arr.splice(idx, 1);
-    btn.classList.remove('picked');
-  } else {
-    if (arr.length >= limit) {
-      const oldId = arr.shift();
-      document.querySelector('[data-id="' + itemId + '"] [data-cid="' + oldId + '"]')?.classList.remove('picked');
-    }
-    arr.push(choiceId);
-    btn.classList.add('picked');
-  }
-}
-
-function pickBean(e, itemId, beanId) {
-  e.stopPropagation();
-  S.beanChoices[itemId] = beanId;
-  const card = document.querySelector('[data-id="' + itemId + '"]');
-  card?.querySelectorAll('.bean-choice-item, .sub-choice-btn[onclick*="pickBean"]').forEach(b => b.classList.remove('picked'));
-  e.currentTarget.classList.add('picked');
-}
-
-function changeQty(e, itemId, delta) {
-  e.stopPropagation();
-  S.itemQty[itemId] = Math.max(1, (S.itemQty[itemId] || 1) + delta);
-  const el = document.getElementById('qty-' + itemId);
-  if (el) el.textContent = S.itemQty[itemId];
-}
-
-function updateCartBar() {
-  const count = Object.keys(S.selected).length;
-  document.getElementById('cartCount').textContent = count;
-  document.getElementById('cartLabel').textContent = count + ' item' + (count !== 1 ? 's' : '') + ' selected';
-  document.getElementById('cartGuests').textContent = S.guests ? 'For ' + S.guests + ' guests' : 'Enter guest count in step 1';
-}
-
-// ═══════════════════════════════════════════════════════════
-// PACKING GUIDE BUILDER
-// ═══════════════════════════════════════════════════════════
-function buildPackingGuide() {
-  const g = S.guests;
-  const container = document.getElementById('packingContainer');
-  container.innerHTML = '';
-  let stepNum = 1;
-
-  // Gather all items in order
-  MENU.forEach(cat => {
-    cat.items.forEach(item => {
-      if (!S.selected[item.id]) return;
-      const choices = S.subChoices[item.id] || [];
-      const bean = S.beanChoices[item.id] || (item.beanChoices ? item.beanChoices[0].id : null);
-      const qty = S.itemQty[item.id] || 1;
-      const packItems = item.packaging(g, choices, bean, qty);
-
-      packItems.forEach(pi => {
-        if (!pi.title || pi.steps.length === 0) return;
-        const sec = document.createElement('div');
-        sec.className = 'pack-section fade-in';
-
-        const stepsHTML = pi.steps.map(s => {
-          const isWarn = s.startsWith('⚠️');
-          const icon = isWarn ? '⚠️' : '📦';
-          return '<div class="pack-step ' + (isWarn ? 'warning' : '') + '">' +
-            '<div class="pack-step-icon">' + icon + '</div>' +
-            '<div class="pack-step-text">' + s + '</div>' +
-          '</div>';
-        }).join('');
-
-        sec.innerHTML =
-          '<div class="pack-section-title">' +
-            '<span class="pack-num">' + stepNum + '</span>' +
-            pi.title +
-            (pi.container ? '<span class="container-chip" style="margin-left:auto;font-size:0.65rem">' + pi.container + '</span>' : '') +
-          '</div>' +
-          '<div class="pack-steps">' + stepsHTML + '</div>';
-
-        container.appendChild(sec);
-        stepNum++;
-      });
-    });
-  });
-
-  if (stepNum === 1) {
-    container.innerHTML = '<div class="card" style="text-align:center;color:#888;padding:40px">No items selected</div>';
-  }
-}
-
-function buildPackingSummary() {
-  const g = S.guests;
-  const container = document.getElementById('packingSummaryContainer');
-  container.innerHTML = '';
-  let stepNum = 1;
-
-  MENU.forEach(cat => {
-    cat.items.forEach(item => {
-      if (!S.selected[item.id]) return;
-      const choices = S.subChoices[item.id] || [];
-      const bean = S.beanChoices[item.id] || (item.beanChoices ? item.beanChoices[0].id : null);
-      const qty = S.itemQty[item.id] || 1;
-      const packItems = item.packaging(g, choices, bean, qty);
-
-      packItems.forEach(pi => {
-        if (!pi.title || pi.steps.length === 0) return;
-        const sec = document.createElement('div');
-        sec.className = 'pack-section fade-in';
-
-        const stepsHTML = pi.steps.map(s => {
-          const isWarn = s.startsWith('⚠️');
-          const icon = isWarn ? '⚠️' : '📦';
-          return '<div class="pack-step ' + (isWarn ? 'warning' : '') + '">' +
-            '<div class="pack-step-icon">' + icon + '</div>' +
-            '<div class="pack-step-text">' + s + '</div>' +
-          '</div>';
-        }).join('');
-
-        sec.innerHTML =
-          '<div class="pack-section-title">' +
-            '<span class="pack-num">' + stepNum + '</span>' +
-            pi.title +
-            (pi.container ? '<span class="container-chip" style="margin-left:auto;font-size:0.65rem">' + pi.container + '</span>' : '') +
-          '</div>' +
-          '<div class="pack-steps">' + stepsHTML + '</div>';
-
-        container.appendChild(sec);
-        stepNum++;
-      });
-    });
+// ══════════════════════════════════════════════════
+// BUILD MENU ACCORDION
+// ══════════════════════════════════════════════════
+function buildMenu() {
+  const wrap = document.getElementById('menuWrap');
+  wrap.innerHTML = '';
+  MENU.forEach((cat, ci) => {
+    const block = document.createElement('div');
+    block.className = 'cat-block';
+    block.innerHTML = `
+      <div class="cat-header" onclick="toggleCat(${ci})">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:1.1rem">${cat.icon}</span>
+          <span class="cat-title">${cat.cat}</span>
+        </div>
+        <div style="display:flex;align-items:center">
+          <span class="cat-badge" id="badge${ci}">0</span>
+          <svg class="cat-chev" id="chev${ci}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+      <div class="cat-body" id="catbody${ci}">
+        ${cat.note ? `<div style="padding:10px 15px 0;"><div class="included-note">${cat.note}</div></div>` : ''}
+        ${cat.items.map((item, ii) => buildItemHTML(item, ci, ii)).join('')}
+      </div>
+    `;
+    wrap.appendChild(block);
   });
 }
 
-// ═══════════════════════════════════════════════════════════
-// DRIVER CHECKLIST
-// ═══════════════════════════════════════════════════════════
-function buildDriverChecklist() {
-  buildCheckList('alwaysList', ALWAYS_BRING, 'always', 'alwaysProgress');
-  buildCheckList('condList', COND_BRING, 'cond', 'condProgress');
+function buildItemHTML(item, ci, ii) {
+  const tempClass = item.temp === 'Hot' ? 'item-hot' : 'item-cold';
+  const includesHTML = item.includes.length > 0 ? `
+    <div class="included-note" style="margin-top:8px;font-size:0.72rem">
+      <strong>Includes:</strong> ${item.includes.slice(0,5).join(' · ')}${item.includes.length > 5 ? ` · +${item.includes.length - 5} more` : ''}
+    </div>` : '';
+  const subsHTML = item.subs.length > 0 ? `
+    <button class="sub-btn" onclick="toggleSub('sub_${ci}_${ii}')">⚡ Substitutions</button>
+    <div class="sub-panel" id="sub_${ci}_${ii}">
+      <div class="sub-panel-title">Choose substitution:</div>
+      ${item.subs.map(s => `
+        <label class="sub-option">
+          <input type="radio" name="subr_${item.id}" value="${s.id}"/> ${s.label}
+        </label>`).join('')}
+    </div>` : '';
+
+  return `
+    <div class="menu-item" id="mitem_${item.id}">
+      <div class="item-name">${item.name}</div>
+      <div class="item-meta">
+        <span class="${tempClass}">${item.temp}</span> · ${item.portion}
+        · <em style="color:var(--muted)">${item.pan.split('—')[0].trim()}</em>
+      </div>
+      ${includesHTML}
+      ${subsHTML}
+      <div class="item-controls" style="margin-top:10px">
+        <div class="qty-wrap">
+          <input class="qty-input" type="number" id="qty_${item.id}" min="1" placeholder="0"/>
+          <span class="qty-unit">persons</span>
+        </div>
+        <button class="add-btn" onclick="addItem('${item.id}',${ci})">+ Add</button>
+        <span class="added-badge" id="abadge_${item.id}">✓ Added</span>
+      </div>
+    </div>`;
 }
 
-function buildCheckList(listId, items, prefix, progressId) {
-  const ul = document.getElementById(listId);
-  if (ul.children.length > 0) return; // already built
-  items.forEach((item, i) => {
-    const li = document.createElement('li');
-    li.className = 'driver-check-item';
-    li.dataset.id = prefix + i;
-    li.innerHTML =
-      '<div class="dcheck"></div>' +
-      '<div class="dcheck-body"><div class="dcheck-name">' + item.item + '</div>' +
-      '<div class="dcheck-note">' + item.note + '</div></div>';
-    li.addEventListener('click', () => {
-      li.classList.toggle('checked');
-      if (li.classList.contains('checked')) li.querySelector('.dcheck').textContent = '✓';
-      else li.querySelector('.dcheck').textContent = '';
-      updateCheckProgress(listId, progressId, items.length);
-    });
-    ul.appendChild(li);
+function toggleCat(ci) {
+  const body = document.getElementById('catbody' + ci);
+  const chev = document.getElementById('chev' + ci);
+  body.classList.toggle('open');
+  chev.classList.toggle('open');
+}
+
+function toggleSub(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+// ══════════════════════════════════════════════════
+// CART LOGIC
+// ══════════════════════════════════════════════════
+function findItem(id) {
+  for (const cat of MENU) {
+    const found = cat.items.find(i => i.id === id);
+    if (found) return found;
+  }
+  return null;
+}
+
+function calcPans(item, qty) {
+  const s = item.servings;
+  let lines = [];
+
+  // Generic pan calculation helper
+  const pansNeeded = (capacity, label) => {
+    if (!capacity) return null;
+    const full = Math.floor(qty / capacity);
+    const rem  = qty % capacity;
+    let txt = '';
+    if (full > 0) txt += `${full} Full Pan${full>1?'s':''} of ${label}`;
+    if (rem > 0)  txt += (txt ? ' + ' : '') + `1 partial Full Pan (${rem} persons worth)`;
+    return txt || `1 Full Pan of ${label}`;
+  };
+
+  if (s.full)          lines.push(pansNeeded(s.full, item.name));
+  if (s.full_protein)  lines.push(pansNeeded(s.full_protein, 'Protein'));
+  if (s.full_beef)     lines.push(pansNeeded(s.full_beef, 'Ground Beef'));
+  if (s.full_chicken)  lines.push(pansNeeded(s.full_chicken, 'Salsa Chicken'));
+  if (s.full_veggie)   lines.push(pansNeeded(s.full_veggie, 'Nacho Veggies'));
+  if (s.half)          lines.push(`${Math.ceil(qty / s.half)} Half Pan${Math.ceil(qty/s.half)>1?'s':''} (${s.half} persons each)`);
+  if (s.half_cold)     lines.push(`${Math.ceil(qty / s.half_cold)} Half Pan${Math.ceil(qty/s.half_cold)>1?'s':''} Cold (${s.half_cold} persons each)`);
+  if (s.half_topping)  lines.push(`${Math.ceil(qty / s.half_topping)} Half Pan${Math.ceil(qty/s.half_topping)>1?'s':''} per Topping (${s.half_topping} persons each)`);
+  if (s.container)     lines.push(s.container);
+  if (s.cake_pan)      lines.push(`${Math.ceil(qty / s.cake_pan)} Cake Pan${Math.ceil(qty/s.cake_pan)>1?'s':''} (${s.cake_pan} persons each)`);
+  if (s.gallon)        lines.push(s.gallon);
+  if (s.clamshell_lettuce) lines.push(`Shredded Lettuce: ${Math.ceil(qty / s.clamshell_lettuce)} Clamshell${Math.ceil(qty/s.clamshell_lettuce)>1?'s':''} (${s.clamshell_lettuce} persons each)`);
+
+  // Water for wire racks
+  const fullPanCount = (s.full ? Math.ceil(qty/s.full) : 0) + (s.full_protein ? Math.ceil(qty/s.full_protein) : 0);
+  if (fullPanCount > 0) lines.push(`💧 ${Math.ceil(fullPanCount/5)} gallon${Math.ceil(fullPanCount/5)>1?'s':''} of water for wire rack (1 gallon = 5 full pans)`);
+
+  // Chips if applicable
+  if (item.includes.some(i => i.includes('Chip'))) {
+    const chipBags = Math.ceil(qty / 20);
+    lines.push(`🛍 ${chipBags} Large White Bag${chipBags>1?'s':''} of Chips (20 persons/bag)`);
+  }
+  // Ice if applicable
+  if (item.includes.some(i => i.includes('Ice'))) {
+    const iceBags = Math.ceil(qty / 16);
+    lines.push(`🧊 ${iceBags} Large Plastic Bag${iceBags>1?'s':''} of Ice (16 persons/bag = 2 gallons)`);
+  }
+
+  return lines.filter(Boolean).join('\n');
+}
+
+function addItem(itemId, ci) {
+  const item = findItem(itemId);
+  if (!item) return;
+  const qtyEl = document.getElementById('qty_' + itemId);
+  const qty = parseInt(qtyEl.value);
+  if (!qty || qty < 1) { alert('Enter a quantity first.'); return; }
+
+  const subRadio = document.querySelector(`input[name="subr_${itemId}"]:checked`);
+  const sub = subRadio ? item.subs.find(s => s.id === subRadio.value)?.label || '' : '';
+  const panNote = calcPans(item, qty);
+
+  // Remove existing entry for same item
+  state.cart = state.cart.filter(c => c.id !== itemId);
+  state.cart.push({ id: itemId, name: item.name, qty, sub, panNote, setupItems: item.setupItems, includes: item.includes });
+
+  // Show ✓ badge
+  const badge = document.getElementById('abadge_' + itemId);
+  if (badge) badge.classList.add('show');
+
+  qtyEl.value = '';
+  renderCart();
+  updateCatBadge(ci);
+}
+
+function updateCatBadge(ci) {
+  const catItems = MENU[ci].items.map(i => i.id);
+  const count = state.cart.filter(c => catItems.includes(c.id)).length;
+  const badge = document.getElementById('badge' + ci);
+  if (badge) { badge.textContent = count; badge.classList.toggle('show', count > 0); }
+}
+
+function removeItem(id) {
+  state.cart = state.cart.filter(c => c.id !== id);
+  const badge = document.getElementById('abadge_' + id);
+  if (badge) badge.classList.remove('show');
+  renderCart();
+  MENU.forEach((_, ci) => updateCatBadge(ci));
+}
+
+function renderCart() {
+  const list = document.getElementById('cartList');
+  const btn  = document.getElementById('reviewBtn');
+  if (state.cart.length === 0) {
+    list.innerHTML = '<div class="cart-empty">No items added yet</div>';
+    btn.style.display = 'none';
+    return;
+  }
+  btn.style.display = 'block';
+  list.innerHTML = state.cart.map(c => `
+    <div class="cart-item">
+      <div class="cart-item-info">
+        <div class="cart-item-name">${c.name}</div>
+        <div class="cart-item-detail">${c.qty} persons${c.sub ? ' · <em>' + c.sub + '</em>' : ''}</div>
+      </div>
+      <button class="cart-remove" onclick="removeItem('${c.id}')">✕</button>
+    </div>`).join('');
+}
+
+// ══════════════════════════════════════════════════
+// SUMMARY PAGE
+// ══════════════════════════════════════════════════
+function buildSummary() {
+  const arrFmt = state.time ? new Date('1970-01-01T'+state.time).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}) : '—';
+  let html = `
+    <div class="sum-section">
+      <div class="sum-title">📋 Order Info</div>
+      <div class="info-pill">Driver: <strong>${state.name}</strong></div>
+      <div class="info-pill">Order: <strong>${state.order}</strong></div>
+      <div class="info-pill">Arrival: <strong>${arrFmt}</strong></div>
+      <div class="info-pill">Address: <strong>${state.address}</strong></div>
+      ${state.leaveTime ? `<div class="info-pill" style="border-left:3px solid var(--orange)">🕐 Leave Store By: <strong style="color:var(--orange)">${state.leaveTime}</strong>${state.travelInfo ? ' · ' + state.travelInfo : ''}</div>` : ''}
+    </div>
+
+    <div class="sum-section">
+      <div class="sum-title">🌮 Catering Items</div>
+      ${state.cart.map(c => `
+        <div class="sum-row">
+          <span class="sum-key">${c.name}${c.sub ? `<br><small style="color:var(--orange);font-weight:600">↳ ${c.sub}</small>` : ''}</span>
+          <span class="sum-val">${c.qty} persons</span>
+        </div>`).join('')}
+    </div>
+
+    <div class="sum-section">
+      <div class="sum-title">🥘 Pans & Quantities</div>
+      ${state.cart.map(c => `
+        <div class="sum-row" style="flex-direction:column;gap:3px">
+          <span class="sum-key" style="max-width:100%">${c.name}</span>
+          <span class="sum-val" style="text-align:left;white-space:pre-line;font-size:0.8rem">${c.panNote || '—'}</span>
+        </div>`).join('')}
+    </div>`;
+
+  // Collect all includes
+  const allIncludes = {};
+  state.cart.forEach(c => {
+    c.includes.forEach(inc => { allIncludes[inc] = true; });
   });
+  const includeList = Object.keys(allIncludes);
+  if (includeList.length > 0) {
+    html += `
+      <div class="sum-section">
+        <div class="sum-title">✅ Items Included Automatically</div>
+        ${includeList.map(inc => `<div class="sum-row"><span class="sum-val" style="text-align:left;width:100%">• ${inc}</span></div>`).join('')}
+      </div>`;
+  }
+
+  // Setup supplies deduped
+  const setupMap = {};
+  state.cart.forEach(c => {
+    c.setupItems.forEach(s => { setupMap[s] = true; });
+  });
+  const supplies = Object.keys(setupMap);
+  if (supplies.length > 0) {
+    html += `
+      <div class="sum-section">
+        <div class="sum-title">⚙️ Setup Supplies Needed</div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px">
+          ${supplies.map(s => `<div class="supply-chip">${s}</div>`).join('')}
+        </div>
+      </div>`;
+  }
+
+  document.getElementById('summaryBody').innerHTML = html;
 }
 
-function updateCheckProgress(listId, progressId, total) {
-  const checked = document.querySelectorAll('#' + listId + ' .driver-check-item.checked').length;
-  document.getElementById(progressId).textContent = checked + ' / ' + total;
-}
-
-// ═══════════════════════════════════════════════════════════
-// SUMMARY CARD
-// ═══════════════════════════════════════════════════════════
-function buildSummaryCard() {
-  const card = document.getElementById('summaryCard');
-  const [ah, am] = (S.arrivalTime || '00:00').split(':').map(Number);
-  const arrStr = fmt12(ah, am);
-  const leaveMins = ah * 60 + am - S.driveMinutes - 5;
-  const leaveH = Math.floor(((leaveMins % 1440) + 1440) % 1440 / 60);
-  const leaveM = ((leaveMins % 60) + 60) % 60;
-  const leaveStr = S.driveMinutes ? fmt12(leaveH, leaveM) : '—';
-
-  const itemNames = [];
-  MENU.forEach(cat => cat.items.forEach(item => {
-    if (S.selected[item.id]) {
-      let name = item.name;
-      const subs = S.subChoices[item.id];
-      if (subs && subs.length) {
-        const subNames = subs.map(sid => {
-          const allSubs = item.subChoices || [];
-          return allSubs.find(s => s.id === sid)?.name || sid;
-        });
-        name += ' (' + subNames.join(', ') + ')';
-      }
-      if (S.beanChoices[item.id]) {
-        const bc = (item.beanChoices||[]).find(b => b.id === S.beanChoices[item.id]);
-        if (bc) name += ' + ' + bc.name;
-      }
-      if (item.qty && S.itemQty[item.id]) name += ' x' + S.itemQty[item.id];
-      itemNames.push(name);
-    }
-  }));
-
-  card.innerHTML =
-    '<div style="font-size:0.72rem;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px">📋 Order Summary</div>' +
-    '<div class="info-row"><span class="info-row-label">Driver</span><span class="info-row-value">' + S.driverName + '</span></div>' +
-    '<div class="info-row"><span class="info-row-label">Guests</span><span class="info-row-value">' + S.guests + ' people</span></div>' +
-    '<div class="info-row"><span class="info-row-label">Delivery To</span><span class="info-row-value" style="max-width:200px">' + S.deliveryAddress + '</span></div>' +
-    '<div class="info-row"><span class="info-row-label">Food Arrives By</span><span class="info-row-value" style="color:var(--green-light)">' + arrStr + '</span></div>' +
-    '<div class="info-row"><span class="info-row-label">Leave Store By</span><span class="info-row-value" style="color:var(--orange)">' + leaveStr + '</span></div>' +
-    '<div class="info-row" style="align-items:flex-start"><span class="info-row-label">Items Ordered</span><span class="info-row-value" style="max-width:220px">' + itemNames.join('<br>') + '</span></div>';
-}
-
-// ═══════════════════════════════════════════════════════════
-// EMAIL
-// ═══════════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════
+// EMAIL — mailto fallback (works on all devices)
+// ══════════════════════════════════════════════════
 function sendEmail() {
-  const g = S.guests;
-  const [ah, am] = (S.arrivalTime || '00:00').split(':').map(Number);
-  const arrStr = fmt12(ah, am);
-  const leaveMins = ah * 60 + am - S.driveMinutes - 5;
-  const leaveH = Math.floor(((leaveMins % 1440) + 1440) % 1440 / 60);
-  const leaveM = ((leaveMins % 60) + 60) % 60;
-  const leaveStr = S.driveMinutes ? fmt12(leaveH, leaveM) : 'Calculate before sending';
-  const notes = document.getElementById('orderNotes').value;
+  const arrFmt = state.time ? new Date('1970-01-01T'+state.time).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}) : '—';
+  const SEP = '─'.repeat(42);
 
-  let body = 'HUEY LUEY\'S CATERING SHEET\n';
-  body += '================================\n\n';
-  body += 'Driver: ' + S.driverName + '\n';
-  body += 'Guests: ' + g + '\n';
-  body += 'Delivery Address: ' + S.deliveryAddress + '\n';
-  body += 'Food Arrives By: ' + arrStr + '\n';
-  body += 'Leave Store By: ' + leaveStr + '\n';
-  if (notes) body += 'Notes: ' + notes + '\n';
-  body += '\n================================\n';
-  body += 'ITEMS ORDERED\n';
-  body += '================================\n\n';
+  let body = `HUEY LUEY'S CATERING ORDER\n${SEP}\n\n`;
+  body += `Driver:        ${state.name}\n`;
+  body += `Order Name:    ${state.order}\n`;
+  body += `Arrival Time:  ${arrFmt}\n`;
+  body += `Address:       ${state.address}\n`;
+  if (state.leaveTime) body += `Leave Store:   ${state.leaveTime}${state.travelInfo ? ' (' + state.travelInfo + ')' : ''}\n`;
 
-  MENU.forEach(cat => {
-    cat.items.forEach(item => {
-      if (!S.selected[item.id]) return;
-      const choices = S.subChoices[item.id] || [];
-      const bean = S.beanChoices[item.id] || (item.beanChoices ? item.beanChoices[0].id : null);
-      const qty = S.itemQty[item.id] || 1;
-      const subs = choices.map(cid => (item.subChoices||[]).find(s=>s.id===cid)?.name||cid);
-      const beanName = bean ? (item.beanChoices||[]).find(b=>b.id===bean)?.name : null;
-      body += '• ' + item.name;
-      if (subs.length) body += ' (' + subs.join(' + ') + ')';
-      if (beanName) body += ' w/ ' + beanName;
-      if (item.qty) body += ' x' + qty;
-      body += '\n';
-    });
+  body += `\n${SEP}\nCATERING ITEMS\n${SEP}\n`;
+  state.cart.forEach(c => {
+    body += `\n• ${c.name} — ${c.qty} persons`;
+    if (c.sub) body += `\n  Substitution: ${c.sub}`;
+    body += `\n  Pans/Qty:\n`;
+    c.panNote.split('\n').forEach(l => { body += `    ${l}\n`; });
   });
 
-  body += '\n================================\n';
-  body += 'PACKING GUIDE\n';
-  body += '================================\n\n';
+  body += `\n${SEP}\nITEMS INCLUDED AUTOMATICALLY\n${SEP}\n`;
+  const allInc = {};
+  state.cart.forEach(c => c.includes.forEach(i => { allInc[i] = true; }));
+  Object.keys(allInc).forEach(i => { body += `• ${i}\n`; });
 
-  let packNum = 1;
-  MENU.forEach(cat => {
-    cat.items.forEach(item => {
-      if (!S.selected[item.id]) return;
-      const choices = S.subChoices[item.id] || [];
-      const bean = S.beanChoices[item.id] || (item.beanChoices ? item.beanChoices[0].id : null);
-      const qty = S.itemQty[item.id] || 1;
-      const packItems = item.packaging(g, choices, bean, qty);
-      packItems.forEach(pi => {
-        if (!pi.title) return;
-        body += packNum + '. ' + pi.title.toUpperCase();
-        if (pi.container) body += ' [' + pi.container + ']';
-        body += '\n';
-        pi.steps.forEach(s => body += '   - ' + s + '\n');
-        body += '\n';
-        packNum++;
-      });
-    });
-  });
+  body += `\n${SEP}\nSETUP SUPPLIES\n${SEP}\n`;
+  const setupMap = {};
+  state.cart.forEach(c => c.setupItems.forEach(s => { setupMap[s] = true; }));
+  Object.keys(setupMap).forEach(s => { body += `• ${s}\n`; });
 
-  body += '================================\n';
-  body += 'Store: 3338 Cobb Pkwy NW, Acworth, GA 30101\n';
-  body += 'Generated by Huey Luey's Catering Guide App\n';
+  body += `\n${SEP}\nSent via Huey Luey's Catering Guide App`;
 
-  const subject = 'Catering Order — ' + S.driverName + ' — ' + S.guests + ' Guests — ' + arrStr;
-  const mailto = 'mailto:' + RECIPIENT +
-    '?subject=' + encodeURIComponent(subject) +
-    '&body=' + encodeURIComponent(body);
+  const subject = encodeURIComponent(`Catering: ${state.order} — Arrival ${arrFmt}`);
+  const mailto  = `mailto:tylerhawthorne@hueylueys.com?subject=${subject}&body=${encodeURIComponent(body)}`;
 
   window.location.href = mailto;
-  showToast('📧 Opening email app...');
-}
 
-function startOver() {
-  Object.assign(S, { step:1, driverName:'', guests:0, arrivalTime:'', deliveryAddress:'', driveMinutes:0, selected:{}, subChoices:{}, beanChoices:{}, itemQty:{} });
-  document.getElementById('driverName').value = '';
-  document.getElementById('guestCount').value = '';
-  document.getElementById('arrivalTime').value = '';
-  document.getElementById('deliveryAddress').value = '';
-  document.getElementById('driveResult').classList.remove('show');
-  document.getElementById('driveTimeBtn').textContent = '🗺️ Calculate Drive Time';
-  document.getElementById('alwaysList').innerHTML = '';
-  document.getElementById('condList').innerHTML = '';
-  renderMenu();
-  goToStep(1);
-  showToast('🔄 New order started!');
+  const statusEl = document.getElementById('emailStatus');
+  setTimeout(() => {
+    statusEl.className = 'email-status ok';
+    statusEl.textContent = '✅ Email client opened! Tap Send in your mail app.';
+  }, 800);
 }
-
-// ═══════════════════════════════════════════════════════════
-// TOAST
-// ═══════════════════════════════════════════════════════════
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2800);
-}
-
-// ═══════════════════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════════════════
-document.addEventListener('DOMContentLoaded', () => {
-  renderMenu();
-  // Set default arrival time to 1 hour from now
-  const now = new Date();
-  now.setHours(now.getHours() + 1);
-  const hh = String(now.getHours()).padStart(2,'0');
-  const mm = String(now.getMinutes()).padStart(2,'0');
-  document.getElementById('arrivalTime').value = hh + ':' + mm;
-});
 </script>
 </body>
 </html>
