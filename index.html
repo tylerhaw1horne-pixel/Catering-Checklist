@@ -1,0 +1,339 @@
+export const STORE_ADDRESS = “3338 Cobb Pkwy NW, Acworth, GA 30101”;
+export const RECIPIENT_EMAIL = “Tylerhawthorne@hueylueys.com”;
+
+// ─── PAN SIZE CALCULATOR ─────────────────────────────────────────────
+export function getPanSize(guests) {
+if (guests <= 20) return “1/3 pan”;
+if (guests <= 30) return “1/2 pan”;
+if (guests <= 60) return “full shallow pan”;
+return “full deep pan”;
+}
+
+// Lettuce/toppings are fluffier — need more space
+export function getToppingContainer(guests) {
+if (guests <= 13) return “16oz clamshell”;
+if (guests <= 25) return “32oz clamshell”;
+if (guests <= 60) return “1/3 pan”;
+return “1/2 pan”;
+}
+
+// Sour cream, pico, guac (side style)
+export function getSideContainer(guests) {
+if (guests <= 13) return “16oz clamshell”;
+return “32oz clamshell”;
+}
+
+// 1 bag per 10 guests
+export function chipBags(guests) {
+return Math.ceil(guests / 10);
+}
+
+// 16oz per 10 guests / 32oz per 15 guests
+export function salsaContainers(guests) {
+if (guests <= 15) return “1x 16oz round container”;
+const count = Math.ceil(guests / 15);
+return `${count}x 32oz round containers`;
+}
+
+export function tortillaCount(guests, type = “fajita”) {
+return type === “fajita” ? guests * 2 : guests * 3;
+}
+
+// ─── DRIVER CHECKLIST ────────────────────────────────────────────────
+export const ALWAYS_BRING = [
+{ item: “Chafing dish wire racks”, note: “1 per full pan — always comes with water pan” },
+{ item: “Sterno burners”, note: “1 per chafing dish” },
+{ item: “Gallon of water”, note: “1 gallon per 3 water pans” },
+{ item: “Lighter”, note: “To light the sternos” },
+{ item: “Stickers / labels”, note: “Label EVERYTHING — simplifies orders for expo/kitchen” },
+{ item: “Serving utensils”, note: “Check item list for correct utensil per pan” },
+{ item: “Beverage napkins”, note: “Used for setup — utensil holders for toppings” },
+{ item: “Towel”, note: “Helpful for cleanup at the catering” },
+{ item: “Catering menu”, note: “1 per order” },
+{ item: “Marketing flyers”, note: “Minimum 2” },
+{ item: “Business card + mints”, note: “Handful of mints, 1 business card per order” },
+{ item: “‘Catered by Huey Luey’s’ card”, note: “1 per order (grab extra for large orders)” },
+{ item: “Cut limes”, note: “With every order + to top guacamole” },
+];
+
+export const CONDITIONAL_BRING = [
+{ item: “Utensil packs / plates”, note: “As requested — but take just in case” },
+{ item: “Cups (clear)”, note: “As requested only” },
+{ item: “Cut lemons”, note: “With any tea or lemonade orders” },
+{ item: “Ice”, note: “1 bag per 2 gallons of drinks ordered” },
+{ item: “Cold drinks / beverages”, note: “Per order” },
+{ item: “Sweeteners”, note: “Upon request” },
+{ item: “Salad dressing”, note: “MAKE SURE TO CHECK — goes with every salad order” },
+];
+
+// ─── SHARED FAJITA PACKING LOGIC ─────────────────────────────────────
+function fajitaPacking(guests, proteins, beanChoice) {
+const panSize = getPanSize(guests);
+const toppingContainer = getToppingContainer(guests);
+const items = [];
+
+proteins.forEach(protein => {
+items.push({
+title: `${protein} (fajita-style)`,
+container: panSize,
+steps: [`Pack in ${panSize}`, “⚠️ Bring TONGS for fajita meat”, `Label lid: ${protein.toUpperCase()}`],
+});
+});
+
+items.push({
+title: “Flour Tortillas”,
+container: “wrapped in foil”,
+steps: [
+`${tortillaCount(guests, "fajita")} total (2 per guest)`,
+“Wrap in foil, warm before packing”,
+“⚠️ Bring TONGS for tortillas”,
+],
+});
+
+items.push({ title: “Mexican Rice”, container: panSize, steps: [`Pack in ${panSize}`, “⚠️ Bring 10" SPOON”] });
+
+const beanLabel = beanChoice === “refried” ? “Refried Beans” : beanChoice === “charro” ? “Charro Beans” : “Black Beans”;
+const beanUtensil = (beanChoice === “black” || beanChoice === “charro”) ? “LADLE” : “10" SPOON”;
+items.push({
+title: beanLabel,
+container: panSize,
+steps: [
+`Pack in ${panSize}`,
+(beanChoice === “black” || beanChoice === “charro”) ? “PLASTIC WRAP top before lid” : “”,
+`⚠️ Bring ${beanUtensil}`,
+`Label lid: ${beanLabel.toUpperCase()}`,
+].filter(Boolean),
+});
+
+items.push({ title: “Pico de Gallo”, container: getSideContainer(guests), steps: [`Pack in ${getSideContainer(guests)} round container`, “⚠️ Bring SMALL SPOON”] });
+items.push({ title: “Sour Cream”, container: getSideContainer(guests), steps: [`Pack in ${getSideContainer(guests)} round container`, “⚠️ Bring SMALL SPOON”] });
+items.push({ title: “Lettuce”, container: toppingContainer, steps: [`Pack in ${toppingContainer} — *lettuce is fluffier, needs more space*`, “⚠️ Bring TONGS”] });
+items.push({ title: “Shredded Cheese”, container: toppingContainer, steps: [`Pack in ${toppingContainer}`, “⚠️ Bring SMALL SPOON”] });
+items.push({
+title: “Guacamole (morning-of)”,
+container: getSideContainer(guests),
+steps: [`Pack in ${getSideContainer(guests)} round container`, “Made morning-of — grab from kitchen”, “Place cut limes on top”, “⚠️ Bring SMALL SPOON (fajita style)”],
+});
+items.push({
+title: “Chips & Salsa”,
+container: “white paper bag + round container”,
+steps: [`Chips: ${chipBags(guests)} white paper bag(s) — 1 per 10 guests`, `Salsa: ${salsaContainers(guests)}`, “⚠️ Bring LADLE for salsa”],
+});
+
+return items;
+}
+
+// ─── MENU DATA ────────────────────────────────────────────────────────
+export const MENU = [
+{
+category: “Appetizers”,
+emoji: “🥑”,
+items: [
+{
+id: “app_mix2”,
+name: “Mix & Match 2 Appetizers”,
+minGuests: 10,
+popular: true,
+veg: true,
+description: “Your choice of 2 appetizers.”,
+hasSubChoices: true,
+selectCount: 2,
+subChoices: [
+{ id: “avocado_rolls”, name: “Avocado Rolls”, veg: true },
+{ id: “guac_chips”, name: “Guacamole & Chips”, veg: true },
+{ id: “queso_chips”, name: “Queso Dip & Chips”, veg: true },
+{ id: “spicy_queso_chips”, name: “Spicy Queso Dip & Chips”, veg: true, spicy: true },
+],
+packaging: (guests, choices) => {
+const items = [];
+if (!choices || choices.length === 0) return [{ title: “Select your 2 appetizer choices above”, container: “”, steps: [] }];
+choices.forEach(c => {
+if (c === “avocado_rolls”) {
+items.push({ title: “Avocado Rolls”, container: getPanSize(guests), steps: [`Pack in ${getPanSize(guests)}`, “Cover with foil — don’t seal too tight”, “⚠️ Bring TONGS for serving”] });
+}
+if (c === “guac_chips”) {
+items.push({ title: “Guacamole”, container: getSideContainer(guests), steps: [`Pack in ${getSideContainer(guests)} round container`, “Place cut limes on top”, “⚠️ Bring 10" SPOON (app style)”, “⚠️ Bring LADLE for salsa”] });
+items.push({ title: “Chips”, container: “white paper bag”, steps: [`${chipBags(guests)} white bag(s) — 1 per 10 guests`] });
+}
+if (c === “queso_chips”) {
+items.push({ title: “Queso Dip”, container: getPanSize(guests), steps: [`Pack in ${getPanSize(guests)}`, “PLASTIC WRAP top before lid”, “⚠️ Bring LADLE”] });
+items.push({ title: “Chips”, container: “white paper bag”, steps: [`${chipBags(guests)} white bag(s) — 1 per 10 guests`] });
+}
+if (c === “spicy_queso_chips”) {
+items.push({ title: “Spicy Queso Dip”, container: getPanSize(guests), steps: [`Pack in ${getPanSize(guests)}`, “PLASTIC WRAP top before lid”, “⚠️ Label lid: SPICY QUESO”, “⚠️ Bring LADLE”] });
+items.push({ title: “Chips”, container: “white paper bag”, steps: [`${chipBags(guests)} white bag(s) — 1 per 10 guests`] });
+}
+});
+return items;
+},
+},
+],
+},
+
+{
+category: “Buffets”,
+emoji: “🌮”,
+items: [
+{
+id: “taco_bar”,
+name: “Taco Bar”,
+minGuests: 10,
+popular: true,
+description: “Includes: flour tortillas & crispy shells, Mexican rice, choice of beans, tomatoes, shredded cheese, lettuce, chips & salsa.”,
+hasSubChoices: true,
+selectCount: 1,
+subChoices: [
+{ id: “taco_chicken”, name: “Salsa Chicken” },
+{ id: “taco_beef”, name: “Seasoned Ground Beef” },
+{ id: “taco_both”, name: “Both Chicken & Beef (+$2pp)” },
+],
+beanChoices: [
+{ id: “refried”, name: “Refried Beans” },
+{ id: “charro”, name: “Charro Beans” },
+{ id: “black”, name: “Black Beans (vegetarian)” },
+],
+packaging: (guests, choices, beanChoice) => {
+const panSize = getPanSize(guests);
+const toppingContainer = getToppingContainer(guests);
+const items = [];
+
+```
+      if (choices && choices.includes("taco_both")) {
+        items.push({ title: "Salsa Chicken", container: panSize, steps: [`Pack in ${panSize}`, "Label lid: SALSA CHICKEN", "⚠️ Bring 10\" SPOON"] });
+        items.push({ title: "Seasoned Ground Beef", container: panSize, steps: [`Pack in ${panSize}`, "Label lid: GROUND BEEF", "⚠️ Bring 10\" SPOON"] });
+      } else if (choices && choices.includes("taco_chicken")) {
+        items.push({ title: "Salsa Chicken", container: panSize, steps: [`Pack in ${panSize}`, "⚠️ Bring 10\" SPOON"] });
+      } else {
+        items.push({ title: "Seasoned Ground Beef", container: panSize, steps: [`Pack in ${panSize}`, "⚠️ Bring 10\" SPOON"] });
+      }
+
+      const softCount = Math.ceil(tortillaCount(guests, "taco") / 2);
+      const hardCount = Math.floor(tortillaCount(guests, "taco") / 2);
+      items.push({
+        title: "Tortillas",
+        container: "foil wrap + original box",
+        steps: [`Soft: ${softCount} — wrap in foil, warm before packing`, `Crispy shells: ${hardCount} — keep in original box`, "3 per order total (half hard / half soft)", "⚠️ Bring TONGS"],
+      });
+
+      items.push({ title: "Mexican Rice", container: panSize, steps: [`Pack in ${panSize}`, "⚠️ Bring 10\" SPOON"] });
+
+      const beanLabel = beanChoice === "refried" ? "Refried Beans" : beanChoice === "charro" ? "Charro Beans" : "Black Beans";
+      const beanUtensil = (beanChoice === "black" || beanChoice === "charro") ? "LADLE" : "10\" SPOON";
+      items.push({
+        title: beanLabel, container: panSize,
+        steps: [`Pack in ${panSize}`, (beanChoice === "black" || beanChoice === "charro") ? "PLASTIC WRAP top before lid" : "", `⚠️ Bring ${beanUtensil}`, `Label: ${beanLabel.toUpperCase()}`].filter(Boolean),
+      });
+
+      items.push({ title: "Lettuce", container: toppingContainer, steps: [`Pack in ${toppingContainer} — *fluffier, needs more space*`, "⚠️ Bring TONGS"] });
+      items.push({ title: "Tomatoes (diced)", container: toppingContainer, steps: [`Pack in ${toppingContainer}`, "⚠️ Bring SMALL SPOON"] });
+      items.push({ title: "Shredded Cheese", container: toppingContainer, steps: [`Pack in ${toppingContainer}`, "⚠️ Bring SMALL SPOON"] });
+      items.push({ title: "Chips & Salsa", container: "white bag + round container", steps: [`Chips: ${chipBags(guests)} white bag(s) — 1 per 10 guests`, `Salsa: ${salsaContainers(guests)}`, "⚠️ Bring LADLE for salsa"] });
+
+      return items;
+    },
+  },
+
+  {
+    id: "nacho_bar",
+    name: "Nacho Bar",
+    minGuests: 10,
+    description: "Includes: chips, chile con queso, beans, salsa, tomatoes, lettuce, jalapeños, sour cream.",
+    hasSubChoices: true,
+    selectCount: 1,
+    subChoices: [
+      { id: "nacho_chicken", name: "Salsa Chicken" },
+      { id: "nacho_beef", name: "Seasoned Ground Beef" },
+      { id: "nacho_both", name: "Both Chicken & Beef (+$2pp)" },
+      { id: "nacho_veggie", name: "Veggie (onions, green pepper, tomato, portobello)", veg: true },
+    ],
+    packaging: (guests, choices) => {
+      const panSize = getPanSize(guests);
+      const toppingContainer = getToppingContainer(guests);
+      const items = [];
+      const isVeggie = choices && choices.includes("nacho_veggie");
+
+      if (choices && choices.includes("nacho_both")) {
+        items.push({ title: "Salsa Chicken", container: panSize, steps: [`Pack in ${panSize}`, "Label: SALSA CHICKEN", "⚠️ Bring 10\" SPOON"] });
+        items.push({ title: "Seasoned Ground Beef", container: panSize, steps: [`Pack in ${panSize}`, "Label: GROUND BEEF", "⚠️ Bring 10\" SPOON"] });
+      } else if (isVeggie) {
+        items.push({ title: "Veggie Mix", container: panSize, steps: [`Pack in ${panSize}`, "Label: VEGGIE", "⚠️ Bring 10\" SPOON"] });
+      } else if (choices && choices.includes("nacho_chicken")) {
+        items.push({ title: "Salsa Chicken", container: panSize, steps: [`Pack in ${panSize}`, "⚠️ Bring 10\" SPOON"] });
+      } else {
+        items.push({ title: "Seasoned Ground Beef", container: panSize, steps: [`Pack in ${panSize}`, "⚠️ Bring 10\" SPOON"] });
+      }
+
+      items.push({ title: "Chile Con Queso", container: panSize, steps: [`Pack in ${panSize}`, "PLASTIC WRAP top before lid", "⚠️ Bring LADLE"] });
+      items.push({
+        title: isVeggie ? "Black Beans" : "Refried Beans", container: panSize,
+        steps: [`Pack in ${panSize}`, isVeggie ? "PLASTIC WRAP top before lid" : "", `⚠️ Bring ${isVeggie ? "LADLE" : "10\" SPOON"}`].filter(Boolean),
+      });
+      items.push({ title: "Lettuce", container: toppingContainer, steps: [`Pack in ${toppingContainer}`, "⚠️ Bring TONGS"] });
+      items.push({ title: "Tomatoes (diced)", container: toppingContainer, steps: [`Pack in ${toppingContainer}`, "⚠️ Bring SMALL SPOON"] });
+      items.push({ title: "Pickled Jalapeños", container: toppingContainer, steps: [`Pack in ${toppingContainer}`, "⚠️ Bring SMALL SPOON"] });
+      items.push({ title: "Sour Cream", container: getSideContainer(guests), steps: [`Pack in ${getSideContainer(guests)} round container`, "⚠️ Bring SMALL SPOON"] });
+      items.push({ title: "Chips & Salsa", container: "white bag + round container", steps: [`Chips: ${chipBags(guests)} white bag(s) — 1 per 10 guests`, `Salsa: ${salsaContainers(guests)}`, "⚠️ Bring LADLE for salsa"] });
+
+      return items;
+    },
+  },
+],
+```
+
+},
+
+{
+category: “Fajitas”,
+emoji: “🥩”,
+items: [
+{ id: “fajita_chicken_steak”, name: “Chicken & Steak Fajita Bar”, minGuests: 10, popular: true, description: “Chicken & steak. Includes: flour tortillas, pico de gallo, sour cream, lettuce, cheese, guacamole, Mexican rice, choice of beans, chips & salsa.”, beanChoices: [{ id: “refried”, name: “Refried Beans” }, { id: “charro”, name: “Charro Beans” }, { id: “black”, name: “Black Beans” }], packaging: (g, _, b) => fajitaPacking(g, [“Chicken”, “Steak”], b) },
+{ id: “fajita_chicken”, name: “Chicken Fajita Bar”, minGuests: 10, description: “Chicken. Includes: flour tortillas, pico, sour cream, lettuce, cheese, guac, rice, beans, chips & salsa.”, beanChoices: [{ id: “refried”, name: “Refried Beans” }, { id: “charro”, name: “Charro Beans” }, { id: “black”, name: “Black Beans” }], packaging: (g, _, b) => fajitaPacking(g, [“Chicken”], b) },
+{ id: “fajita_steak”, name: “Steak Fajita Bar”, minGuests: 10, description: “Steak. Includes: flour tortillas, pico, sour cream, lettuce, cheese, guac, rice, beans, chips & salsa.”, beanChoices: [{ id: “refried”, name: “Refried Beans” }, { id: “charro”, name: “Charro Beans” }, { id: “black”, name: “Black Beans” }], packaging: (g, _, b) => fajitaPacking(g, [“Steak”], b) },
+{ id: “fajita_shrimp”, name: “Shrimp Fajita Bar”, minGuests: 10, description: “Shrimp. Includes: flour tortillas, pico, sour cream, lettuce, cheese, guac, rice, beans, chips & salsa.”, beanChoices: [{ id: “refried”, name: “Refried Beans” }, { id: “charro”, name: “Charro Beans” }, { id: “black”, name: “Black Beans” }], packaging: (g, _, b) => fajitaPacking(g, [“Shrimp”], b) },
+{ id: “fajita_steak_chicken_shrimp”, name: “Steak, Chicken & Shrimp Fajita Bar”, minGuests: 10, description: “Steak, chicken & shrimp. Includes: flour tortillas, pico, sour cream, lettuce, cheese, guac, rice, beans, chips & salsa.”, beanChoices: [{ id: “refried”, name: “Refried Beans” }, { id: “charro”, name: “Charro Beans” }, { id: “black”, name: “Black Beans” }], packaging: (g, _, b) => fajitaPacking(g, [“Steak”, “Chicken”, “Shrimp”], b) },
+{ id: “fajita_veggie”, name: “Veggie Fajita Bar”, minGuests: 10, veg: true, description: “Mixed vegetables. Includes: flour tortillas, pico, sour cream, lettuce, cheese, guac, rice, beans, chips & salsa.”, beanChoices: [{ id: “refried”, name: “Refried Beans” }, { id: “charro”, name: “Charro Beans” }, { id: “black”, name: “Black Beans” }], packaging: (g, _, b) => fajitaPacking(g, [“Veggie Mix”], b) },
+],
+},
+
+{
+category: “Salads”,
+emoji: “🥗”,
+items: [
+{ id: “house_salad”, name: “House Salad”, servingNote: “Serves 8–10”, popular: true, veg: true, description: “Mixed greens, tomatoes, avocados, cucumbers, cheese, onions, cilantro-lime ranch.”, packaging: () => [{ title: “House Salad”, container: “full shallow pan”, steps: [“Pack in full shallow pan”, “MAKE SALAD fresh — do NOT pre-dress”, “⚠️ Bring TONGS + 10" SPOON (one of each for salad)”] }, { title: “Cilantro Ranch Dressing”, container: “12oz round container”, steps: [“Pack in 12oz round container”, “⚠️ MAKE SURE TO CHECK dressing is included”, “⚠️ Bring SMALL SPOON”] }] },
+{ id: “kale_salad”, name: “Farmer’s Kale Salad”, servingNote: “Serves 8–10”, veg: true, description: “Chopped kale, avocado, cucumber, radishes, pickled onions, queso fresco, tortilla strips. Creamy oregano vinaigrette.”, packaging: () => [{ title: “Kale Salad”, container: “full shallow pan”, steps: [“Pack in full shallow pan”, “Keep tortilla strips SEPARATE — bag them so they stay crispy”, “MAKE SALAD fresh — do NOT pre-dress”, “⚠️ Bring TONGS + 10" SPOON”] }, { title: “Oregano Vinaigrette”, container: “12oz round container”, steps: [“Pack in 12oz round container”, “⚠️ MAKE SURE TO CHECK dressing is included”, “⚠️ Bring SMALL SPOON”] }] },
+{ id: “mexican_chopped_salad”, name: “Mexican Chopped Salad”, servingNote: “Serves 8–10”, description: “Mixed greens, grilled chicken, onions, tomatoes, black bean salsa, corn, queso fresco, tortilla strips. Mango vinaigrette.”, packaging: () => [{ title: “Mexican Chopped Salad”, container: “full shallow pan”, steps: [“Pack in full shallow pan”, “⚠️ ONLY salad that comes WITH chicken”, “Keep tortilla strips SEPARATE — bag them so they stay crispy”, “MAKE SALAD fresh — do NOT pre-dress”, “⚠️ Bring TONGS + 10" SPOON”] }, { title: “Mango Vinaigrette”, container: “12oz round container”, steps: [“Pack in 12oz round container”, “⚠️ MAKE SURE TO CHECK dressing is included”, “⚠️ Bring SMALL SPOON”] }] },
+],
+},
+
+{
+category: “Sides”,
+emoji: “🧀”,
+items: [
+{ id: “chips_queso”, name: “Chips & Regular Queso”, popular: true, veg: true, description: “Chips with chile con queso.”, packaging: (g) => [{ title: “Chile Con Queso”, container: getPanSize(g), steps: [`Pack in ${getPanSize(g)}`, “PLASTIC WRAP top before lid”, “⚠️ Bring LADLE”] }, { title: “Chips”, container: “white paper bag”, steps: [`${chipBags(g)} white paper bag(s)`] }] },
+{ id: “chips_spicy_queso”, name: “Chip & Spicy Queso”, veg: true, spicy: true, description: “Chips with spicy queso.”, packaging: (g) => [{ title: “Spicy Queso”, container: getPanSize(g), steps: [`Pack in ${getPanSize(g)}`, “PLASTIC WRAP top before lid”, “⚠️ Label lid: SPICY QUESO”, “⚠️ Bring LADLE”] }, { title: “Chips”, container: “white paper bag”, steps: [`${chipBags(g)} white paper bag(s)`] }] },
+{ id: “chips_guac”, name: “Chips & Guacamole”, veg: true, description: “Chips with guacamole.”, packaging: (g) => [{ title: “Guacamole (morning-of)”, container: getSideContainer(g), steps: [`Pack in ${getSideContainer(g)} round container`, “Made morning-of — grab from kitchen”, “Place cut limes on top”, “⚠️ Bring 10" SPOON (side style)”] }, { title: “Chips”, container: “white paper bag”, steps: [`${chipBags(g)} white paper bag(s)`] }] },
+{ id: “salsa_chips”, name: “Extra Homemade Salsa w/ Chips”, servingNote: “Serves 10”, veg: true, description: “Homemade salsa with chips.”, packaging: (g) => [{ title: “Salsa”, container: “round container”, steps: [salsaContainers(g || 10), “⚠️ Bring LADLE”] }, { title: “Chips”, container: “white paper bag”, steps: [`${chipBags(g || 10)} white paper bag(s)`] }] },
+{ id: “sour_cream”, name: “Sour Cream”, minGuests: 10, veg: true, description: “Side of sour cream.”, packaging: (g) => [{ title: “Sour Cream”, container: getSideContainer(g), steps: [`Pack in ${getSideContainer(g)} round container`, “Label: SOUR CREAM”, “⚠️ Bring SMALL SPOON”] }] },
+],
+},
+
+{
+category: “Desserts”,
+emoji: “🍩”,
+items: [
+{ id: “sopapillas”, name: “Sopapillas”, servingNote: “Serves 12”, popular: true, description: “Deep-fried pastries tossed in cinnamon sugar, served with honey.”, packaging: () => [{ title: “Sopapillas”, container: “small dome”, steps: [“Pack in small dome”, “Do NOT seal too tight — they’ll get soggy”, “⚠️ Bring TONGS”, “⚠️ Deliver as fresh as possible”] }, { title: “Honey”, container: “8oz container”, steps: [“Pack in 8oz container”, “⚠️ Bring SMALL SPOON for honey”] }] },
+{ id: “brownies”, name: “Double Fudge Brownies”, servingNote: “Serves 12”, description: “Served with caramel and chocolate sauce.”, packaging: () => [{ title: “Brownies”, container: “small dome”, steps: [“Pack in small dome”, “⚠️ Bring TONGS”] }, { title: “Chocolate Sauce”, container: “5oz round container”, steps: [“Pack in 5oz container”, “⚠️ Bring SMALL SPOON”] }, { title: “Caramel Sauce”, container: “5oz round container”, steps: [“Pack in 5oz container”, “⚠️ Bring SMALL SPOON”] }] },
+],
+},
+
+{
+category: “Beverages”,
+emoji: “🍹”,
+items: [
+{ id: “sweet_tea”, name: “Gallon Sweet Tea”, servingNote: “Serves 8”, popular: true, description: “Black sweet tea.”, packaging: () => [{ title: “Sweet Tea”, container: “gallon jug”, steps: [“Sealed gallon jug — stand upright”, “Label: SWEET TEA”, “⚠️ Bring cut lemons + sweeteners”, “Ice: 1 bag per 2 gallons”] }] },
+{ id: “unsweet_tea”, name: “Gallon Unsweet Tea”, servingNote: “Serves 8”, description: “Black unsweetened tea.”, packaging: () => [{ title: “Unsweet Tea”, container: “gallon jug”, steps: [“Sealed gallon jug — stand upright”, “Label: UNSWEET TEA”, “⚠️ Bring cut lemons + sweeteners”, “Ice: 1 bag per 2 gallons”] }] },
+{ id: “pink_lemonade”, name: “Gallon Pink Lemonade”, servingNote: “Serves 8”, description: “Pink lemonade.”, packaging: () => [{ title: “Pink Lemonade”, container: “gallon jug”, steps: [“Sealed gallon jug — stand upright”, “⚠️ Bring cut lemons”, “Ice: 1 bag per 2 gallons”] }] },
+{ id: “peach_tea”, name: “Gallon Peach Tea”, servingNote: “Serves 8”, description: “Peach tea.”, packaging: () => [{ title: “Peach Tea”, container: “gallon jug”, steps: [“Sealed gallon jug — stand upright”, “Label: PEACH TEA”, “⚠️ Bring cut lemons + sweeteners”, “Ice: 1 bag per 2 gallons”] }] },
+],
+},
+];
