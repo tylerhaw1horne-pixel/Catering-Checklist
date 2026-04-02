@@ -1384,6 +1384,34 @@ function renderMenu() {
     });
     container.appendChild(sec);
   });
+  // Event delegation for sub-choice and bean buttons
+  container.addEventListener('click', function(e) {
+    const subBtn = e.target.closest('.sub-choice-btn[data-cid]');
+    const beanBtn = e.target.closest('.sub-choice-btn[data-bid]');
+    if (subBtn) {
+      e.stopPropagation();
+      const itemId = subBtn.dataset.item;
+      const cid = subBtn.dataset.cid;
+      const limit = parseInt(subBtn.dataset.limit) || 1;
+      if (!S.subChoices[itemId]) S.subChoices[itemId] = [];
+      const arr = S.subChoices[itemId];
+      const idx = arr.indexOf(cid);
+      if (idx >= 0) { arr.splice(idx, 1); subBtn.classList.remove('picked'); }
+      else {
+        if (arr.length >= limit) {
+          const oldId = arr.shift();
+          container.querySelector('[data-item="'+itemId+'"][data-cid="'+oldId+'"]')?.classList.remove('picked');
+        }
+        arr.push(cid); subBtn.classList.add('picked');
+      }
+    } else if (beanBtn) {
+      e.stopPropagation();
+      const itemId = beanBtn.dataset.item;
+      S.beanChoices[itemId] = beanBtn.dataset.bid;
+      container.querySelectorAll('[data-item="'+itemId+'"][data-bid]').forEach(b => b.classList.remove('picked'));
+      beanBtn.classList.add('picked');
+    }
+  });
 }
 
 function buildItemCard(item) {
@@ -1400,14 +1428,14 @@ function buildItemCard(item) {
   if (item.hasSubChoices) {
     const label = item.selectCount > 1 ? 'Choose ' + item.selectCount + ':' : 'Choose protein:';
     const btns = item.subChoices.map(c =>
-      '<button class="sub-choice-btn' + ((S.subChoices[item.id]||[]).includes(c.id) ? ' picked' : '') + '" data-cid="' + c.id + '" onclick="pickSub(event,'' + item.id + '','' + c.id + '',' + (item.selectCount||1) + ')">' +
+      '<button class="sub-choice-btn' + ((S.subChoices[item.id]||[]).includes(c.id) ? ' picked' : '') + '" data-cid="' + c.id + '" data-item="' + item.id + '" data-limit="' + (item.selectCount||1) + '">' +
       '<span class="pick-dot"></span>' + (c.emoji ? c.emoji + ' ' : '') + c.name + (c.veg ? ' 🌿' : '') + '</button>'
     ).join('');
     subHTML += '<div class="sub-choices-panel"><div class="sub-choice-label">' + label + '</div><div class="sub-choice-list">' + btns + '</div></div>';
   }
   if (item.beanChoices) {
     const btns = item.beanChoices.map(c =>
-      '<button class="sub-choice-btn' + (S.beanChoices[item.id] === c.id ? ' picked' : '') + '" onclick="pickBean(event,'' + item.id + '','' + c.id + '')">' +
+      '<button class="sub-choice-btn' + (S.beanChoices[item.id] === c.id ? ' picked' : '') + '" data-item="' + item.id + '" data-bid="' + c.id + '">' +
       '<span class="pick-dot"></span>' + c.name + '</button>'
     ).join('');
     subHTML += '<div class="sub-choices-panel"><div class="sub-choice-label">Choose beans:</div><div class="sub-choice-list">' + btns + '</div></div>';
