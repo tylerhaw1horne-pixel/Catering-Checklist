@@ -1,501 +1,348 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<title>Huey Luey's Catering Guide</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+<title>Huey Luey's — Catering Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 :root {
-  --orange: #D4581A;
-  --orange-light: #f0793a;
-  --orange-pale: #fdf0e8;
-  --green: #4a7c3f;
-  --green-light: #5c9e50;
-  --green-pale: #eef4ec;
-  --cream: #FAF7F2;
-  --cream-dark: #F0EBE1;
-  --brown: #3a2a1a;
-  --text: #2c1f0f;
-  --muted: #8a7560;
-  --border: #e0d5c5;
-  --white: #ffffff;
-  --shadow-sm: 0 1px 4px rgba(60,40,10,0.08);
-  --shadow: 0 3px 16px rgba(60,40,10,0.11);
-  --radius: 12px;
+  --orange: #C8531A;
+  --orange-mid: #e06030;
+  --orange-pale: #fdf3ed;
+  --orange-border: #f0c4a8;
+  --green: #3d6b35;
+  --green-pale: #edf4eb;
+  --green-border: #b5d1b0;
+  --cream: #F8F4EE;
+  --cream-2: #EDE8DF;
+  --cream-3: #E2DAD0;
+  --white: #FEFCF9;
+  --text: #1E160A;
+  --text-2: #5c4a35;
+  --text-3: #8a7560;
+  --border: #D9D0C4;
+  --shadow: 0 2px 14px rgba(30,20,10,.08);
+  --shadow-lg: 0 6px 28px rgba(30,20,10,.12);
+  --radius: 10px;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-html, body { height: 100%; }
-body {
-  font-family: 'Open Sans', sans-serif;
-  background: var(--cream);
-  color: var(--text);
-  font-size: 15px;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);-webkit-font-smoothing:antialiased;min-height:100dvh;font-size:15px;line-height:1.5}
 
 /* ── HEADER ── */
-.header {
-  background: var(--white);
-  border-bottom: 2px solid var(--orange);
-  padding: 14px 18px 12px;
-  text-align: center;
-  position: sticky; top: 0; z-index: 200;
-  box-shadow: 0 2px 10px rgba(212,88,26,0.1);
+.hdr{
+  background:var(--white);
+  border-bottom:1px solid var(--border);
+  padding:10px 18px 9px;
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;
+  box-shadow:0 1px 8px rgba(30,20,10,.07);
 }
-.header img { height: 44px; display: block; margin: 0 auto 4px; }
-.header-sub {
-  font-size: 0.68rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--orange);
-  font-weight: 700;
+.hdr-logo{height:38px;display:block;margin-bottom:2px}
+.hdr-tagline{
+  font-family:'DM Sans',sans-serif;
+  font-size:.6rem;font-weight:600;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:var(--orange);
+}
+.hdr-fallback{
+  font-family:'Playfair Display',serif;
+  font-size:1.4rem;font-weight:900;
+  color:var(--orange);display:none;margin-bottom:2px;
 }
 
 /* ── STEP BAR ── */
-.steps {
-  display: flex;
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
+.stepbar{
+  display:flex;background:var(--white);
+  border-bottom:1px solid var(--border);
 }
-.step {
-  flex: 1;
-  padding: 10px 4px 9px;
-  text-align: center;
-  font-size: 0.68rem;
-  font-weight: 600;
-  color: var(--muted);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  border-bottom: 3px solid transparent;
-  transition: all 0.2s;
+.step-tab{
+  flex:1;padding:9px 6px 8px;text-align:center;
+  font-size:.62rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--text-3);border-bottom:2.5px solid transparent;
+  transition:all .2s;cursor:default;
 }
-.step.active { color: var(--orange); border-bottom-color: var(--orange); }
-.step.done   { color: var(--green);  border-bottom-color: var(--green); }
-.step-num {
-  display: inline-block;
-  width: 20px; height: 20px;
-  border-radius: 50%;
-  background: var(--cream-dark);
-  color: var(--muted);
-  font-size: 0.7rem;
-  font-weight: 700;
-  line-height: 20px;
-  margin-bottom: 3px;
+.step-tab.active{color:var(--orange);border-bottom-color:var(--orange)}
+.step-tab.done{color:var(--green);border-bottom-color:var(--green)}
+.step-num{
+  display:block;
+  width:20px;height:20px;border-radius:50%;
+  background:var(--cream-2);color:var(--text-3);
+  font-size:.68rem;font-weight:700;line-height:20px;
+  margin:0 auto 3px;transition:all .2s;
 }
-.step.active .step-num { background: var(--orange); color: white; }
-.step.done .step-num   { background: var(--green);  color: white; }
+.step-tab.active .step-num{background:var(--orange);color:#fff}
+.step-tab.done .step-num{background:var(--green);color:#fff}
 
 /* ── PAGES ── */
-.page { display: none; padding: 16px 14px 40px; }
-.page.active { display: block; }
+.page{display:none;padding:16px 14px 48px;animation:fadeUp .22s ease}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
-/* ── SECTION CARD ── */
-.card {
-  background: var(--white);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  margin-bottom: 14px;
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
+/* ── CARDS ── */
+.card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  margin-bottom:12px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
 }
-.card-head {
-  padding: 13px 16px 11px;
-  border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; gap: 10px;
+.card-hd{
+  padding:13px 15px 11px;
+  border-bottom:1px solid var(--cream-2);
+  display:flex;align-items:center;gap:10px;
 }
-.card-head h2 {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--text);
+.card-hd-icon{
+  width:30px;height:30px;border-radius:8px;
+  background:var(--orange-pale);border:1px solid var(--orange-border);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
 }
-.card-head .icon {
-  width: 30px; height: 30px;
-  background: var(--orange-pale);
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1rem;
-  flex-shrink: 0;
+.card-hd-icon svg{width:15px;height:15px;stroke:var(--orange);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.card-hd h2{
+  font-family:'Playfair Display',serif;
+  font-size:.97rem;font-weight:700;color:var(--text);
 }
-.card-body { padding: 16px; }
+.card-hd p{font-size:.73rem;color:var(--text-3);margin-top:1px}
+.card-bd{padding:15px}
 
 /* ── FORM ── */
-.field { margin-bottom: 14px; }
-.field:last-child { margin-bottom: 0; }
-label.lbl {
-  display: block;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--green);
-  margin-bottom: 5px;
+.field{margin-bottom:13px}
+.field:last-child{margin-bottom:0}
+.lbl{
+  display:block;font-size:.68rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--green);margin-bottom:5px;
 }
-input[type=text], input[type=time], input[type=number], select {
-  width: 100%;
-  padding: 11px 13px;
-  border: 1.5px solid var(--border);
-  border-radius: 9px;
-  font-size: 0.95rem;
-  font-family: inherit;
-  background: var(--cream);
-  color: var(--text);
-  outline: none;
-  transition: border-color 0.18s, box-shadow 0.18s;
-  -webkit-appearance: none;
-  appearance: none;
+input[type=text],input[type=time],input[type=number]{
+  width:100%;padding:10px 13px;
+  border:1.5px solid var(--border);border-radius:8px;
+  font-size:.92rem;font-family:'DM Sans',sans-serif;
+  background:var(--cream);color:var(--text);
+  outline:none;transition:border-color .18s,box-shadow .18s;
+  -webkit-appearance:none;appearance:none;
 }
-input:focus, select:focus {
-  border-color: var(--orange);
-  box-shadow: 0 0 0 3px rgba(212,88,26,0.1);
-  background: var(--white);
-}
+input:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(200,83,26,.1);background:var(--white)}
 
 /* ── TRAVEL BOX ── */
-.travel-box {
-  background: var(--green-pale);
-  border: 1.5px solid var(--green);
-  border-radius: 10px;
-  padding: 14px 16px;
-  margin-top: 14px;
-  display: none;
+.travel-box{
+  background:var(--green-pale);border:1.5px solid var(--green-border);
+  border-radius:9px;padding:14px 15px;margin-top:12px;display:none;
 }
-.travel-box.show { display: block; }
-.travel-leave {
-  font-family: 'Playfair Display', serif;
-  font-size: 2rem;
-  font-weight: 900;
-  color: var(--orange);
-  line-height: 1;
-}
-.travel-label {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--green);
-  margin-bottom: 3px;
-}
-.travel-detail { font-size: 0.8rem; color: var(--muted); margin-top: 6px; }
+.travel-box.show{display:block}
+.travel-lbl{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:4px}
+.travel-time{font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:900;color:var(--orange);line-height:1;margin-bottom:4px}
+.travel-detail{font-size:.78rem;color:var(--text-2);margin-top:4px}
 
 /* ── BUTTONS ── */
-.btn {
-  display: block; width: 100%;
-  padding: 14px;
-  border: none; border-radius: 10px;
-  font-family: 'Playfair Display', serif;
-  font-size: 1rem; font-weight: 700;
-  cursor: pointer;
-  transition: transform 0.12s, box-shadow 0.12s, background 0.15s;
-  letter-spacing: 0.03em;
+.btn{
+  display:block;width:100%;padding:13px 16px;
+  border:none;border-radius:9px;
+  font-family:'Playfair Display',serif;
+  font-size:.97rem;font-weight:700;letter-spacing:.02em;
+  cursor:pointer;transition:transform .12s,background .15s;
 }
-.btn:active { transform: scale(0.975); }
-.btn-orange {
-  background: var(--orange);
-  color: white;
-  box-shadow: 0 3px 12px rgba(212,88,26,0.28);
+.btn:active{transform:scale(.977)}
+.btn-primary{background:var(--orange);color:#fff;box-shadow:0 3px 14px rgba(200,83,26,.3)}
+.btn-primary:hover{background:var(--orange-mid)}
+.btn-secondary{background:var(--green);color:#fff;box-shadow:0 3px 14px rgba(61,107,53,.28)}
+.btn-ghost{
+  background:transparent;border:1.5px solid var(--orange);
+  color:var(--orange);font-family:'DM Sans',sans-serif;
+  font-size:.82rem;font-weight:600;padding:10px 14px;
 }
-.btn-orange:hover { background: var(--orange-light); }
-.btn-green {
-  background: var(--green);
-  color: white;
-  box-shadow: 0 3px 12px rgba(74,124,63,0.25);
+.btn+.btn,.btn+.btn-ghost{margin-top:9px}
+.back-link{
+  display:inline-flex;align-items:center;gap:5px;
+  background:none;border:none;color:var(--orange);
+  font-size:.78rem;font-weight:600;
+  cursor:pointer;padding:0 0 13px;font-family:'DM Sans',sans-serif;
+  letter-spacing:.03em;
 }
-.btn-green:hover { background: var(--green-light); }
-.btn-outline {
-  background: transparent;
-  border: 2px solid var(--orange);
-  color: var(--orange);
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.85rem;
-}
-.btn + .btn, .btn + .btn-outline { margin-top: 10px; }
+.back-link svg{width:13px;height:13px;stroke:var(--orange);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
 
-/* ── BACK LINK ── */
-.back-btn {
-  display: flex; align-items: center; gap: 6px;
-  background: none; border: none;
-  color: var(--orange); font-size: 0.82rem; font-weight: 700;
-  cursor: pointer; padding: 0 0 14px;
-  font-family: inherit;
+/* ── HINT BOX ── */
+.hint{
+  background:var(--orange-pale);border-left:3px solid var(--orange);
+  border-radius:0 8px 8px 0;
+  padding:9px 12px;font-size:.74rem;color:var(--orange);
+  margin-bottom:12px;line-height:1.5;font-weight:500;
 }
 
-/* ── ACCORDION CATEGORY ── */
-.cat-block {
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  margin-bottom: 10px;
-  overflow: hidden;
-  background: var(--white);
+/* ── CATEGORY ACCORDION ── */
+.cat{border:1px solid var(--border);border-radius:var(--radius);margin-bottom:9px;overflow:hidden;background:var(--white)}
+.cat-hd{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:13px 14px;cursor:pointer;user-select:none;
+  transition:background .15s;
 }
-.cat-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 13px 15px;
-  cursor: pointer;
-  user-select: none;
-  background: var(--white);
-  transition: background 0.15s;
+.cat-hd:active{background:var(--cream)}
+.cat-hd-left{display:flex;align-items:center;gap:10px}
+.cat-pill{
+  width:32px;height:32px;border-radius:8px;
+  background:var(--cream-2);display:flex;align-items:center;justify-content:center;flex-shrink:0;
 }
-.cat-header:active { background: var(--cream); }
-.cat-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 0.97rem;
-  font-weight: 700;
-  color: var(--text);
+.cat-pill svg{width:16px;height:16px;stroke:var(--text-2);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.cat-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--text)}
+.cat-sub{font-size:.68rem;color:var(--text-3);margin-top:1px}
+.cat-right{display:flex;align-items:center;gap:7px}
+.cat-count{
+  background:var(--orange);color:#fff;
+  border-radius:20px;padding:2px 8px;
+  font-size:.64rem;font-weight:700;display:none;
+  font-family:'DM Sans',sans-serif;
 }
-.cat-badge {
-  background: var(--orange);
-  color: white;
-  border-radius: 20px;
-  padding: 2px 9px;
-  font-size: 0.68rem;
-  font-weight: 700;
-  display: none;
-  margin-right: 6px;
+.cat-count.show{display:inline-block}
+.cat-chev{width:16px;height:16px;stroke:var(--text-3);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .22s;flex-shrink:0}
+.cat-chev.open{transform:rotate(180deg)}
+.cat-body{display:none;border-top:1px solid var(--cream-2)}
+.cat-body.open{display:block}
+.cat-note{
+  padding:9px 14px;font-size:.72rem;color:var(--text-2);
+  line-height:1.55;background:var(--cream);border-bottom:1px solid var(--cream-2);
 }
-.cat-badge.show { display: inline-block; }
-.cat-chev {
-  width: 18px; height: 18px;
-  color: var(--orange);
-  transition: transform 0.22s;
-  flex-shrink: 0;
-}
-.cat-chev.open { transform: rotate(180deg); }
-.cat-body {
-  display: none;
-  border-top: 1px solid var(--border);
-}
-.cat-body.open { display: block; }
+.cat-note strong{color:var(--orange)}
 
 /* ── MENU ITEM ── */
-.menu-item {
-  padding: 13px 15px;
-  border-bottom: 1px solid var(--cream-dark);
+.mitem{padding:13px 14px;border-bottom:1px solid var(--cream-2)}
+.mitem:last-child{border-bottom:none}
+.mitem-name{font-family:'Playfair Display',serif;font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:2px}
+.mitem-meta{font-size:.71rem;color:var(--text-3);margin-bottom:8px;line-height:1.4}
+.tag-hot{color:var(--orange);font-weight:600}
+.tag-cold{color:#4a7fbf;font-weight:600}
+.includes-box{
+  background:var(--green-pale);border-left:2.5px solid var(--green);
+  border-radius:0 7px 7px 0;
+  padding:7px 11px;margin-bottom:9px;
+  font-size:.7rem;color:var(--green);font-weight:500;line-height:1.6;
 }
-.menu-item:last-child { border-bottom: none; }
-.item-name { font-weight: 700; font-size: 0.92rem; color: var(--text); }
-.item-meta {
-  font-size: 0.75rem;
-  color: var(--muted);
-  margin: 2px 0 10px;
+.includes-box strong{font-weight:700}
+.controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px}
+.qty-wrap{display:flex;align-items:center;gap:6px}
+.qty-in{
+  width:66px;padding:8px 8px;text-align:center;
+  font-size:.97rem;font-weight:700;
+  border:1.5px solid var(--border);border-radius:7px;background:var(--cream);
 }
-.item-hot { color: var(--orange); font-weight: 700; }
-.item-cold { color: #4a7fbf; font-weight: 700; }
-.item-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.qty-wrap { display: flex; align-items: center; gap: 6px; }
-.qty-input {
-  width: 72px;
-  padding: 9px 8px;
-  text-align: center;
-  font-size: 1rem;
-  font-weight: 700;
-  border: 1.5px solid var(--border);
-  border-radius: 8px;
-  background: var(--cream);
+.qty-label{font-size:.7rem;color:var(--text-3);font-weight:500}
+.add-btn{
+  background:var(--orange);color:#fff;border:none;
+  border-radius:7px;padding:8px 16px;
+  font-size:.77rem;font-weight:600;font-family:'DM Sans',sans-serif;
+  cursor:pointer;letter-spacing:.02em;transition:background .15s;
 }
-.qty-unit { font-size: 0.75rem; color: var(--muted); font-weight: 600; }
-.add-btn {
-  background: var(--orange);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 9px 16px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  font-family: inherit;
-  cursor: pointer;
-  transition: background 0.15s;
+.add-btn:active{background:var(--orange-mid)}
+.added-tag{
+  background:var(--green-pale);color:var(--green);
+  border:1px solid var(--green-border);border-radius:6px;
+  padding:4px 10px;font-size:.68rem;font-weight:700;display:none;
+  font-family:'DM Sans',sans-serif;letter-spacing:.04em;text-transform:uppercase;
 }
-.add-btn:active { background: var(--orange-light); }
-.added-badge {
-  background: var(--green-pale);
-  color: var(--green);
-  border: 1px solid var(--green);
-  border-radius: 6px;
-  padding: 4px 10px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  display: none;
-}
-.added-badge.show { display: inline-block; }
+.added-tag.show{display:inline-block}
 
 /* ── SUBSTITUTIONS ── */
-.sub-btn {
-  display: inline-flex; align-items: center; gap: 4px;
-  background: var(--orange-pale);
-  border: 1px solid var(--orange);
-  color: var(--orange);
-  border-radius: 6px;
-  padding: 5px 11px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  font-family: inherit;
-  cursor: pointer;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  margin-top: 8px;
+.sub-toggle{
+  display:inline-flex;align-items:center;gap:4px;
+  background:var(--orange-pale);border:1px solid var(--orange-border);
+  color:var(--orange);border-radius:6px;
+  padding:5px 10px;font-size:.69rem;font-weight:600;font-family:'DM Sans',sans-serif;
+  cursor:pointer;letter-spacing:.05em;text-transform:uppercase;margin-top:9px;
 }
-.sub-panel {
-  background: var(--orange-pale);
-  border: 1px solid var(--orange);
-  border-radius: 9px;
-  padding: 12px;
-  margin-top: 9px;
-  display: none;
+.sub-panel{
+  background:var(--orange-pale);border:1px solid var(--orange-border);
+  border-radius:8px;padding:12px;margin-top:8px;display:none;
 }
-.sub-panel.open { display: block; }
-.sub-panel-title {
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--orange);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 8px;
+.sub-panel.open{display:block}
+.sub-hd{font-size:.67rem;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:.09em;margin-bottom:8px}
+.sub-opt{
+  display:flex;align-items:flex-start;gap:8px;
+  font-size:.82rem;color:var(--text);margin-bottom:7px;cursor:pointer;line-height:1.3;
 }
-.sub-option {
-  display: flex; align-items: center; gap: 8px;
-  font-size: 0.85rem;
-  color: var(--text);
-  margin-bottom: 7px;
-  cursor: pointer;
-}
-.sub-option:last-child { margin-bottom: 0; }
-.sub-option input { accent-color: var(--orange); width: auto; padding: 0; border: none; background: none; }
+.sub-opt:last-child{margin-bottom:0}
+.sub-opt input{accent-color:var(--orange);width:auto;padding:0;border:none;background:none;margin-top:2px;flex-shrink:0}
 
 /* ── CART ── */
-.cart-empty { text-align: center; padding: 24px; color: var(--muted); font-size: 0.88rem; }
-.cart-item {
-  display: flex; align-items: flex-start; gap: 10px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--cream-dark);
+.cart-empty{text-align:center;padding:24px;color:var(--text-3);font-size:.84rem}
+.cart-item{
+  display:flex;align-items:flex-start;gap:9px;
+  padding:9px 0;border-bottom:1px solid var(--cream-2);
 }
-.cart-item:last-child { border-bottom: none; }
-.cart-item-info { flex: 1; }
-.cart-item-name { font-weight: 700; font-size: 0.88rem; color: var(--text); }
-.cart-item-detail { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
-.cart-remove {
-  background: none; border: none;
-  color: #c0392b; font-size: 1.1rem;
-  cursor: pointer; padding: 2px 6px;
-  line-height: 1;
-}
-
-/* ── INCLUDED ITEMS NOTE ── */
-.included-note {
-  background: var(--green-pale);
-  border-left: 3px solid var(--green);
-  border-radius: 0 8px 8px 0;
-  padding: 8px 12px;
-  margin-top: 8px;
-  font-size: 0.75rem;
-  color: var(--green);
-  font-weight: 600;
+.cart-item:last-child{border-bottom:none}
+.cart-info{flex:1}
+.cart-name{font-weight:600;font-size:.87rem;color:var(--text)}
+.cart-detail{font-size:.72rem;color:var(--text-3);margin-top:2px}
+.cart-rm{
+  background:none;border:none;color:#c0392b;
+  font-size:.95rem;cursor:pointer;padding:2px 5px;line-height:1;font-weight:700;
 }
 
 /* ── SUMMARY ── */
-.sum-section { margin-bottom: 20px; }
-.sum-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--text);
-  border-bottom: 2px solid var(--orange);
-  padding-bottom: 5px;
-  margin-bottom: 10px;
+.sum-sec{margin-bottom:18px}
+.sum-sec-title{
+  font-family:'Playfair Display',serif;font-size:.88rem;font-weight:700;color:var(--text);
+  border-bottom:2px solid var(--orange);padding-bottom:5px;margin-bottom:10px;
 }
-.sum-row {
-  display: flex; justify-content: space-between;
-  padding: 7px 0;
-  border-bottom: 1px solid var(--cream-dark);
-  font-size: 0.85rem;
-  gap: 10px;
+.sum-row{
+  padding:7px 0;border-bottom:1px solid var(--cream-2);font-size:.82rem;
 }
-.sum-row:last-child { border-bottom: none; }
-.sum-key { font-weight: 700; color: var(--text); flex-shrink: 0; max-width: 45%; }
-.sum-val { color: var(--muted); text-align: right; font-size: 0.82rem; }
-
-.info-pill {
-  background: var(--cream-dark);
-  border-radius: 8px;
-  padding: 9px 13px;
-  margin-bottom: 8px;
-  font-size: 0.83rem;
+.sum-row:last-child{border-bottom:none}
+.sum-key{font-weight:700;color:var(--text);display:block}
+.sum-val{color:var(--text-3);font-size:.77rem;white-space:pre-line;line-height:1.5;display:block;margin-top:2px}
+.info-chip{
+  background:var(--cream-2);border-radius:8px;
+  padding:9px 12px;margin-bottom:7px;font-size:.82rem;
 }
-.info-pill strong { color: var(--orange); }
-
-.supply-chip {
-  display: inline-flex; align-items: center; gap: 6px;
-  background: var(--green-pale);
-  border: 1px solid var(--green);
-  border-radius: 8px;
-  padding: 7px 12px;
-  margin: 4px 4px 4px 0;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--green);
-}
-.supply-qty {
-  background: var(--green);
-  color: white;
-  border-radius: 5px;
-  padding: 1px 7px;
-  font-size: 0.72rem;
-  font-weight: 700;
+.info-chip strong{color:var(--orange)}
+.info-chip-green{background:var(--green-pale);border-left:3px solid var(--green)}
+.supply-grid{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+.supply-chip{
+  background:var(--green-pale);border:1px solid var(--green-border);
+  border-radius:6px;padding:5px 10px;
+  font-size:.72rem;font-weight:600;color:var(--green);
 }
 
-/* ── EMAIL ── */
-.email-status {
-  text-align: center; padding: 12px; border-radius: 8px;
-  font-size: 0.85rem; font-weight: 600; margin-top: 10px; display: none;
+/* ── EMAIL STATUS ── */
+.eml-st{
+  text-align:center;padding:12px;border-radius:8px;
+  font-size:.82rem;font-weight:600;margin-top:10px;display:none;
 }
-.email-status.ok  { background: var(--green-pale); color: var(--green); display: block; }
-.email-status.err { background: #fdecea; color: #c0392b; display: block; }
+.eml-st.ok{background:var(--green-pale);color:var(--green);display:block}
 
-.section-note {
-  background: var(--orange-pale);
-  border-left: 3px solid var(--orange);
-  border-radius: 0 8px 8px 0;
-  padding: 9px 12px;
-  font-size: 0.78rem;
-  color: var(--orange);
-  margin-bottom: 14px;
-  line-height: 1.5;
-}
+/* ── DIVIDER ── */
+.divider{height:1px;background:var(--cream-2);margin:4px 0 12px}
 </style>
 </head>
 <body>
 
 <!-- HEADER -->
-<div class="header">
-  <img src="https://hueylueys.com/wp-content/uploads/2016/09/hllogo-light.png" alt="Huey Luey's" onerror="this.style.display='none'" />
-  <div class="header-sub">Catering Guide</div>
+<div class="hdr">
+  <img class="hdr-logo" src="https://hueylueys.com/wp-content/uploads/2016/09/hllogo-light.png" alt="Huey Luey's"
+    onerror="this.style.display='none';document.querySelector('.hdr-fallback').style.display='block'"/>
+  <div class="hdr-fallback">Huey Luey's</div>
+  <div class="hdr-tagline">Catering Guide</div>
 </div>
 
 <!-- STEP BAR -->
-<div class="steps">
-  <div class="step active" id="s1">
-    <div class="step-num">1</div><br>Info
-  </div>
-  <div class="step" id="s2">
-    <div class="step-num">2</div><br>Items
-  </div>
-  <div class="step" id="s3">
-    <div class="step-num">3</div><br>Review
-  </div>
+<div class="stepbar">
+  <div class="step-tab active" id="st1"><span class="step-num">1</span>Info</div>
+  <div class="step-tab" id="st2"><span class="step-num">2</span>Items</div>
+  <div class="step-tab" id="st3"><span class="step-num">3</span>Review</div>
 </div>
 
-<!-- ════════════════════════════
-     PAGE 1 — ORDER INFO
-════════════════════════════ -->
+<!-- ════════════ PAGE 1 — INFO ════════════ -->
 <div class="page active" id="pg1">
+
   <div class="card">
-    <div class="card-head">
-      <div class="icon">📋</div>
-      <h2>Order Details</h2>
+    <div class="card-hd">
+      <div class="card-hd-icon">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div><h2>Driver & Order Info</h2><p>Fill out before heading out</p></div>
     </div>
-    <div class="card-body">
+    <div class="card-bd">
       <div class="field">
         <label class="lbl">Your Name</label>
         <input type="text" id="fName" placeholder="First & Last Name" autocomplete="name"/>
@@ -512,435 +359,495 @@ input:focus, select:focus {
   </div>
 
   <div class="card">
-    <div class="card-head">
-      <div class="icon">📍</div>
-      <h2>Delivery Address</h2>
+    <div class="card-hd">
+      <div class="card-hd-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <div><h2>Delivery Address</h2><p>We calculate drive time from the store</p></div>
     </div>
-    <div class="card-body">
+    <div class="card-bd">
       <div class="field">
         <label class="lbl">Delivery Address</label>
-        <input type="text" id="fAddr" placeholder="Street address, City, State" autocomplete="street-address"/>
+        <input type="text" id="fAddr" placeholder="Full street address, City, State" autocomplete="street-address"/>
       </div>
-      <button class="btn btn-outline" onclick="calcTravel()" style="margin-top:4px">
-        🗺 Calculate Drive Time
-      </button>
-      <div class="travel-box" id="travelBox">
-        <div class="travel-label">Leave Store By</div>
-        <div class="travel-leave" id="leaveTime">—</div>
-        <div class="travel-detail" id="travelDetail"></div>
+      <button class="btn btn-ghost" onclick="calcTravel()">Get Drive Time & Leave-By Time</button>
+      <div class="travel-box" id="tbox">
+        <div class="travel-lbl">Leave Store By</div>
+        <div class="travel-time" id="tleave">--:--</div>
+        <div class="travel-detail" id="tdetail">Calculating...</div>
       </div>
     </div>
   </div>
 
-  <button class="btn btn-orange" onclick="goPage2()">Continue to Menu Items →</button>
+  <button class="btn btn-primary" onclick="goP2()">Continue to Menu Items</button>
 </div>
 
-<!-- ════════════════════════════
-     PAGE 2 — MENU ITEMS
-════════════════════════════ -->
+<!-- ════════════ PAGE 2 — ITEMS ════════════ -->
 <div class="page" id="pg2">
-  <button class="back-btn" onclick="goPage(1)">← Back to Order Info</button>
+  <button class="back-link" onclick="goPage(1)">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Info
+  </button>
 
-  <div class="section-note">
-    Tap a category to expand. Enter quantity and tap <strong>Add</strong>. Items build your order below.
-  </div>
+  <div class="hint">Tap a category to expand. Enter the guest count and tap <strong>Add to Order</strong>.</div>
 
   <div id="menuWrap"></div>
 
-  <!-- CART -->
-  <div class="card" id="cartCard">
-    <div class="card-head">
-      <div class="icon">🛒</div>
-      <h2>Your Order</h2>
+  <div class="card">
+    <div class="card-hd">
+      <div class="card-hd-icon">
+        <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      </div>
+      <div><h2>Current Order</h2><p>Items you've added</p></div>
     </div>
-    <div class="card-body">
+    <div class="card-bd">
       <div id="cartList"><div class="cart-empty">No items added yet</div></div>
     </div>
   </div>
 
-  <button class="btn btn-orange" onclick="goPage3()" id="reviewBtn" style="display:none">
-    Review & Send Order →
-  </button>
+  <button class="btn btn-primary" id="reviewBtn" onclick="goP3()" style="display:none">Review & Send Order</button>
 </div>
 
-<!-- ════════════════════════════
-     PAGE 3 — SUMMARY
-════════════════════════════ -->
+<!-- ════════════ PAGE 3 — REVIEW ════════════ -->
 <div class="page" id="pg3">
-  <button class="back-btn" onclick="goPage(2)">← Back to Menu</button>
+  <button class="back-link" onclick="goPage(2)">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Items
+  </button>
+
   <div class="card">
-    <div class="card-head"><div class="icon">✅</div><h2>Order Summary</h2></div>
-    <div class="card-body" id="summaryBody"></div>
+    <div class="card-hd">
+      <div class="card-hd-icon">
+        <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      </div>
+      <div><h2>Order Summary</h2><p>Review everything before sending</p></div>
+    </div>
+    <div class="card-bd" id="sumBody"></div>
   </div>
+
   <div class="card">
-    <div class="card-head"><div class="icon">📧</div><h2>Send to Tyler</h2></div>
-    <div class="card-body">
-      <p style="font-size:0.82rem;color:var(--muted);margin-bottom:12px">
-        Sends a formatted catering sheet to <strong>tylerhawthorne@hueylueys.com</strong>
-      </p>
-      <button class="btn btn-green" onclick="sendEmail()">📧 Send Catering Sheet</button>
-      <div class="email-status" id="emailStatus"></div>
+    <div class="card-hd">
+      <div class="card-hd-icon">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <div><h2>Send to Tyler</h2><p>tylerhawthorne@hueylueys.com</p></div>
+    </div>
+    <div class="card-bd">
+      <button class="btn btn-secondary" onclick="sendEmail()">Send Catering Sheet</button>
+      <div class="eml-st" id="emlSt"></div>
     </div>
   </div>
 </div>
 
 <script>
-// ══════════════════════════════════════════════════
+// ─────────────────────────────────────────────────────────
 // STATE
-// ══════════════════════════════════════════════════
-const state = {
+// ─────────────────────────────────────────────────────────
+const ST = {
   name:'', order:'', time:'', address:'',
   leaveTime:'', travelInfo:'',
-  cart:[]
+  cart:[] // {id, name, qty, sub, panNote, setup, includes}
 };
 
-// ══════════════════════════════════════════════════
-// MENU DATA — from Google Sheet
-// Columns: name, hot/cold, portionPerPerson, pan, servingsPerPan, substitutions, includes, category
-// ══════════════════════════════════════════════════
+const STORE_LAT = 34.0691, STORE_LNG = -84.6388;
+
+// ─────────────────────────────────────────────────────────
+// MENU — exactly from your Google Sheet
+// Categories: Appetizers, Taco Bar, Nacho Bar, Fajita Bar,
+//             Salads, Sides, Desserts, Beverages
+// ─────────────────────────────────────────────────────────
 const MENU = [
-  {
-    cat: 'Appetizers',
-    icon: '🥑',
-    note: 'Mix & Match Apps: Each item = ½ portion when split. Serves 10 persons per app.',
-    items: [
-      {
-        id:'queso-reg', name:'Regular Queso', temp:'Hot', portion:'3 oz per person',
-        pan:'Full Pan — Hot Items — Main',
-        servings:{ full:100, half:35, third:null, container:'32oz Deli: 10 persons' },
-        includes:['Chips (Large White Bag — 20 persons/bag)', 'Pico de Gallo Garnish'],
-        subs:[],
-        setupItems:['Tongs 9" (Large)', 'Ladle', 'Wire Rack + Full Pan']
-      },
-      {
-        id:'queso-spicy', name:'Spicy Queso', temp:'Hot', portion:'3 oz per person',
-        pan:'Full Pan — Hot Items — Main',
-        servings:{ full:100, half:35, third:null, container:'32oz Deli: 10 persons' },
-        includes:['Chips (Large White Bag — 20 persons/bag)', 'Pico de Gallo Garnish'],
-        subs:[{id:'reg-swap', label:'Swap to Regular Queso'}],
-        setupItems:['Tongs 9" (Large)', 'Ladle', 'Wire Rack + Full Pan']
-      },
-      {
-        id:'avo-rolls', name:'Avocado Rolls', temp:'Hot', portion:'1 per 2 persons',
-        pan:'Full Pan — avocado side (120 rolls = 240 persons)',
-        servings:{ full:120, half:40, container:'N/A' },
-        includes:[],
-        subs:[],
-        setupItems:['Tongs 6" (Small)', 'Wire Rack + Full Pan']
-      },
-      {
-        id:'taquitos', name:'Brisket Taquitos', temp:'Hot', portion:'1 per 2 persons',
-        pan:'Full Pan — taquito side (45 taquitos = 90 persons)',
-        servings:{ full:45, half:null },
-        includes:[],
-        subs:[],
-        setupItems:['Tongs 6" (Small)', 'Wire Rack + Full Pan']
-      }
-    ]
-  },
-  {
-    cat: 'Taco Bar',
-    icon: '🌮',
-    note: 'Includes proteins, tortillas, rice, beans, and all toppings. Tortilla type selected below.',
-    items: [
-      {
-        id:'taco-bar', name:'Taco Bar', temp:'Hot', portion:'3 tacos per person',
-        pan:'Full Pan — proteins. Half Pan — each topping.',
-        servings:{ full_protein:100, half_topping:35 },
-        includes:[
-          'Ground Beef — Included / Main',
-          'Salsa Chicken — Included / Main',
-          'Mexican Rice — Included / Main (3 oz)',
-          'Charro Beans — Included / Main (3 oz)',
-          'Shredded Lettuce — Included / Side',
-          'Shredded Cheese — Included / Side',
-          'Pico de Gallo — Included / Side',
-          'Sour Cream — Included / Main (3 oz)',
-          'Chips & Salsa — Included / Main'
-        ],
-        subs:[
-          {id:'flour-sm', label:'Small Flour Tortillas'},
-          {id:'flour-lg', label:'Large Flour Tortillas'},
-          {id:'corn', label:'Corn Tortillas'},
-          {id:'hard-shell', label:'Hard Shell Tortillas'},
-          {id:'mixed-chicken-beef', label:'Mixed Salsa Chicken + Ground Beef'},
-          {id:'chicken-beef-upcharge', label:'Chicken & Beef +$3 Option'}
-        ],
-        setupItems:['Tongs 6" (Small) ×2', 'Ladle ×2', 'Serving Spoons ×4', 'Wire Rack + Full Pans', 'Half Pans for Toppings', 'Label Cards']
-      },
-      {
-        id:'veggie-fajitas', name:'Veggie Fajitas', temp:'Hot', portion:'5 oz per person',
-        pan:'Half Pan — Hot Items — Main (15 persons per pan)',
-        servings:{ half:15 },
-        includes:[
-          'Fire Roasted Veggies — Included / Main',
-          'Grilled Onions — Included / Main',
-          'Grilled Peppers — Included / Main',
-          'Tortillas — select type below',
-          'Sour Cream — Included / Side',
-          'Shredded Cheese — Included / Side'
-        ],
-        subs:[
-          {id:'vf-flour-sm', label:'Small Flour Tortillas (25 persons/pan)'},
-          {id:'vf-corn', label:'Corn Tortillas (15 persons/pan)'},
-          {id:'vf-hard', label:'Hard Shell Tortillas (10 persons/pan)'}
-        ],
-        setupItems:['Tongs 6" (Small)', 'Serving Spoon', 'Wire Rack + Half Pan']
-      }
-    ]
-  },
-  {
-    cat: 'Nacho Bar',
-    icon: '🧀',
-    note: 'Ground Beef: 100 persons/full pan. Salsa Chicken: 85 persons/full pan. Veggies: 75 persons/full pan.',
-    items: [
-      {
-        id:'nacho-bar', name:'Nacho Bar', temp:'Hot', portion:'Per person',
-        pan:'Full Pan — protein. Chips in Large White Bags (20 persons/bag). Queso in Full Pan.',
-        servings:{ full_beef:100, full_chicken:85, full_veggie:75 },
-        includes:[
-          'Ground Beef — Included / Main',
-          'Salsa Chicken — Included / Main',
-          'Regular Queso — Included / Main',
-          'Chips — Included / Main',
-          'Shredded Lettuce — Included / Side',
-          'Shredded Cheese — Included / Side',
-          'Pico de Gallo — Included / Side',
-          'Sour Cream — Included / Side',
-          'Pickled Jalapeños — Included / Side'
-        ],
-        subs:[
-          {id:'nacho-spicy-queso', label:'Spicy Queso'},
-          {id:'nacho-veggies', label:'Nacho Veggies (75 persons/pan)'},
-          {id:'nacho-mixed', label:'Mixed Salsa Chicken + Ground Beef'},
-          {id:'nacho-chicken-beef', label:'Chicken & Beef +$3 Option'}
-        ],
-        setupItems:['Tongs 9" (Large) for Chips', 'Ladle for Queso', 'Serving Spoons ×4', 'Wire Rack + Full Pans']
-      }
-    ]
-  },
-  {
-    cat: 'Burrito Bar',
-    icon: '🌯',
-    note: 'Full bar includes proteins, rice, beans, all toppings and tortillas.',
-    items: [
-      {
-        id:'burrito-bar', name:'Burrito Bar', temp:'Hot', portion:'Per person',
-        pan:'Full Pan — proteins (100 persons/pan). Half Pan — sides (35 persons/pan).',
-        servings:{ full:100, half:35 },
-        includes:[
-          'Ground Beef — Included / Main',
-          'Salsa Chicken — Included / Main',
-          'Mexican Rice — Included / Main (3 oz)',
-          'Charro Beans — Included / Main (3 oz)',
-          'Refried Beans — Included / Main',
-          'Shredded Lettuce — Included / Side',
-          'Shredded Cheese — Included / Side',
-          'Sour Cream — Included / Main (3 oz)',
-          'Pico de Gallo — Included / Side',
-          'Chips & Salsa — Included / Main'
-        ],
-        subs:[
-          {id:'bb-flour-lg', label:'Large Flour Tortillas'},
-          {id:'bb-flour-sm', label:'Small Flour Tortillas'},
-          {id:'bb-corn', label:'Corn Tortillas'},
-          {id:'bb-bowl', label:'Burrito Bowl (no tortilla)'},
-          {id:'bb-mixed', label:'Mixed Salsa Chicken + Ground Beef'},
-          {id:'bb-chicken-beef', label:'Chicken & Beef +$3 Option'},
-          {id:'bb-black-beans', label:'Black Beans'},
-          {id:'bb-charro', label:'Charro Beans'}
-        ],
-        setupItems:['Tongs 6" (Small) ×2', 'Ladle ×2', 'Serving Spoons ×4', 'Wire Rack + Full Pans', 'Foil Wrap Squares']
-      }
-    ]
-  },
-  {
-    cat: 'Salads',
-    icon: '🥗',
-    note: 'All salads come with dressing. Farmers Kale Salad comes tossed in default dressing; sub dressing comes on the side.',
-    items: [
-      {
-        id:'house-salad', name:'House Salad', temp:'Cold', portion:'Per person',
-        pan:'16 oz Clamshell Cold Items or Half Pan Cold Items',
-        servings:{ half_cold:35, clamshell_lettuce:5 },
-        includes:[
-          'Mixed Power Greens — Included / Main',
-          'Red Onions — Included / Main',
-          'Sliced Avocados — Included / Main',
-          'Shredded Cheese — Included / Side',
-          'Cubed Cucumber — Included / Main',
-          'Diced Tomato — Included / Side',
-          'Cilantro Ranch — Included / Main'
-        ],
-        subs:[
-          {id:'hs-mango', label:'Mango Vinaigrette'},
-          {id:'hs-oregano', label:'Oregano Vinaigrette'},
-          {id:'hs-chipotle', label:'Chipotle Ranch'}
-        ],
-        setupItems:['Tongs 6" (Small)', 'Serving Spoon', 'Dressing Cups']
-      },
-      {
-        id:'kale-salad', name:"Farmer's Kale Salad", temp:'Cold', portion:'Per person',
-        pan:'16 oz Clamshell Cold Items or Half Pan Cold Items',
-        servings:{ half_cold:35 },
-        includes:[
-          'Kale Greens — Main',
-          'Radish — Included / Main',
-          'Cubed Avocado — Included / Main',
-          'Shredded Cheese — Included / Side',
-          'Cubed Cucumber — Included / Main',
-          'Pickled Onions — Included / Main',
-          'Oregano Vinaigrette — Included / Main (tossed)'
-        ],
-        subs:[
-          {id:'ks-mango', label:'Mango Vinaigrette (served on side)'},
-          {id:'ks-cilantro', label:'Cilantro Ranch (served on side)'},
-          {id:'ks-chipotle', label:'Chipotle Ranch (served on side)'},
-          {id:'ks-mixed', label:'Mixed Greens Add-on'}
-        ],
-        setupItems:['Tongs 6" (Small)', 'Serving Spoon', 'Dressing Cups']
-      },
-      {
-        id:'mexican-chopped', name:'Mexican Chopped Salad', temp:'Cold', portion:'Per person',
-        pan:'16 oz Clamshell Cold Items or Half Pan Cold Items',
-        servings:{ half_cold:35 },
-        includes:[
-          'Mixed Power Greens — Included / Main',
-          'Salsa Chicken — Included / Main (only salad with chicken)',
-          'Cubed Avocado — Included / Main',
-          'Shredded Cheese — Included / Side',
-          'Pickled Onions — Included / Main',
-          'Diced Tomato — Included / Side',
-          'Cilantro Ranch — Included / Main'
-        ],
-        subs:[
-          {id:'mc-oregano', label:'Oregano Vinaigrette'},
-          {id:'mc-mango', label:'Mango Vinaigrette'},
-          {id:'mc-chipotle', label:'Chipotle Ranch'}
-        ],
-        setupItems:['Tongs 6" (Small)', 'Serving Spoon', 'Dressing Cups']
-      }
-    ]
-  },
-  {
-    cat: 'Buffets',
-    icon: '🍽',
-    note: 'Full spread buffet. Includes proteins, all sides, toppings and beverages.',
-    items: [
-      {
-        id:'buffet', name:'Buffet Spread', temp:'Hot', portion:'Per person',
-        pan:'Full Pans — proteins (100 persons). Half Pans — sides (35 persons). Cold items in Clamshells.',
-        servings:{ full:100, half:35, half_cold:35 },
-        includes:[
-          'Ground Beef — Add-on / Side',
-          'Salsa Chicken — Add-on / Side',
-          'Fire Roasted Veggies — Add-on / Side',
-          'Mexican Rice — Included / Main',
-          'Charro Beans / Black Beans — Included / Main',
-          'Refried Beans — Included / Main',
-          'Shredded Lettuce — Add-on / Main',
-          'Sour Cream — Add-on / Main',
-          'Chips — Included / Main',
-          'Salsa — Add-on / Side'
-        ],
-        subs:[
-          {id:'buf-grilled-shrimp', label:'Grilled Shrimp +$$ (3 ea per person)'},
-          {id:'buf-veggies', label:'Fire Roasted Veggies'},
-          {id:'buf-mild-salsa', label:'Mild Salsa'},
-          {id:'buf-chicken-beef', label:'Chicken & Beef +$3 Option'}
-        ],
-        setupItems:['Tongs 9" (Large)', 'Tongs 6" (Small) ×2', 'Ladles ×2', 'Serving Spoons ×6', 'Wire Racks', 'Full Pans + Half Pans', 'Label Cards', 'Gallon of Water per 5 Full Pans']
-      }
-    ]
-  },
-  {
-    cat: 'Beverages',
-    icon: '🥤',
-    note: 'Fill plastic gallon jugs to the top. Include correct label sticker on front-facing side.',
-    items: [
-      {
-        id:'sweet-tea', name:'Gallon Sweet Tea', temp:'Cold', portion:'Per gallon',
-        pan:'Plastic Gallon Jug — fill to top. Include sticker.',
-        servings:{ gallon:'~16 persons per gallon' },
-        includes:['Ice — Included / Main', 'Plastic Cups — Included'],
-        subs:[],
-        setupItems:['Plastic Gallon Jug', 'Correct Label Sticker', 'Large Plastic Bag of Ice (16 persons/bag = 2 gallons)']
-      },
-      {
-        id:'unsweet-tea', name:'Gallon Unsweet Tea', temp:'Cold', portion:'Per gallon',
-        pan:'Plastic Gallon Jug — fill to top. Include sticker.',
-        servings:{ gallon:'~16 persons per gallon' },
-        includes:['Ice — Included / Main', 'Plastic Cups — Included'],
-        subs:[],
-        setupItems:['Plastic Gallon Jug', 'Correct Label Sticker', 'Large Plastic Bag of Ice']
-      },
-      {
-        id:'pink-lemonade', name:'Gallon Pink Lemonade', temp:'Cold', portion:'Per gallon',
-        pan:'Plastic Gallon Jug — fill to top. Include sticker.',
-        servings:{ gallon:'~16 persons per gallon' },
-        includes:['Ice — Included / Main'],
-        subs:[],
-        setupItems:['Plastic Gallon Jug', 'Correct Label Sticker', 'Large Plastic Bag of Ice']
-      },
-      {
-        id:'peach-tea', name:'Gallon Peach Tea', temp:'Cold', portion:'Per gallon',
-        pan:'Plastic Gallon Jug — fill to top. Include sticker.',
-        servings:{ gallon:'~16 persons per gallon' },
-        includes:['Ice — Included / Main'],
-        subs:[],
-        setupItems:['Plastic Gallon Jug', 'Correct Label Sticker', 'Large Plastic Bag of Ice']
-      }
-    ]
-  },
-  {
-    cat: 'Desserts & Extras',
-    icon: '🍰',
-    note: 'Sopapillas & Brownies: 50 persons per pan. Serve in 12 Inch Cake Pan.',
-    items: [
-      {
-        id:'sopapillas', name:'Sopapillas', temp:'Hot', portion:'Per person',
-        pan:'12 Inch Cake Pan — 24 persons per container. Full Pan: 50 persons.',
-        servings:{ full:50, cake_pan:24 },
-        includes:[],
-        subs:[],
-        setupItems:['Tongs 9" (Large)', '12 Inch Cake Pan', 'Wire Rack']
-      },
-      {
-        id:'brownies', name:'Brownies', temp:'Hot/Room Temp', portion:'Per person',
-        pan:'12 Inch Cake Pan — 24 persons per container. Full Pan: 50 persons.',
-        servings:{ full:50, cake_pan:24 },
-        includes:[],
-        subs:[],
-        setupItems:['Tongs 9" (Large)', '12 Inch Cake Pan']
-      },
-      {
-        id:'grilled-shrimp', name:'Grilled Shrimp', temp:'Hot', portion:'3 ea per person (main) / 1 ea add-on',
-        pan:'Full Pan — Hot Items',
-        servings:{ full:100 },
-        includes:[],
-        subs:[],
-        setupItems:['Tongs 6" (Small)', 'Wire Rack + Full Pan']
-      }
-    ]
-  }
+
+// ── APPETIZERS ──────────────────────────────────────────
+{
+  id:'apps', cat:'Mix N Match Appetizers', sub:'Minimum 2 selections — 10 persons per app',
+  note:'<strong>Min 2 selections required.</strong> Each app serves 10 persons. Because items are split, each item is portioned at half. Apps go out together on the wire rack.',
+  icon:'apps',
+  items:[
+    {
+      id:'avocado-rolls', name:'Avocado Rolls', temp:'Hot', portion:'1 roll per 2 persons',
+      panRule:'Full Pan: 120 rolls = 240 persons · Half Pan: 40 rolls = 80 persons · Third Pan: 20 rolls = 40 persons',
+      fc:240, hc:80, tc:40,
+      includes:['Shredded Lettuce Garnish','Pickled Onion Garnish','Cilantro Cream Dip'],
+      subs:[],
+      setup:['Tongs 6" (Small)','Wire Rack + Full Pan','Burner/Sterno — 1 per rack','1 gal water per 5 full pans']
+    },
+    {
+      id:'brisket-taquitos', name:'Brisket Taquitos', temp:'Hot', portion:'1 taquito per 2 persons',
+      panRule:'Full Pan: 120 taquitos = 240 persons · Half Pan: 45 taquitos = 90 persons · Third Pan: 20 taquitos = 40 persons',
+      fc:240, hc:90, tc:40,
+      includes:[],
+      subs:[],
+      setup:['Tongs 6" (Small)','Wire Rack + Full Pan','Burner/Sterno — 1 per rack','1 gal water per 5 full pans']
+    },
+    {
+      id:'guac-app', name:'Guacamole', temp:'Cold', portion:'3 oz per person',
+      panRule:'Full Pan Cold: 200 persons · Half Pan Cold: 50 persons · Third Pan Cold: 30 persons',
+      fc:200, hc:50, tc:30,
+      includes:['Pickled Radish Garnish'],
+      subs:[],
+      setup:['Black 5" Spoon (Small)']
+    },
+    {
+      id:'queso-reg-app', name:'Regular Queso', temp:'Hot', portion:'3 oz per person',
+      panRule:'Full Pan: 100 persons · Half Pan: 35 persons · Third Pan: 25 persons · 32oz Deli: 10 persons',
+      fc:100, hc:35, tc:25,
+      includes:['Chips — Large White Bag (20 persons per bag)','Pico de Gallo Garnish'],
+      subs:[{id:'swap-spicy-app',label:'Swap to Spicy Queso'}],
+      setup:['Ladle 2oz','Wire Rack + Full Pan','Burner/Sterno — 1 per rack','1 gal water per 5 full pans']
+    },
+    {
+      id:'queso-spicy-app', name:'Spicy Queso', temp:'Hot', portion:'3 oz per person',
+      panRule:'Full Pan: 100 persons · Half Pan: 35 persons · Third Pan: 25 persons · 32oz Deli: 10 persons',
+      fc:100, hc:35, tc:25,
+      includes:['Chips — Large White Bag (20 persons per bag)','Pico de Gallo Garnish'],
+      subs:[{id:'swap-reg-app',label:'Swap to Regular Queso'}],
+      setup:['Ladle 2oz','Wire Rack + Full Pan','Burner/Sterno — 1 per rack','1 gal water per 5 full pans']
+    }
+  ]
+},
+
+// ── TACO BAR ────────────────────────────────────────────
+{
+  id:'taco', cat:'Taco Bar', sub:'Default to Salsa Chicken — most popular',
+  note:'<strong>Default: Salsa Chicken.</strong> Proteins: Full Pan = Beef 100 / Chicken 85 persons. Half Pan = Beef 25 / Chicken 25. Third Pan = Beef 15 / Chicken 15. Sides: Half Pan 35 persons, Third Pan 20 persons.',
+  icon:'taco',
+  items:[
+    {
+      id:'taco-bar', name:'Taco Bar', temp:'Hot', portion:'3 tacos per person',
+      panRule:'Protein — Full Pan: Beef 100 / Chicken 85 persons · Half Pan: 25 persons · Third Pan: 15 persons\nSides — Half Pan: 35 persons · Third Pan: 20 persons',
+      fc:100, hc:35,
+      includes:[
+        'Ground Beef — Included / Main (3 oz)',
+        'Salsa Chicken — Included / Main (3 oz) — DEFAULT',
+        'Tortillas Flour — Included (select type in substitutions)',
+        'Mexican Rice — Included / Main (3 oz)',
+        'Charro Beans — Included / Main (3 oz)',
+        'Shredded Lettuce — Included / Side',
+        'Shredded Cheese — Included / Side',
+        'Pico de Gallo — Included / Side',
+        'Sour Cream — Included / Main (3 oz)',
+        'Chips — Included / Main (3 oz)',
+        'Mild Salsa — Included / Main (3 oz)'
+      ],
+      subs:[
+        {id:'t-flour',label:'Small Flour Tortillas — Full Pan: 50 / Half Pan: 25 / Third Pan: 15 persons'},
+        {id:'t-corn',label:'Corn Tortillas — Full Pan: 45 / Half Pan: 15 / Third Pan: 10 persons'},
+        {id:'t-hard',label:'Hard Shell Tortillas — Full Pan: 30 / Half Pan: 10 / Third Pan: 8 persons'},
+        {id:'t-lettuce',label:'Lettuce Cup — Substitution'},
+        {id:'t-mixed',label:'Mixed Salsa Chicken + Ground Beef'},
+        {id:'t-upcharge',label:'Chicken & Beef +$3 Option — Both Proteins'}
+      ],
+      setup:['Tongs 6" (Small) x2','Ladle 2oz x2','Black 9" Spoon (Large) — Ground Beef','Wire Racks + Full Pans','Half Pans for Sides','Burners/Sternos','1 gal water per 5 full pans','Label Cards']
+    }
+  ]
+},
+
+// ── NACHO BAR ───────────────────────────────────────────
+{
+  id:'nacho', cat:'Nacho Bar', sub:'Default to Salsa Chicken — most popular',
+  note:'<strong>Default: Salsa Chicken.</strong> Proteins — Full Pan: Beef 100 / Chicken 85 / Veggies 75 persons. Half Pan: Beef 25 / Chicken 25 / Veggies 15. Third Pan: Beef 15 / Chicken 15 / Veggies 10. Chips in Large White Bag (20 persons per bag).',
+  icon:'nacho',
+  items:[
+    {
+      id:'nacho-bar', name:'Nacho Bar', temp:'Hot', portion:'Per person',
+      panRule:'Protein — Full Pan: Beef 100 / Chicken 85 / Veggies 75 persons · Half Pan: 25 / 25 / 15\nQueso — Full Pan: 100 persons · Half Pan: 35 persons\nChips — Large White Bag: 20 persons per bag',
+      fc:100, hc:35,
+      includes:[
+        'Ground Beef — Included / Main (3 oz)',
+        'Salsa Chicken — Included / Main (3 oz) — DEFAULT',
+        'Regular Queso — Included / Main',
+        'Chips — Included / Main — Large White Bag (20 per bag)',
+        'Shredded Lettuce — Included / Side',
+        'Shredded Cheese — Included / Side',
+        'Pico de Gallo — Included / Side',
+        'Sour Cream — Included / Side',
+        'Pickled Jalapenos — Included / Side'
+      ],
+      subs:[
+        {id:'n-spicy',label:'Spicy Queso — Swap or Add'},
+        {id:'n-veggies',label:'Fire Roasted Veggies — Full Pan: 75 / Half Pan: 15 / Third Pan: 10 persons'},
+        {id:'n-mixed',label:'Mixed Salsa Chicken + Ground Beef'},
+        {id:'n-upcharge',label:'Chicken & Beef +$3 Option — Both Proteins'}
+      ],
+      setup:['Tongs 9" (Large) — Chips','Ladle 2oz — Queso','Black 9" Spoon (Large) — Ground Beef','Black 5" Spoon (Small) — Toppings','Wire Racks + Full Pans','Burners/Sternos','1 gal water per 5 full pans']
+    }
+  ]
+},
+
+// ── FAJITA BAR ──────────────────────────────────────────
+{
+  id:'fajita', cat:'Fajita Bar', sub:'Choose your protein combination below',
+  note:'<strong>Fajita proteins:</strong> Full Pan = 25 persons. Half Pan = 15 persons. Third Pan = 15 persons. Select protein choice in substitutions. Tortillas included — select type.',
+  icon:'fajita',
+  items:[
+    {
+      id:'fajita-bar', name:'Fajita Bar', temp:'Hot', portion:'Per person',
+      panRule:'Protein — Full Pan: 25 persons · Half Pan: 15 persons · Third Pan: 15 persons\nSides — Half Pan: 35 persons · Third Pan: 20 persons',
+      fc:25, hc:15,
+      includes:[
+        'Tortillas Flour — Included / Main (select type in substitutions)',
+        'Mexican Rice — Included / Main (3 oz)',
+        'White Rice — Included / Main (3 oz)',
+        'Charro Beans — Included / Main (3 oz)',
+        'Black Beans — Included / Main (3 oz)',
+        'Pico de Gallo — Included / Side',
+        'Sour Cream — Included / Side',
+        'Guacamole — Included / Side',
+        'Radish — Garnish',
+        'Lime Wedges — Garnish',
+        'Chips — Included / Main',
+        'Salsa — Add-on / Side'
+      ],
+      subs:[
+        {id:'f-cs',label:'Protein: Chicken & Steak'},
+        {id:'f-c',label:'Protein: Chicken Only (5 oz per person)'},
+        {id:'f-s',label:'Protein: Steak Only (4 oz per person)'},
+        {id:'f-csh',label:'Protein: Chicken, Steak & Shrimp'},
+        {id:'f-v',label:'Protein: Veggie — Fire Roasted Veggies'},
+        {id:'f-sh',label:'Protein: Shrimp (3 ea per person)'},
+        {id:'f-corn',label:'Tortillas: Corn — Full Pan: 45 / Half Pan: 15 persons'},
+        {id:'f-hard',label:'Tortillas: Hard Shell — Full Pan: 30 / Half Pan: 10 persons'},
+        {id:'f-lettuce',label:'Tortillas: Lettuce Cup Substitution'},
+        {id:'f-shrimp-add',label:'Add Grilled Shrimp — Add-on / Side (1 ea)'}
+      ],
+      setup:['Tongs 6" (Small) x2','Ladle 2oz','Wire Racks + Full Pans','Half Pans for Sides','Burners/Sternos','1 gal water per 5 full pans','Label Cards']
+    }
+  ]
+},
+
+// ── SALADS ──────────────────────────────────────────────
+{
+  id:'salad', cat:'Salads', sub:'All serve 10 persons per selection — min 1 full pan',
+  note:'<strong>All salads serve 10 persons per full pan.</strong> Follow portioning rules. Farmer\'s Kale comes tossed in Oregano Vinaigrette — substituted dressing served on the side.',
+  icon:'salad',
+  items:[
+    {
+      id:'house-salad', name:'House Salad', temp:'Cold', portion:'10 persons per full pan',
+      panRule:'Full Pan Cold: 10 persons (follow portioning rules)',
+      fc:10, hc:null,
+      includes:[
+        'Mixed Power Greens — Included / Main (6 oz)',
+        'Red Onions — Included / Main (2 oz)',
+        'Sliced Avocados — Included / Main (1/2 slice)',
+        'Shredded Cheese — Included / Side (1.5 oz)',
+        'Cubed Cucumber — Included / Main (2 oz)',
+        'Diced Tomato — Add-on / Main',
+        'Cilantro Ranch — Included / Main (2 oz)'
+      ],
+      subs:[
+        {id:'hs-mango',label:'Dressing: Mango Vinaigrette'},
+        {id:'hs-oregano',label:'Dressing: Oregano Vinaigrette'},
+        {id:'hs-chipotle',label:'Dressing: Chipotle Ranch'}
+      ],
+      setup:['Tongs 6" (Small)','Ladle 2oz — Dressing','Full Pan Cold']
+    },
+    {
+      id:'kale-salad', name:"Farmer's Kale Salad", temp:'Cold', portion:'10 persons per full pan',
+      panRule:'Full Pan Cold: 10 persons (follow portioning rules)\nNote: Comes TOSSED in Oregano Vinaigrette — sub dressing served on the side',
+      fc:10, hc:null,
+      includes:[
+        'Kale Greens — Main (4 oz)',
+        'Mixed Greens — Add-on / Side (3 oz)',
+        'Radish — Included / Main (2 oz)',
+        'Cubed Avocado — Included / Main (1 oz)',
+        'Shredded Cheese — Included / Side (1.5 oz)',
+        'Cubed Cucumber — Included / Main (2 oz)',
+        'Pickled Onions — Included / Main (2 oz)',
+        'Oregano Vinaigrette — Included TOSSED / Main (2 oz)'
+      ],
+      subs:[
+        {id:'ks-mango',label:'Dressing: Mango Vinaigrette (served on side)'},
+        {id:'ks-cilantro',label:'Dressing: Cilantro Ranch (served on side)'},
+        {id:'ks-chipotle',label:'Dressing: Chipotle Ranch (served on side)'}
+      ],
+      setup:['Tongs 6" (Small)','Ladle 2oz — Dressing','Full Pan Cold']
+    },
+    {
+      id:'mex-chopped', name:'Mexican Chopped Salad', temp:'Cold', portion:'10 persons per full pan',
+      panRule:'Full Pan Cold: 10 persons (follow portioning rules)',
+      fc:10, hc:null,
+      includes:[
+        'Mixed Power Greens — Included / Main (6 oz)',
+        'Red Onions — Included / Main (2 oz)',
+        'Shredded Cheese — Included / Side (1.5 oz)',
+        'Black Bean Salsa — Included / Main (1 oz)',
+        'Diced Tomato — Add-on / Main',
+        'Roasted Corn — Included / Main (2 oz)',
+        'Crumbled Bacon — Included / Main (1 oz)',
+        'Tortilla Strips — Included / Main (0.5 oz)',
+        'Grilled Chicken — Add-on / Side (ONLY salad with chicken)',
+        'Mango Vinaigrette — Included / Main (2 oz)'
+      ],
+      subs:[
+        {id:'mc-cilantro',label:'Dressing: Cilantro Ranch'},
+        {id:'mc-oregano',label:'Dressing: Oregano Vinaigrette'},
+        {id:'mc-chipotle',label:'Dressing: Chipotle Ranch'}
+      ],
+      setup:['Tongs 6" (Small)','Ladle 2oz — Dressing','Full Pan Cold']
+    }
+  ]
+},
+
+// ── SIDES ───────────────────────────────────────────────
+{
+  id:'sides', cat:'Sides', sub:'Add-on selections per person',
+  note:'Chips & Queso/Guac serve 1 per person. Extra Salsa and Sour Cream serve 1 per 10 persons.',
+  icon:'sides',
+  items:[
+    {
+      id:'chips-reg-q', name:'Chips & Regular Queso', temp:'Hot', portion:'1 per person',
+      panRule:'Queso — Full Pan: 100 / Half Pan: 35 / Third Pan: 25 persons · 32oz Deli: 10 persons\nChips — Large White Bag: 20 persons per bag',
+      fc:100, hc:35,
+      includes:['Regular Queso — Included / Main','Chips — Add-on / Side — Large White Bag (20 per bag)'],
+      subs:[{id:'crq-spicy',label:'Swap to Spicy Queso'}],
+      setup:['Ladle 2oz','Tongs 9" (Large) — Chips','Wire Rack + Full Pan','Burner/Sterno']
+    },
+    {
+      id:'chips-spicy-q', name:'Chips & Spicy Queso', temp:'Hot', portion:'1 per person',
+      panRule:'Queso — Full Pan: 100 / Half Pan: 35 / Third Pan: 25 persons · 32oz Deli: 10 persons\nChips — Large White Bag: 20 persons per bag',
+      fc:100, hc:35,
+      includes:['Spicy Queso — Included / Main','Chips — Add-on / Side — Large White Bag (20 per bag)'],
+      subs:[{id:'csq-reg',label:'Swap to Regular Queso'}],
+      setup:['Ladle 2oz','Tongs 9" (Large) — Chips','Wire Rack + Full Pan','Burner/Sterno']
+    },
+    {
+      id:'chips-guac', name:'Chips & Guacamole', temp:'Cold', portion:'1 per person',
+      panRule:'Guacamole — Full Pan Cold: 200 / Half Pan Cold: 50 / Third Pan: 30 persons\nChips — Large White Bag: 20 persons per bag',
+      fc:200, hc:50,
+      includes:['Guacamole — Add-on / Main (3 oz)','Chips — Add-on / Side — Large White Bag (20 per bag)'],
+      subs:[],
+      setup:['Black 5" Spoon (Small)','Tongs 9" (Large) — Chips']
+    },
+    {
+      id:'extra-salsa', name:'Extra Salsa (No Chips)', temp:'Cold', portion:'1 per 10 persons',
+      panRule:'Full Pan Cold Side: 75 persons · Half Pan Cold Side: 35 persons · Third Pan: 20 persons',
+      fc:75, hc:35,
+      includes:['Mild Salsa — Included / Main (1 oz per 10 persons)'],
+      subs:[{id:'es-verde',label:'Salsa Verde — Add-on / Main'}],
+      setup:['Ladle 2oz']
+    },
+    {
+      id:'sour-cream-side', name:'Sour Cream', temp:'Cold', portion:'1 per 10 persons (3 oz add-on)',
+      panRule:'Full Pan Cold: 200 / Half Pan Cold Side: 50 / Third Pan: 30 persons',
+      fc:200, hc:50,
+      includes:['Sour Cream — Add-on / Main (3 oz per person)'],
+      subs:[],
+      setup:['Black 5" Spoon (Small)']
+    }
+  ]
+},
+
+// ── DESSERTS ─────────────────────────────────────────────
+{
+  id:'desserts', cat:'Desserts', sub:'Sopapillas tossed in cinnamon sugar — Brownies covered in powdered sugar',
+  note:'<strong>Sopapillas:</strong> Tossed in cinnamon sugar. <strong>Brownies:</strong> Cover with powdered sugar. Full Pan = 50 persons. 18" Cake Pan = 36 persons. 12" Cake Pan = 24 persons.',
+  icon:'dessert',
+  items:[
+    {
+      id:'sopapillas', name:'Sopapillas', temp:'Hot', portion:'1/2 per person',
+      panRule:'Full Pan: 50 persons · 18" Cake Pan: 36 persons · 12" Cake Pan: 24 persons',
+      fc:50, hc:36,
+      includes:['Raw Honey — Included / Main (1 oz)','Chocolate Syrup — Included / Main (1 oz)','Caramel Syrup — Included / Main (1 oz)'],
+      subs:[],
+      setup:['Tongs 9" (Large)','Wire Rack + Full Pan or Cake Pan','Burner/Sterno','Ladle 2oz — Syrups']
+    },
+    {
+      id:'brownies', name:'Double Fudge Brownies', temp:'Hot', portion:'1/4 per person',
+      panRule:'Full Pan: 50 persons · 18" Cake Pan: 36 persons · 12" Cake Pan: 24 persons',
+      fc:50, hc:36,
+      includes:['Chocolate Syrup — Included / Main (1 oz)','Caramel Syrup — Included / Main (1 oz)'],
+      subs:[],
+      setup:['Tongs 9" (Large)','Cake Pan','Ladle 2oz — Syrups']
+    }
+  ]
+},
+
+// ── BEVERAGES ───────────────────────────────────────────
+{
+  id:'bev', cat:'Beverages', sub:'Fill plastic gallon jugs to the top — include correct sticker',
+  note:'<strong>Fill Plastic Gallon Jugs to the top.</strong> Attach the correct label sticker on the front. Ice: Large Plastic Bag = 16 persons = 2 gallons. Jugs hold ~8 persons per gallon.',
+  icon:'bev',
+  items:[
+    {
+      id:'sweet-tea', name:'Gallon Sweet Tea', temp:'Cold', portion:'8 persons per gallon',
+      panRule:'Plastic Gallon Jug — fill to top + correct sticker\nIce — Full Pan Cold: 15 persons = 2 gallons · Half Pan: 8 persons = 1 gallon · Large Bag: 16 persons = 2 gallons',
+      fc:8, hc:null,
+      includes:['Ice — Included / Main','Plastic Cups — Included (1 per person)'],
+      subs:[],
+      setup:['Plastic Gallon Jug','Sweet Tea Label Sticker','Large Plastic Bag of Ice — 16 persons per bag','Plastic Cups — 1 per person','Black 9" Spoon (Large) — Ice']
+    },
+    {
+      id:'unsweet-tea', name:'Gallon Unsweet Tea', temp:'Cold', portion:'8 persons per gallon',
+      panRule:'Plastic Gallon Jug — fill to top + correct sticker\nIce — Full Pan Cold: 15 persons = 2 gallons · Large Bag: 16 persons = 2 gallons',
+      fc:8, hc:null,
+      includes:['Ice — Included / Main','Plastic Cups — Included (1 per person)'],
+      subs:[],
+      setup:['Plastic Gallon Jug','Unsweet Tea Label Sticker','Large Plastic Bag of Ice','Plastic Cups']
+    },
+    {
+      id:'pink-lem', name:'Gallon Pink Lemonade', temp:'Cold', portion:'8 persons per gallon',
+      panRule:'Plastic Gallon Jug — fill to top + correct sticker',
+      fc:8, hc:null,
+      includes:['Ice — Included / Main'],
+      subs:[],
+      setup:['Plastic Gallon Jug','Pink Lemonade Label Sticker','Large Plastic Bag of Ice']
+    },
+    {
+      id:'peach-tea', name:'Gallon Peach Tea', temp:'Cold', portion:'8 persons per gallon — 10 oz pumps Peach Monin',
+      panRule:'Plastic Gallon Jug — fill to top + correct sticker\nNote: 10 oz pumps Peach Monin syrup',
+      fc:8, hc:null,
+      includes:['Ice — Included / Main'],
+      subs:[],
+      setup:['Plastic Gallon Jug','Peach Tea Label Sticker','Peach Monin Syrup — 10 oz pumps','Large Plastic Bag of Ice']
+    }
+  ]
+}
+
+]; // end MENU
+
+// ALWAYS INCLUDED every catering
+const ALWAYS = [
+  'Business Cards — 3 per catering',
+  'Mints — 1 per 2 persons',
+  'Pop-Up Tents — 1 per 10 persons',
+  'Queso Cards — 1 per 2 persons',
+  'Catering Flyers — 3 per catering',
+  'Plates — 1 per person',
+  'Utensils — 1 per person',
+  'Napkins — 1 per person',
+  'Burners/Sternos — 1 per wire rack',
+  'Full Pans — 1 per wire rack',
+  'Plastic Cups — 1 per person (if beverages)',
+  'Steak Knife — 1 per catering',
+  'Rag — 1 per catering',
+  'Gloves — 4 per catering',
+  'Lighters — 1 per catering',
+  'Wire Racks — as needed',
+  'Water — as needed (1 gal per 5 full pans)',
+  'Tongs 9" (Large) — as needed',
+  'Tongs 6" (Small) — as needed',
+  'Ladles 2oz — as needed',
+  'Black 9" Spoon (Large) — as needed',
+  'Black 5" Spoon (Small) — as needed'
 ];
 
-// ══════════════════════════════════════════════════
+// ─────────────────────────────────────────────────────────
 // NAVIGATION
-// ══════════════════════════════════════════════════
+// ─────────────────────────────────────────────────────────
 function goPage(n) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('pg' + n).classList.add('active');
-  ['s1','s2','s3'].forEach((id, i) => {
+  ['st1','st2','st3'].forEach((id, i) => {
     const el = document.getElementById(id);
     el.classList.remove('active','done');
     if (i + 1 < n) el.classList.add('done');
     else if (i + 1 === n) el.classList.add('active');
   });
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 
-function goPage2() {
+function goP2() {
   const name  = document.getElementById('fName').value.trim();
   const order = document.getElementById('fOrder').value.trim();
   const time  = document.getElementById('fTime').value;
@@ -948,370 +855,404 @@ function goPage2() {
   if (!name)  { alert('Please enter your name.'); return; }
   if (!order) { alert('Please enter the order name.'); return; }
   if (!time)  { alert('Please enter arrival time.'); return; }
-  if (!addr)  { alert('Please enter delivery address.'); return; }
-  state.name = name; state.order = order;
-  state.time = time; state.address = addr;
+  if (!addr)  { alert('Please enter the delivery address.'); return; }
+  ST.name = name; ST.order = order; ST.time = time; ST.address = addr;
   buildMenu();
   goPage(2);
 }
 
-function goPage3() {
-  if (state.cart.length === 0) { alert('Please add at least one item.'); return; }
+function goP3() {
+  if (!ST.cart.length) { alert('Add at least one item first.'); return; }
   buildSummary();
   goPage(3);
 }
 
-// ══════════════════════════════════════════════════
-// TRAVEL TIME
-// ══════════════════════════════════════════════════
-function calcTravel() {
+// ─────────────────────────────────────────────────────────
+// DRIVE TIME — Free, no API key needed
+// Nominatim geocoding + straight-line Haversine estimate
+// Falls back gracefully if geocoding fails
+// ─────────────────────────────────────────────────────────
+async function calcTravel() {
   const addr = document.getElementById('fAddr').value.trim();
   const time = document.getElementById('fTime').value;
-  if (!addr) { alert('Enter delivery address first.'); return; }
+  if (!addr) { alert('Enter the delivery address first.'); return; }
   if (!time) { alert('Enter arrival time first.'); return; }
 
-  const box = document.getElementById('travelBox');
-  const leaveEl = document.getElementById('leaveTime');
-  const detailEl = document.getElementById('travelDetail');
+  const box = document.getElementById('tbox');
   box.classList.add('show');
-  leaveEl.textContent = '…';
-  detailEl.textContent = 'Calculating with live traffic…';
-
-  const STORE = '3338 Cobb Pkwy NW, Acworth, GA 30101';
-  const KEY = 'YOUR_GOOGLE_MAPS_API_KEY'; // ← insert key here
+  document.getElementById('tleave').textContent = '...';
+  document.getElementById('tdetail').textContent = 'Calculating...';
 
   const [h, m] = time.split(':').map(Number);
-  const arrDate = new Date();
-  arrDate.setHours(h, m, 0, 0);
-  if (arrDate < new Date()) arrDate.setDate(arrDate.getDate() + 1);
+  const arrival = new Date();
+  arrival.setHours(h, m, 0, 0);
+  if (arrival < new Date()) arrival.setDate(arrival.getDate() + 1);
 
-  const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${encodeURIComponent(STORE)}&destinations=${encodeURIComponent(addr)}&departure_time=now&traffic_model=best_guess&key=${KEY}`;
+  try {
+    // Geocode with Nominatim (free, no key)
+    const geo = await fetch(
+      `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(addr)}&limit=1&countrycodes=us`,
+      { headers: { 'Accept-Language': 'en-US' } }
+    ).then(r => r.json());
 
-  fetch(url)
-    .then(r => r.json())
-    .then(data => {
-      const el = data.rows[0].elements[0];
-      if (el.status !== 'OK') throw new Error('Route error');
-      const secs = (el.duration_in_traffic || el.duration).value;
-      const bufferSecs = 5 * 60;
-      const leaveMs = arrDate.getTime() - (secs + bufferSecs) * 1000;
-      const leaveDate = new Date(leaveMs);
-      const leaveStr = leaveDate.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
-      const distText = el.distance.text;
-      const durText  = (el.duration_in_traffic || el.duration).text;
-      leaveEl.textContent = leaveStr;
-      detailEl.textContent = `${distText} · ~${durText} with traffic`;
-      state.leaveTime = leaveStr;
-      state.travelInfo = `${distText}, ~${durText}`;
-    })
-    .catch(() => {
-      // Fallback — use Google Maps link
-      const mapsUrl = `https://www.google.com/maps/dir/${encodeURIComponent(STORE)}/${encodeURIComponent(addr)}`;
-      leaveEl.textContent = 'Check Maps';
-      detailEl.innerHTML = `<a href="${mapsUrl}" target="_blank" style="color:var(--green);font-weight:700">Open in Google Maps →</a><br><small>Add your Maps API key in the code for auto-calculation.</small>`;
-    });
+    if (!geo.length) throw new Error('Address not found');
+
+    const dlat = parseFloat(geo[0].lat);
+    const dlng = parseFloat(geo[0].lon);
+
+    // Haversine straight-line distance
+    const R = 3958.8;
+    const dLat = (dlat - STORE_LAT) * Math.PI / 180;
+    const dLon  = (dlng - STORE_LNG) * Math.PI / 180;
+    const a = Math.sin(dLat/2)**2 + Math.cos(STORE_LAT*Math.PI/180)*Math.cos(dlat*Math.PI/180)*Math.sin(dLon/2)**2;
+    const miles = R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+    // Driving estimate: straight-line * 1.35 factor, avg 30 mph + 5 min buffer
+    const driveMins = Math.round(miles * 1.35 / 30 * 60 + 5);
+    const displayMins = driveMins >= 60
+      ? `${Math.floor(driveMins/60)}h ${driveMins%60}m`
+      : `${driveMins} min`;
+
+    // Hidden 5-min buffer baked into leave time (driver never sees it)
+    const leaveSecs = (driveMins + 5) * 60;
+    const leaveDate = new Date(arrival.getTime() - leaveSecs * 1000);
+    const leaveStr = leaveDate.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+
+    document.getElementById('tleave').textContent = leaveStr;
+    document.getElementById('tdetail').textContent = `${miles.toFixed(1)} miles away — about ${displayMins} drive`;
+    ST.leaveTime = leaveStr;
+    ST.travelInfo = `${miles.toFixed(1)} miles, ~${displayMins}`;
+
+  } catch (e) {
+    document.getElementById('tleave').textContent = 'Enter manually';
+    document.getElementById('tdetail').textContent = 'Could not find address — double-check and try again.';
+  }
 }
 
-// ══════════════════════════════════════════════════
+// ─────────────────────────────────────────────────────────
 // BUILD MENU ACCORDION
-// ══════════════════════════════════════════════════
+// ─────────────────────────────────────────────────────────
+const ICONS = {
+  apps: '<svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>',
+  taco: '<svg viewBox="0 0 24 24"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>',
+  nacho:'<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+  fajita:'<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  salad:'<svg viewBox="0 0 24 24"><path d="M2 22a10 10 0 0 1 10-10 10 10 0 0 1 10 10"/><path d="M12 12C12 6 17 2 17 2s-5 4-5 10"/></svg>',
+  sides:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>',
+  dessert:'<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+  bev:  '<svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>'
+};
+
 function buildMenu() {
   const wrap = document.getElementById('menuWrap');
   wrap.innerHTML = '';
   MENU.forEach((cat, ci) => {
-    const block = document.createElement('div');
-    block.className = 'cat-block';
-    block.innerHTML = `
-      <div class="cat-header" onclick="toggleCat(${ci})">
-        <div style="display:flex;align-items:center;gap:8px">
-          <span style="font-size:1.1rem">${cat.icon}</span>
-          <span class="cat-title">${cat.cat}</span>
+    const div = document.createElement('div');
+    div.className = 'cat';
+    div.innerHTML = `
+      <div class="cat-hd" onclick="toggleCat(${ci})">
+        <div class="cat-hd-left">
+          <div class="cat-pill">${ICONS[cat.icon] || ICONS.apps}</div>
+          <div>
+            <div class="cat-name">${cat.cat}</div>
+            <div class="cat-sub">${cat.sub}</div>
+          </div>
         </div>
-        <div style="display:flex;align-items:center">
-          <span class="cat-badge" id="badge${ci}">0</span>
-          <svg class="cat-chev" id="chev${ci}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        <div class="cat-right">
+          <span class="cat-count" id="cc${ci}">0</span>
+          <svg class="cat-chev" id="ch${ci}" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
         </div>
       </div>
-      <div class="cat-body" id="catbody${ci}">
-        ${cat.note ? `<div style="padding:10px 15px 0;"><div class="included-note">${cat.note}</div></div>` : ''}
-        ${cat.items.map((item, ii) => buildItemHTML(item, ci, ii)).join('')}
-      </div>
-    `;
-    wrap.appendChild(block);
+      <div class="cat-body" id="cb${ci}">
+        <div class="cat-note">${cat.note}</div>
+        ${cat.items.map((item, ii) => itemHTML(item, ci, ii)).join('')}
+      </div>`;
+    wrap.appendChild(div);
   });
 }
 
-function buildItemHTML(item, ci, ii) {
-  const tempClass = item.temp === 'Hot' ? 'item-hot' : 'item-cold';
-  const includesHTML = item.includes.length > 0 ? `
-    <div class="included-note" style="margin-top:8px;font-size:0.72rem">
-      <strong>Includes:</strong> ${item.includes.slice(0,5).join(' · ')}${item.includes.length > 5 ? ` · +${item.includes.length - 5} more` : ''}
-    </div>` : '';
-  const subsHTML = item.subs.length > 0 ? `
-    <button class="sub-btn" onclick="toggleSub('sub_${ci}_${ii}')">⚡ Substitutions</button>
-    <div class="sub-panel" id="sub_${ci}_${ii}">
-      <div class="sub-panel-title">Choose substitution:</div>
-      ${item.subs.map(s => `
-        <label class="sub-option">
-          <input type="radio" name="subr_${item.id}" value="${s.id}"/> ${s.label}
-        </label>`).join('')}
-    </div>` : '';
+function itemHTML(item, ci, ii) {
+  const tc = item.temp === 'Hot' ? 'tag-hot' : 'tag-cold';
+  const incHTML = item.includes.length
+    ? `<div class="includes-box"><strong>Includes:</strong> ${item.includes.slice(0,5).join(' &middot; ')}${item.includes.length > 5 ? ` <em>+${item.includes.length-5} more</em>` : ''}</div>`
+    : '';
+  const subHTML = item.subs.length
+    ? `<button class="sub-toggle" onclick="toggleSub('sp_${ci}_${ii}')">Substitutions / Options</button>
+       <div class="sub-panel" id="sp_${ci}_${ii}">
+         <div class="sub-hd">Select substitution or option:</div>
+         ${item.subs.map(s => `<label class="sub-opt"><input type="radio" name="sr_${item.id}" value="${s.id}"/> ${s.label}</label>`).join('')}
+       </div>`
+    : '';
 
   return `
-    <div class="menu-item" id="mitem_${item.id}">
-      <div class="item-name">${item.name}</div>
-      <div class="item-meta">
-        <span class="${tempClass}">${item.temp}</span> · ${item.portion}
-        · <em style="color:var(--muted)">${item.pan.split('—')[0].trim()}</em>
-      </div>
-      ${includesHTML}
-      ${subsHTML}
-      <div class="item-controls" style="margin-top:10px">
+    <div class="mitem" id="mi_${item.id}">
+      <div class="mitem-name">${item.name}</div>
+      <div class="mitem-meta"><span class="${tc}">${item.temp}</span> &middot; ${item.portion}</div>
+      ${incHTML}
+      ${subHTML}
+      <div class="controls">
         <div class="qty-wrap">
-          <input class="qty-input" type="number" id="qty_${item.id}" min="1" placeholder="0"/>
-          <span class="qty-unit">persons</span>
+          <input class="qty-in" type="number" id="q_${item.id}" min="1" placeholder="0"/>
+          <span class="qty-label">persons</span>
         </div>
-        <button class="add-btn" onclick="addItem('${item.id}',${ci})">+ Add</button>
-        <span class="added-badge" id="abadge_${item.id}">✓ Added</span>
+        <button class="add-btn" onclick="addItem('${item.id}', ${ci})">Add to Order</button>
+        <span class="added-tag" id="at_${item.id}">Added</span>
       </div>
     </div>`;
 }
 
 function toggleCat(ci) {
-  const body = document.getElementById('catbody' + ci);
-  const chev = document.getElementById('chev' + ci);
-  body.classList.toggle('open');
-  chev.classList.toggle('open');
+  document.getElementById('cb' + ci).classList.toggle('open');
+  document.getElementById('ch' + ci).classList.toggle('open');
 }
-
 function toggleSub(id) {
   document.getElementById(id).classList.toggle('open');
 }
 
-// ══════════════════════════════════════════════════
-// CART LOGIC
-// ══════════════════════════════════════════════════
-function findItem(id) {
-  for (const cat of MENU) {
-    const found = cat.items.find(i => i.id === id);
-    if (found) return found;
+// ─────────────────────────────────────────────────────────
+// PAN CALCULATOR — exact from sheet
+// ─────────────────────────────────────────────────────────
+function calcPans(item, qty) {
+  const lines = [];
+  const fc = item.fc, hc = item.hc;
+
+  if (fc) {
+    const full = Math.floor(qty / fc);
+    const rem  = qty % fc;
+    if (full > 0) lines.push(`${full} Full Pan${full > 1 ? 's' : ''} (${fc} persons/pan)`);
+    if (rem > 0) {
+      if (hc && rem <= hc) {
+        lines.push(`1 Half Pan (${rem} of ${hc} max persons)`);
+      } else if (rem > 0) {
+        lines.push(`1 additional pan (${rem} persons — not full, per your sheet rule that is OK)`);
+      }
+    }
+    if (!full && qty > 0) lines.push(`1 Full Pan (${qty} persons)`);
+    // Water for wire rack
+    if (item.temp === 'Hot') {
+      const totalFull = Math.ceil(qty / fc);
+      const gallons = Math.ceil(totalFull / 5);
+      if (gallons > 0) lines.push(`Water: ${gallons} gallon${gallons > 1 ? 's' : ''} for wire rack (1 gal = 5 full pans)`);
+    }
   }
-  return null;
+
+  // Beverages
+  if (['sweet-tea','unsweet-tea','pink-lem','peach-tea'].includes(item.id)) {
+    const jugs = Math.ceil(qty / 8);
+    lines.push(`${jugs} Gallon Jug${jugs > 1 ? 's' : ''} (8 persons per jug)`);
+    const iceBags = Math.ceil(qty / 16);
+    lines.push(`${iceBags} Large Ice Bag${iceBags > 1 ? 's' : ''} (16 persons per bag = 2 gallons)`);
+  }
+
+  // Chips auto-calc
+  if (item.includes.some(i => i.toLowerCase().includes('chip') && i.toLowerCase().includes('bag'))) {
+    const bags = Math.ceil(qty / 20);
+    lines.push(`Chips: ${bags} Large White Bag${bags > 1 ? 's' : ''} (20 persons per bag)`);
+  }
+
+  return lines.join('\n') || item.panRule;
 }
 
-function calcPans(item, qty) {
-  const s = item.servings;
-  let lines = [];
-
-  // Generic pan calculation helper
-  const pansNeeded = (capacity, label) => {
-    if (!capacity) return null;
-    const full = Math.floor(qty / capacity);
-    const rem  = qty % capacity;
-    let txt = '';
-    if (full > 0) txt += `${full} Full Pan${full>1?'s':''} of ${label}`;
-    if (rem > 0)  txt += (txt ? ' + ' : '') + `1 partial Full Pan (${rem} persons worth)`;
-    return txt || `1 Full Pan of ${label}`;
-  };
-
-  if (s.full)          lines.push(pansNeeded(s.full, item.name));
-  if (s.full_protein)  lines.push(pansNeeded(s.full_protein, 'Protein'));
-  if (s.full_beef)     lines.push(pansNeeded(s.full_beef, 'Ground Beef'));
-  if (s.full_chicken)  lines.push(pansNeeded(s.full_chicken, 'Salsa Chicken'));
-  if (s.full_veggie)   lines.push(pansNeeded(s.full_veggie, 'Nacho Veggies'));
-  if (s.half)          lines.push(`${Math.ceil(qty / s.half)} Half Pan${Math.ceil(qty/s.half)>1?'s':''} (${s.half} persons each)`);
-  if (s.half_cold)     lines.push(`${Math.ceil(qty / s.half_cold)} Half Pan${Math.ceil(qty/s.half_cold)>1?'s':''} Cold (${s.half_cold} persons each)`);
-  if (s.half_topping)  lines.push(`${Math.ceil(qty / s.half_topping)} Half Pan${Math.ceil(qty/s.half_topping)>1?'s':''} per Topping (${s.half_topping} persons each)`);
-  if (s.container)     lines.push(s.container);
-  if (s.cake_pan)      lines.push(`${Math.ceil(qty / s.cake_pan)} Cake Pan${Math.ceil(qty/s.cake_pan)>1?'s':''} (${s.cake_pan} persons each)`);
-  if (s.gallon)        lines.push(s.gallon);
-  if (s.clamshell_lettuce) lines.push(`Shredded Lettuce: ${Math.ceil(qty / s.clamshell_lettuce)} Clamshell${Math.ceil(qty/s.clamshell_lettuce)>1?'s':''} (${s.clamshell_lettuce} persons each)`);
-
-  // Water for wire racks
-  const fullPanCount = (s.full ? Math.ceil(qty/s.full) : 0) + (s.full_protein ? Math.ceil(qty/s.full_protein) : 0);
-  if (fullPanCount > 0) lines.push(`💧 ${Math.ceil(fullPanCount/5)} gallon${Math.ceil(fullPanCount/5)>1?'s':''} of water for wire rack (1 gallon = 5 full pans)`);
-
-  // Chips if applicable
-  if (item.includes.some(i => i.includes('Chip'))) {
-    const chipBags = Math.ceil(qty / 20);
-    lines.push(`🛍 ${chipBags} Large White Bag${chipBags>1?'s':''} of Chips (20 persons/bag)`);
+// ─────────────────────────────────────────────────────────
+// CART
+// ─────────────────────────────────────────────────────────
+function findItem(id) {
+  for (const cat of MENU) {
+    const f = cat.items.find(i => i.id === id);
+    if (f) return f;
   }
-  // Ice if applicable
-  if (item.includes.some(i => i.includes('Ice'))) {
-    const iceBags = Math.ceil(qty / 16);
-    lines.push(`🧊 ${iceBags} Large Plastic Bag${iceBags>1?'s':''} of Ice (16 persons/bag = 2 gallons)`);
-  }
-
-  return lines.filter(Boolean).join('\n');
+  return null;
 }
 
 function addItem(itemId, ci) {
   const item = findItem(itemId);
   if (!item) return;
-  const qtyEl = document.getElementById('qty_' + itemId);
-  const qty = parseInt(qtyEl.value);
-  if (!qty || qty < 1) { alert('Enter a quantity first.'); return; }
-
-  const subRadio = document.querySelector(`input[name="subr_${itemId}"]:checked`);
-  const sub = subRadio ? item.subs.find(s => s.id === subRadio.value)?.label || '' : '';
+  const qEl = document.getElementById('q_' + itemId);
+  const qty = parseInt(qEl.value);
+  if (!qty || qty < 1) { alert('Enter a guest count first.'); return; }
+  const subR = document.querySelector(`input[name="sr_${itemId}"]:checked`);
+  const sub  = subR ? item.subs.find(s => s.id === subR.value)?.label || '' : '';
   const panNote = calcPans(item, qty);
 
-  // Remove existing entry for same item
-  state.cart = state.cart.filter(c => c.id !== itemId);
-  state.cart.push({ id: itemId, name: item.name, qty, sub, panNote, setupItems: item.setupItems, includes: item.includes });
+  ST.cart = ST.cart.filter(c => c.id !== itemId);
+  ST.cart.push({ id: itemId, name: item.name, qty, sub, panNote, setup: item.setup, includes: item.includes });
 
-  // Show ✓ badge
-  const badge = document.getElementById('abadge_' + itemId);
-  if (badge) badge.classList.add('show');
-
-  qtyEl.value = '';
+  const at = document.getElementById('at_' + itemId);
+  if (at) at.classList.add('show');
+  qEl.value = '';
   renderCart();
-  updateCatBadge(ci);
-}
 
-function updateCatBadge(ci) {
+  // Update category badge
   const catItems = MENU[ci].items.map(i => i.id);
-  const count = state.cart.filter(c => catItems.includes(c.id)).length;
-  const badge = document.getElementById('badge' + ci);
-  if (badge) { badge.textContent = count; badge.classList.toggle('show', count > 0); }
+  const count = ST.cart.filter(c => catItems.includes(c.id)).length;
+  const cc = document.getElementById('cc' + ci);
+  if (cc) { cc.textContent = count; cc.classList.toggle('show', count > 0); }
 }
 
 function removeItem(id) {
-  state.cart = state.cart.filter(c => c.id !== id);
-  const badge = document.getElementById('abadge_' + id);
-  if (badge) badge.classList.remove('show');
+  ST.cart = ST.cart.filter(c => c.id !== id);
+  const at = document.getElementById('at_' + id);
+  if (at) at.classList.remove('show');
   renderCart();
-  MENU.forEach((_, ci) => updateCatBadge(ci));
+  MENU.forEach((_, ci) => {
+    const catItems = MENU[ci].items.map(i => i.id);
+    const count = ST.cart.filter(c => catItems.includes(c.id)).length;
+    const cc = document.getElementById('cc' + ci);
+    if (cc) { cc.textContent = count; cc.classList.toggle('show', count > 0); }
+  });
 }
 
 function renderCart() {
   const list = document.getElementById('cartList');
   const btn  = document.getElementById('reviewBtn');
-  if (state.cart.length === 0) {
+  if (!ST.cart.length) {
     list.innerHTML = '<div class="cart-empty">No items added yet</div>';
     btn.style.display = 'none';
     return;
   }
   btn.style.display = 'block';
-  list.innerHTML = state.cart.map(c => `
+  list.innerHTML = ST.cart.map(c => `
     <div class="cart-item">
-      <div class="cart-item-info">
-        <div class="cart-item-name">${c.name}</div>
-        <div class="cart-item-detail">${c.qty} persons${c.sub ? ' · <em>' + c.sub + '</em>' : ''}</div>
+      <div class="cart-info">
+        <div class="cart-name">${c.name}</div>
+        <div class="cart-detail">${c.qty} persons${c.sub ? ' &middot; <em>' + c.sub + '</em>' : ''}</div>
       </div>
-      <button class="cart-remove" onclick="removeItem('${c.id}')">✕</button>
+      <button class="cart-rm" onclick="removeItem('${c.id}')">Remove</button>
     </div>`).join('');
 }
 
-// ══════════════════════════════════════════════════
+// ─────────────────────────────────────────────────────────
 // SUMMARY PAGE
-// ══════════════════════════════════════════════════
+// ─────────────────────────────────────────────────────────
 function buildSummary() {
-  const arrFmt = state.time ? new Date('1970-01-01T'+state.time).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}) : '—';
-  let html = `
-    <div class="sum-section">
-      <div class="sum-title">📋 Order Info</div>
-      <div class="info-pill">Driver: <strong>${state.name}</strong></div>
-      <div class="info-pill">Order: <strong>${state.order}</strong></div>
-      <div class="info-pill">Arrival: <strong>${arrFmt}</strong></div>
-      <div class="info-pill">Address: <strong>${state.address}</strong></div>
-      ${state.leaveTime ? `<div class="info-pill" style="border-left:3px solid var(--orange)">🕐 Leave Store By: <strong style="color:var(--orange)">${state.leaveTime}</strong>${state.travelInfo ? ' · ' + state.travelInfo : ''}</div>` : ''}
+  const arr = ST.time
+    ? new Date('1970-01-01T' + ST.time).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})
+    : '--';
+
+  let h = `
+    <div class="sum-sec">
+      <div class="sum-sec-title">Order Info</div>
+      <div class="info-chip">Driver: <strong>${ST.name}</strong></div>
+      <div class="info-chip">Order: <strong>${ST.order}</strong></div>
+      <div class="info-chip">Arrival Time: <strong>${arr}</strong></div>
+      <div class="info-chip">Address: <strong>${ST.address}</strong></div>
+      ${ST.leaveTime ? `<div class="info-chip info-chip-green">Leave Store By: <strong>${ST.leaveTime}</strong>${ST.travelInfo ? ' &nbsp;&middot;&nbsp; ' + ST.travelInfo : ''}</div>` : ''}
     </div>
 
-    <div class="sum-section">
-      <div class="sum-title">🌮 Catering Items</div>
-      ${state.cart.map(c => `
+    <div class="sum-sec">
+      <div class="sum-sec-title">Catering Items</div>
+      ${ST.cart.map(c => `
         <div class="sum-row">
-          <span class="sum-key">${c.name}${c.sub ? `<br><small style="color:var(--orange);font-weight:600">↳ ${c.sub}</small>` : ''}</span>
+          <span class="sum-key">${c.name}${c.sub ? `<small style="color:var(--orange);font-weight:500;display:block;font-family:'DM Sans',sans-serif;font-size:.72rem;margin-top:1px">Option: ${c.sub}</small>` : ''}</span>
           <span class="sum-val">${c.qty} persons</span>
         </div>`).join('')}
     </div>
 
-    <div class="sum-section">
-      <div class="sum-title">🥘 Pans & Quantities</div>
-      ${state.cart.map(c => `
-        <div class="sum-row" style="flex-direction:column;gap:3px">
-          <span class="sum-key" style="max-width:100%">${c.name}</span>
-          <span class="sum-val" style="text-align:left;white-space:pre-line;font-size:0.8rem">${c.panNote || '—'}</span>
+    <div class="sum-sec">
+      <div class="sum-sec-title">Pans & Quantities</div>
+      ${ST.cart.map(c => `
+        <div class="sum-row">
+          <span class="sum-key">${c.name}</span>
+          <span class="sum-val">${c.panNote}</span>
         </div>`).join('')}
     </div>`;
 
-  // Collect all includes
-  const allIncludes = {};
-  state.cart.forEach(c => {
-    c.includes.forEach(inc => { allIncludes[inc] = true; });
-  });
-  const includeList = Object.keys(allIncludes);
-  if (includeList.length > 0) {
-    html += `
-      <div class="sum-section">
-        <div class="sum-title">✅ Items Included Automatically</div>
-        ${includeList.map(inc => `<div class="sum-row"><span class="sum-val" style="text-align:left;width:100%">• ${inc}</span></div>`).join('')}
-      </div>`;
+  // Included items deduplicated
+  const allInc = {};
+  ST.cart.forEach(c => c.includes.forEach(i => { allInc[i] = true; }));
+  const incList = Object.keys(allInc);
+  if (incList.length) {
+    h += `<div class="sum-sec"><div class="sum-sec-title">Items Included Automatically</div>
+      ${incList.map(i => `<div class="sum-row"><span class="sum-val">${i}</span></div>`).join('')}
+    </div>`;
   }
 
-  // Setup supplies deduped
-  const setupMap = {};
-  state.cart.forEach(c => {
-    c.setupItems.forEach(s => { setupMap[s] = true; });
-  });
-  const supplies = Object.keys(setupMap);
-  if (supplies.length > 0) {
-    html += `
-      <div class="sum-section">
-        <div class="sum-title">⚙️ Setup Supplies Needed</div>
-        <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px">
-          ${supplies.map(s => `<div class="supply-chip">${s}</div>`).join('')}
-        </div>
-      </div>`;
+  // Setup supplies deduplicated
+  const sm = {};
+  ST.cart.forEach(c => c.setup.forEach(s => { sm[s] = true; }));
+  const supplies = Object.keys(sm);
+  if (supplies.length) {
+    h += `<div class="sum-sec"><div class="sum-sec-title">Setup Supplies Needed</div>
+      <div class="supply-grid">${supplies.map(s => `<div class="supply-chip">${s}</div>`).join('')}</div>
+    </div>`;
   }
 
-  document.getElementById('summaryBody').innerHTML = html;
+  // Always included
+  h += `<div class="sum-sec"><div class="sum-sec-title">Always Included — Every Catering</div>
+    ${ALWAYS.map(i => `<div class="sum-row"><span class="sum-val">${i}</span></div>`).join('')}
+  </div>`;
+
+  // Setup flow
+  h += `<div class="sum-sec">
+    <div class="sum-sec-title">Setup Flow</div>
+    <div class="sum-row"><span class="sum-val" style="color:var(--text);font-size:.76rem;line-height:1.8">
+      1. Mark "On the Way" in EZ Cater text before leaving<br>
+      2. Find ideal guest flow start area at the venue<br>
+      3. Set out Plates, Utensils, Napkins, Queso Cards, Business Cards, Mints, Flyers, Pop-Up Tent neatly<br>
+      4. If beverages — set up ice at sink, pour drinks, place cups nearby. Second tent here.<br>
+      5. Set wire racks, light sternos. Place sterno tops in white bag inside brown lid bag.<br>
+      6. Begin Left to Right: Tortillas or Chips first<br>
+      7. Add filler items, then hot sides<br>
+      8. Chips &amp; Salsa after wire rack section<br>
+      9. Main cold sides: Lettuce then Cheese then Toppings<br>
+      10. Salad (if on order) goes next — Dessert follows<br>
+      11. Remove all lids — stack neatly in paper bag<br>
+      12. Place correct utensil in each item<br>
+      13. Walk the setup with your rag — leave it clean<br>
+      14. Pack trash, empty water container, head out<br><br>
+      <strong style="color:var(--orange)">Never leave wire rack spots empty — water boils out 3x faster when uncovered.</strong>
+    </span></div>
+  </div>`;
+
+  document.getElementById('sumBody').innerHTML = h;
 }
 
-// ══════════════════════════════════════════════════
-// EMAIL — mailto fallback (works on all devices)
-// ══════════════════════════════════════════════════
+// ─────────────────────────────────────────────────────────
+// SEND EMAIL
+// ─────────────────────────────────────────────────────────
 function sendEmail() {
-  const arrFmt = state.time ? new Date('1970-01-01T'+state.time).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}) : '—';
-  const SEP = '─'.repeat(42);
+  const arr = ST.time
+    ? new Date('1970-01-01T' + ST.time).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})
+    : '--';
+  const SEP = '─'.repeat(44);
 
-  let body = `HUEY LUEY'S CATERING ORDER\n${SEP}\n\n`;
-  body += `Driver:        ${state.name}\n`;
-  body += `Order Name:    ${state.order}\n`;
-  body += `Arrival Time:  ${arrFmt}\n`;
-  body += `Address:       ${state.address}\n`;
-  if (state.leaveTime) body += `Leave Store:   ${state.leaveTime}${state.travelInfo ? ' (' + state.travelInfo + ')' : ''}\n`;
+  let b = `HUEY LUEY'S CATERING ORDER\n${SEP}\n\n`;
+  b += `Driver:        ${ST.name}\n`;
+  b += `Order:         ${ST.order}\n`;
+  b += `Arrival Time:  ${arr}\n`;
+  b += `Address:       ${ST.address}\n`;
+  if (ST.leaveTime) b += `Leave Store:   ${ST.leaveTime}${ST.travelInfo ? ' (' + ST.travelInfo + ')' : ''}\n`;
 
-  body += `\n${SEP}\nCATERING ITEMS\n${SEP}\n`;
-  state.cart.forEach(c => {
-    body += `\n• ${c.name} — ${c.qty} persons`;
-    if (c.sub) body += `\n  Substitution: ${c.sub}`;
-    body += `\n  Pans/Qty:\n`;
-    c.panNote.split('\n').forEach(l => { body += `    ${l}\n`; });
+  b += `\n${SEP}\nCATERING ITEMS\n${SEP}\n`;
+  ST.cart.forEach(c => {
+    b += `\n${c.name} — ${c.qty} persons`;
+    if (c.sub) b += `\n  Option: ${c.sub}`;
+    b += `\n  Pans:\n`;
+    c.panNote.split('\n').forEach(l => { b += `    ${l}\n`; });
   });
 
-  body += `\n${SEP}\nITEMS INCLUDED AUTOMATICALLY\n${SEP}\n`;
+  b += `\n${SEP}\nINCLUDED ITEMS\n${SEP}\n`;
   const allInc = {};
-  state.cart.forEach(c => c.includes.forEach(i => { allInc[i] = true; }));
-  Object.keys(allInc).forEach(i => { body += `• ${i}\n`; });
+  ST.cart.forEach(c => c.includes.forEach(i => { allInc[i] = true; }));
+  Object.keys(allInc).forEach(i => { b += `${i}\n`; });
 
-  body += `\n${SEP}\nSETUP SUPPLIES\n${SEP}\n`;
-  const setupMap = {};
-  state.cart.forEach(c => c.setupItems.forEach(s => { setupMap[s] = true; }));
-  Object.keys(setupMap).forEach(s => { body += `• ${s}\n`; });
+  b += `\n${SEP}\nSETUP SUPPLIES\n${SEP}\n`;
+  const sm = {};
+  ST.cart.forEach(c => c.setup.forEach(s => { sm[s] = true; }));
+  Object.keys(sm).forEach(s => { b += `${s}\n`; });
 
-  body += `\n${SEP}\nSent via Huey Luey's Catering Guide App`;
+  b += `\n${SEP}\nALWAYS INCLUDED\n${SEP}\n`;
+  ALWAYS.forEach(i => { b += `${i}\n`; });
 
-  const subject = encodeURIComponent(`Catering: ${state.order} — Arrival ${arrFmt}`);
-  const mailto  = `mailto:tylerhawthorne@hueylueys.com?subject=${subject}&body=${encodeURIComponent(body)}`;
+  b += `\n${SEP}\nSent via Huey Luey's Catering Guide`;
 
-  window.location.href = mailto;
+  const subject = encodeURIComponent(`Catering Order: ${ST.order} — Arrival ${arr}`);
+  window.location.href = `mailto:tylerhawthorne@hueylueys.com?subject=${subject}&body=${encodeURIComponent(b)}`;
 
-  const statusEl = document.getElementById('emailStatus');
   setTimeout(() => {
-    statusEl.className = 'email-status ok';
-    statusEl.textContent = '✅ Email client opened! Tap Send in your mail app.';
+    const s = document.getElementById('emlSt');
+    s.className = 'eml-st ok';
+    s.textContent = 'Email client opened — tap Send in your mail app.';
   }, 800);
 }
 </script>
