@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -6,22 +7,13 @@
 <title>Huey Luey's — Catering Guide</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 <style>
-:root{
-  --grn:#1e7f4f;--grn-d:#16643e;--grn-p:#eaf4ee;--grn-b:#9dcfb4;
-  --org:#d35400;--org-l:#e8651a;--org-p:#fdf0e8;--org-b:#f0b894;
-  --ink:#1f2937;--paper:#f6f1e8;--card:#fff;
-  --mut:#6b7280;--bdr:#e2d8cc;--sh:0 4px 14px rgba(0,0,0,.09);--r:14px;
-}
+:root{--grn:#1e7f4f;--grn-d:#16643e;--grn-p:#eaf4ee;--grn-b:#9dcfb4;--org:#d35400;--org-l:#e8651a;--org-p:#fdf0e8;--org-b:#f0b894;--ink:#1f2937;--paper:#f6f1e8;--card:#fff;--mut:#6b7280;--bdr:#e2d8cc;--sh:0 4px 14px rgba(0,0,0,.09);--r:14px}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'Poppins',system-ui,sans-serif;background:var(--paper);color:var(--ink);font-size:15px;overflow-x:hidden}
-
-/* TOPBAR */
 .topbar{background:var(--grn);padding:15px 16px 12px;text-align:center;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.2)}
 .topbar img{height:36px;display:block;margin:0 auto 3px;filter:brightness(0) invert(1)}
 .topbar-fb{display:none;font-weight:800;font-size:20px;color:#fff;margin-bottom:2px}
 .topbar-sub{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.72)}
-
-/* STEP BAR */
 .sbar{display:flex;background:var(--grn-d)}
 .stab{flex:1;padding:8px 4px 7px;text-align:center;font-size:.57rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.4);border-bottom:3px solid transparent;transition:all .2s}
 .stab.active{color:#fff;border-bottom-color:var(--org)}
@@ -29,52 +21,33 @@ body{font-family:'Poppins',system-ui,sans-serif;background:var(--paper);color:va
 .snum{display:block;width:19px;height:19px;border-radius:50%;background:rgba(255,255,255,.12);color:rgba(255,255,255,.5);font-size:.65rem;font-weight:800;line-height:19px;margin:0 auto 2px;transition:all .2s}
 .stab.active .snum{background:var(--org);color:#fff}
 .stab.done .snum{background:rgba(255,255,255,.28);color:#fff}
-
-/* PAGES */
 .page{display:none;padding:14px 13px 60px;animation:fu .2s ease}
 .page.active{display:block}
 @keyframes fu{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-
-/* LABELS */
 .sec-lbl{font-weight:700;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--org);margin:16px 0 8px 2px}
-
-/* CARD */
 .card{background:var(--card);border-radius:var(--r);border:2px solid rgba(30,127,79,.13);margin-bottom:11px;overflow:hidden;box-shadow:var(--sh)}
 .chd{background:linear-gradient(135deg,rgba(30,127,79,.06),transparent);padding:12px 15px 10px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:9px}
 .chd-dot{width:9px;height:9px;border-radius:50%;background:var(--org);flex-shrink:0}
 .chd h2{font-size:.94rem;font-weight:800;color:var(--ink)}
 .chd p{font-size:.69rem;color:var(--mut);margin-top:1px}
 .cbd{padding:13px}
-
-/* FORM */
-.field{margin-bottom:12px}
-.field:last-child{margin-bottom:0}
+.field{margin-bottom:12px}.field:last-child{margin-bottom:0}
 .lbl{display:block;font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--grn);margin-bottom:5px}
 input[type=text],input[type=time],input[type=number]{width:100%;padding:10px 12px;border:2px solid var(--bdr);border-radius:9px;font-size:.91rem;font-family:'Poppins',sans-serif;font-weight:600;background:var(--paper);color:var(--ink);outline:none;transition:border-color .18s,box-shadow .18s;-webkit-appearance:none;appearance:none}
 input:focus{border-color:var(--grn);box-shadow:0 0 0 3px rgba(30,127,79,.1);background:#fff}
-
-/* TRAVEL BOX */
 .tbox{background:var(--grn-p);border:2px solid var(--grn-b);border-radius:11px;padding:13px 15px;margin-top:11px;display:none}
 .tbox.show{display:block}
 .tbox-lbl{font-size:.61rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--grn);margin-bottom:3px}
 .tbox-time{font-size:2.3rem;font-weight:800;color:var(--org);line-height:1;margin-bottom:3px}
 .tbox-det{font-size:.76rem;color:var(--grn-d);font-weight:600;margin-top:4px}
-
-/* BUTTONS */
 .btn{display:block;width:100%;padding:14px 16px;border:none;border-radius:var(--r);font-family:'Poppins',sans-serif;font-size:.95rem;font-weight:800;cursor:pointer;transition:transform .12s,background .15s;box-shadow:var(--sh)}
 .btn:active{transform:scale(.975)}
-.btn-grn{background:var(--grn);color:#fff}
-.btn-grn:hover{background:var(--grn-d)}
-.btn-org{background:var(--org);color:#fff}
-.btn-org:hover{background:var(--org-l)}
+.btn-grn{background:var(--grn);color:#fff}.btn-grn:hover{background:var(--grn-d)}
+.btn-org{background:var(--org);color:#fff}.btn-org:hover{background:var(--org-l)}
 .btn-ghost{background:transparent;border:2px solid var(--grn);color:var(--grn);font-size:.8rem;padding:9px 13px;box-shadow:none}
 .btn+.btn,.btn+.btn-ghost{margin-top:8px}
 .back-btn{display:inline-flex;align-items:center;gap:5px;background:none;border:none;color:var(--org);font-size:.77rem;font-weight:700;cursor:pointer;padding:0 0 11px;font-family:'Poppins',sans-serif}
-
-/* HINT */
 .hint{background:var(--org-p);border-left:4px solid var(--org);border-radius:0 9px 9px 0;padding:9px 12px;font-size:.71rem;color:var(--org);margin-bottom:11px;line-height:1.5;font-weight:600}
-
-/* CATEGORY */
 .cat{border-radius:var(--r);margin-bottom:9px;overflow:hidden;box-shadow:var(--sh)}
 .cat-hd{display:flex;align-items:center;justify-content:space-between;padding:13px 14px;cursor:pointer;user-select:none;background:var(--grn);transition:background .15s}
 .cat-hd:active{background:var(--grn-d)}
@@ -89,30 +62,18 @@ input:focus{border-color:var(--grn);box-shadow:0 0 0 3px rgba(30,127,79,.1);back
 .cat-body.open{display:block}
 .cat-note{padding:9px 14px;font-size:.7rem;color:var(--ink);line-height:1.55;background:var(--grn-p);border-bottom:1px solid var(--grn-b);font-weight:600}
 .cat-note strong{color:var(--org)}
-
-/* MENU ITEM */
-.mitem{padding:13px 14px;border-bottom:1px solid var(--bdr)}
-.mitem:last-child{border-bottom:none}
+.mitem{padding:13px 14px;border-bottom:1px solid var(--bdr)}.mitem:last-child{border-bottom:none}
 .mi-name{font-size:.92rem;font-weight:800;color:var(--ink)}
-
-/* REQUIRED SELECTORS */
 .req-sec{border-radius:10px;padding:11px 12px;margin:10px 0 0}
-.req-sec.prot{background:var(--org-p);border:2px solid var(--org-b)}
-.req-sec.tort{background:var(--grn-p);border:2px solid var(--grn-b)}
+.req-sec.org{background:var(--org-p);border:2px solid var(--org-b)}
 .req-hd{font-size:.65rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:7px;display:flex;align-items:center;gap:6px}
 .req-hd.org{color:var(--org)}
-.req-hd.grn{color:var(--grn)}
-.rbadge{border-radius:5px;padding:2px 6px;font-size:.58rem;font-weight:800;letter-spacing:.03em}
+.rbadge{border-radius:5px;padding:2px 6px;font-size:.58rem;font-weight:800}
 .rbadge.org{background:var(--org);color:#fff}
-.rbadge.grn{background:var(--grn);color:#fff}
 .sel-opt{display:flex;align-items:center;gap:8px;background:#fff;border:2px solid var(--bdr);border-radius:8px;padding:8px 11px;cursor:pointer;font-size:.81rem;font-weight:600;color:var(--ink);margin-bottom:5px;transition:border-color .15s,background .15s}
 .sel-opt:last-child{margin-bottom:0}
 .sel-opt.sel-org{border-color:var(--org);background:var(--org-p);color:var(--org)}
-.sel-opt.sel-grn{border-color:var(--grn);background:var(--grn-p);color:var(--grn-d)}
 .sel-opt input{accent-color:var(--org);width:auto;padding:0;border:none;background:none;flex-shrink:0}
-.sel-opt.grn-var input{accent-color:var(--grn)}
-
-/* MIX N MATCH */
 .mnm-sec{background:var(--org-p);border:2px solid var(--org-b);border-radius:10px;padding:11px 12px;margin:10px 0 0}
 .mnm-hd{font-size:.65rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--org);margin-bottom:3px;display:flex;align-items:center;gap:6px}
 .mnm-sub{font-size:.68rem;color:var(--org);font-weight:600;margin-bottom:7px;opacity:.8}
@@ -122,8 +83,6 @@ input:focus{border-color:var(--grn);box-shadow:0 0 0 3px rgba(30,127,79,.1);back
 .mnm-opt input{accent-color:var(--org);width:auto;padding:0;border:none;background:none;flex-shrink:0}
 .mnm-err{color:#dc2626;font-size:.71rem;font-weight:700;margin-top:5px;display:none}
 .mnm-err.show{display:block}
-
-/* SUBSTITUTIONS TOGGLE */
 .sub-toggle{display:inline-flex;align-items:center;gap:4px;background:transparent;border:1.5px solid var(--org-b);color:var(--org);border-radius:6px;padding:4px 10px;font-size:.67rem;font-weight:700;font-family:'Poppins',sans-serif;cursor:pointer;letter-spacing:.04em;text-transform:uppercase;margin-top:9px}
 .sub-panel{background:var(--org-p);border:2px solid var(--org-b);border-radius:8px;padding:10px 11px;margin-top:7px;display:none}
 .sub-panel.open{display:block}
@@ -132,8 +91,6 @@ input:focus{border-color:var(--grn);box-shadow:0 0 0 3px rgba(30,127,79,.1);back
 .sub-item:last-child{margin-bottom:0}
 .sub-item.sel-org{border-color:var(--org);background:var(--org-p);color:var(--org)}
 .sub-item input{accent-color:var(--org);width:auto;padding:0;border:none;background:none;flex-shrink:0}
-
-/* QTY ROW */
 .qty-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:11px;padding-top:10px;border-top:2px dashed var(--bdr)}
 .qty-in{width:70px;padding:8px 8px;text-align:center;font-size:.97rem;font-weight:800;border:2px solid var(--bdr);border-radius:8px;background:var(--paper);font-family:'Poppins',sans-serif}
 .qty-unit{font-size:.68rem;color:var(--mut);font-weight:600}
@@ -141,104 +98,69 @@ input:focus{border-color:var(--grn);box-shadow:0 0 0 3px rgba(30,127,79,.1);back
 .add-btn:active{background:var(--org-l)}
 .added-tag{background:var(--grn-p);color:var(--grn-d);border:2px solid var(--grn-b);border-radius:7px;padding:3px 9px;font-size:.65rem;font-weight:800;display:none;letter-spacing:.04em;text-transform:uppercase}
 .added-tag.on{display:inline-block}
-
-/* CART */
 .cart-empty{text-align:center;padding:22px;color:var(--mut);font-size:.82rem;font-weight:600}
-.cart-item{display:flex;align-items:flex-start;gap:8px;padding:9px 0;border-bottom:1px solid var(--bdr)}
-.cart-item:last-child{border-bottom:none}
+.cart-item{display:flex;align-items:flex-start;gap:8px;padding:9px 0;border-bottom:1px solid var(--bdr)}.cart-item:last-child{border-bottom:none}
 .ci-info{flex:1}
 .ci-name{font-weight:800;font-size:.87rem;color:var(--ink)}
 .ci-sub{font-size:.7rem;color:var(--org);font-weight:700;margin-top:1px}
 .ci-qty{font-size:.7rem;color:var(--mut);margin-top:2px;font-weight:600}
 .ci-rm{background:none;border:none;color:#dc2626;font-size:.71rem;font-weight:800;cursor:pointer;padding:2px 5px;font-family:'Poppins',sans-serif;text-transform:uppercase;flex-shrink:0}
-
-/* SUMMARY */
 .sum-card{background:var(--card);border-radius:var(--r);border:2px solid rgba(30,127,79,.15);margin-bottom:11px;overflow:hidden;box-shadow:var(--sh)}
 .sum-hd{background:var(--grn);padding:11px 14px;font-weight:800;font-size:.88rem;color:#fff;display:flex;align-items:center;gap:7px}
 .sum-dot{width:7px;height:7px;border-radius:50%;background:var(--org);flex-shrink:0}
 .sum-body{padding:12px 14px}
-
 .info-chip{background:var(--grn-p);border:1px solid var(--grn-b);border-radius:8px;padding:8px 12px;margin-bottom:6px;font-size:.81rem;font-weight:700;line-height:1.4}
-.info-chip strong{color:var(--org)}
-.info-chip:last-child{margin-bottom:0}
+.info-chip strong{color:var(--org)}.info-chip:last-child{margin-bottom:0}
 .info-chip-org{background:var(--org-p);border-color:var(--org-b)}
-
-/* CALC BLOCK */
 .calc-block{background:var(--grn-p);border:2px solid var(--grn-b);border-radius:10px;padding:11px 13px;margin-bottom:8px}
 .calc-title{font-size:.81rem;font-weight:800;color:var(--grn-d);margin-bottom:7px;padding-bottom:5px;border-bottom:1px solid var(--grn-b)}
 .calc-row{display:flex;justify-content:space-between;align-items:baseline;padding:4px 0;border-bottom:1px dashed rgba(30,127,79,.14);font-size:.78rem}
 .calc-row:last-child{border-bottom:none;padding-bottom:0}
 .calc-item{color:var(--ink);font-weight:600;padding-right:8px}
 .calc-qty{color:var(--grn-d);font-weight:800;text-align:right;white-space:nowrap}
-
-/* CHIPS/SALSA BLOCK */
 .chips-block{background:var(--org-p);border:2px solid var(--org-b);border-radius:10px;padding:11px 13px;margin-bottom:8px}
 .chips-title{font-size:.81rem;font-weight:800;color:var(--org);margin-bottom:7px;padding-bottom:5px;border-bottom:1px solid var(--org-b)}
-.chips-row{display:flex;justify-content:space-between;align-items:baseline;padding:4px 0;border-bottom:1px dashed rgba(211,84,0,.14);font-size:.78rem}
+.chips-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px dashed rgba(211,84,0,.14);font-size:.78rem}
 .chips-row:last-child{border-bottom:none;padding-bottom:0}
-
-/* UTENSIL BLOCK */
 .uten-block{background:var(--org-p);border:2px solid var(--org-b);border-radius:10px;padding:11px 13px;margin-bottom:8px}
 .uten-title{font-size:.81rem;font-weight:800;color:var(--org);margin-bottom:7px;padding-bottom:5px;border-bottom:1px solid var(--org-b)}
-.uten-row{display:flex;justify-content:space-between;align-items:flex-start;padding:5px 0;border-bottom:1px dashed rgba(211,84,0,.14);font-size:.78rem}
+.uten-row{padding:5px 0;border-bottom:1px dashed rgba(211,84,0,.14);font-size:.78rem}
 .uten-row:last-child{border-bottom:none;padding-bottom:0}
 .uten-name{color:var(--ink);font-weight:800}
-.uten-detail{color:var(--mut);font-size:.71rem;margin-top:1px;font-weight:600}
-.uten-count{color:var(--org);font-weight:800;font-size:.88rem;white-space:nowrap;padding-left:8px}
-
-/* SUPPLY GRID */
-.supply-grid{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
-.supply-tag{background:var(--grn-p);border:2px solid var(--grn-b);border-radius:7px;padding:5px 9px;font-size:.7rem;font-weight:700;color:var(--grn-d)}
-.supply-tag.org{background:var(--org-p);border-color:var(--org-b);color:var(--org)}
-
-/* ALWAYS INCLUDED */
+.uten-detail{color:var(--mut);font-size:.7rem;margin-top:2px;font-weight:600}
 .always-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px dashed var(--bdr);font-size:.79rem}
 .always-row:last-child{border-bottom:none}
 .always-item{color:var(--ink);font-weight:600}
-.always-qty{color:var(--mut);font-weight:800;font-size:.75rem;text-align:right;padding-left:8px}
-.always-qty.org{color:var(--org)}
-
-/* WIRE RACK WARNING — always visible */
+.always-qty{color:var(--org);font-weight:800;font-size:.78rem;text-align:right;padding-left:8px}
 .rack-warn{background:var(--org-p);border:2px solid var(--org-b);border-radius:10px;padding:11px 13px;margin-bottom:8px;font-size:.78rem;font-weight:700;color:var(--org);text-align:center}
-
-/* SETUP FLOW — collapsible */
 .setup-toggle{width:100%;background:var(--grn-p);border:2px solid var(--grn-b);border-radius:10px;padding:11px 14px;font-family:'Poppins',sans-serif;font-size:.81rem;font-weight:800;color:var(--grn-d);cursor:pointer;text-align:left;display:flex;justify-content:space-between;align-items:center;margin-bottom:0}
 .setup-body{display:none;background:var(--grn-p);border:2px solid var(--grn-b);border-top:none;border-radius:0 0 10px 10px;padding:0 13px 12px}
 .setup-body.open{display:block}
 .flow-step{display:flex;gap:9px;padding:6px 0;border-bottom:1px dashed var(--grn-b);font-size:.77rem;font-weight:600;align-items:flex-start;color:var(--ink)}
 .flow-step:last-child{border-bottom:none}
 .flow-num{background:var(--grn);color:#fff;border-radius:50%;width:21px;height:21px;display:flex;align-items:center;justify-content:center;font-size:.64rem;font-weight:800;flex-shrink:0;margin-top:1px}
-
-/* EMAIL */
 .eml-st{text-align:center;padding:11px;border-radius:9px;font-size:.81rem;font-weight:700;margin-top:9px;display:none}
 .eml-st.ok{background:var(--grn-p);color:var(--grn-d);display:block;border:2px solid var(--grn-b)}
-
-/* GRAD LINE */
 .grad-line{height:4px;border-radius:999px;background:linear-gradient(to right,var(--grn),var(--org));margin:5px 0 13px}
 </style>
 </head>
 <body>
-
 <div class="topbar">
-  <img src="https://hueylueys.com/wp-content/uploads/2016/09/hllogo-light.png" alt="Huey Luey's"
-    onerror="this.style.display='none';document.querySelector('.topbar-fb').style.display='block'"/>
+  <img src="https://hueylueys.com/wp-content/uploads/2016/09/hllogo-light.png" alt="Huey Luey's" onerror="this.style.display='none';document.querySelector('.topbar-fb').style.display='block'"/>
   <div class="topbar-fb">HUEY LUEY'S</div>
   <div class="topbar-sub">Catering Guide</div>
 </div>
-
 <div class="sbar">
   <div class="stab active" id="st1"><span class="snum">1</span>Driver Info</div>
   <div class="stab" id="st2"><span class="snum">2</span>Menu Items</div>
   <div class="stab" id="st3"><span class="snum">3</span>Summary</div>
 </div>
-
-<!-- PAGE 1 -->
 <div class="page active" id="pg1">
   <div class="sec-lbl">Order Details</div>
   <div class="card">
-    <div class="chd"><div class="chd-dot"></div><div><h2>Driver & Order Info</h2><p>Fill out before heading out</p></div></div>
+    <div class="chd"><div class="chd-dot"></div><div><h2>Driver &amp; Order Info</h2><p>Fill out before heading out</p></div></div>
     <div class="cbd">
-      <div class="field"><label class="lbl">Your Name</label><input type="text" id="fName" placeholder="First & Last Name" autocomplete="name"/></div>
+      <div class="field"><label class="lbl">Your Name</label><input type="text" id="fName" placeholder="First &amp; Last Name" autocomplete="name"/></div>
       <div class="field"><label class="lbl">Catering Order Name</label><input type="text" id="fOrder" placeholder="e.g. Smith Wedding, ABC Corp"/></div>
       <div class="field"><label class="lbl">Total Guest Count</label><input type="number" id="fGuests" placeholder="e.g. 40" min="1"/></div>
       <div class="field"><label class="lbl">Food Arrival Time</label><input type="time" id="fTime"/></div>
@@ -249,7 +171,7 @@ input:focus{border-color:var(--grn);box-shadow:0 0 0 3px rgba(30,127,79,.1);back
     <div class="chd"><div class="chd-dot"></div><div><h2>Delivery Address</h2><p>Driving from 3338 Cobb Pkwy NW, Acworth GA</p></div></div>
     <div class="cbd">
       <div class="field"><label class="lbl">Full Delivery Address</label><input type="text" id="fAddr" placeholder="Street, City, State ZIP" autocomplete="street-address"/></div>
-      <button class="btn btn-ghost" onclick="calcTravel()">Calculate Drive Time & Leave-By Time</button>
+      <button class="btn btn-ghost" onclick="calcTravel()">Calculate Drive Time &amp; Leave-By Time</button>
       <div class="tbox" id="tbox">
         <div class="tbox-lbl">Leave the Store By</div>
         <div class="tbox-time" id="tLeave">--:--</div>
@@ -260,21 +182,17 @@ input:focus{border-color:var(--grn);box-shadow:0 0 0 3px rgba(30,127,79,.1);back
   <div class="grad-line"></div>
   <button class="btn btn-grn" onclick="goP2()">Continue — Select Menu Items</button>
 </div>
-
-<!-- PAGE 2 -->
 <div class="page" id="pg2">
   <button class="back-btn" onclick="goPage(1)">&#8592; Back to Info</button>
   <div class="hint">Tap a category to expand. Select protein where required, enter quantity, tap <strong>Add to Order</strong>.</div>
   <div id="menuWrap"></div>
   <div class="sec-lbl">Current Order</div>
   <div class="card">
-    <div class="chd"><div class="chd-dot"></div><div><h2>Order Cart</h2><p>Items you've added</p></div></div>
+    <div class="chd"><div class="chd-dot"></div><div><h2>Order Cart</h2><p>Items added</p></div></div>
     <div class="cbd"><div id="cartList"><div class="cart-empty">No items added yet</div></div></div>
   </div>
-  <button class="btn btn-org" id="reviewBtn" onclick="goP3()" style="display:none">Review Full Order & Summary</button>
+  <button class="btn btn-org" id="reviewBtn" onclick="goP3()" style="display:none">Review Full Order &amp; Summary</button>
 </div>
-
-<!-- PAGE 3 -->
 <div class="page" id="pg3">
   <button class="back-btn" onclick="goPage(2)">&#8592; Back to Menu</button>
   <div class="grad-line"></div>
@@ -288,1020 +206,566 @@ input:focus{border-color:var(--grn);box-shadow:0 0 0 3px rgba(30,127,79,.1);back
     </div>
   </div>
 </div>
-
 <script>
-// ═══════════════════════════════════
 // STATE
-// ═══════════════════════════════════
-const ST = {
-  name:'', order:'', guests:0, time:'', address:'',
-  leaveTime:'', travelInfo:'',
-  hasBev: false,
-  cart:[]
-};
-const STORE_LAT=34.0691, STORE_LNG=-84.6388;
+const ST={name:'',order:'',guests:0,time:'',address:'',leaveTime:'',travelInfo:'',hasBev:false,cart:[]};
+const STORE_LAT=34.0691,STORE_LNG=-84.6388;
+let gChipQty=0;
 
-// ═══════════════════════════════════
-// PAN CAPACITIES
-// ═══════════════════════════════════
-const CAP = {
-  fajita_prot:  {f:25, h:15, t:15},
-  taco_beef:    {f:100,h:25, t:15},
-  taco_chx:     {f:85, h:25, t:15},
-  nacho_beef:   {f:100,h:25, t:15},
-  nacho_chx:    {f:85, h:25, t:15},
-  nacho_veg:    {f:75, h:15, t:10},
-  queso:        {f:100,h:35, t:25},
-  rice:         {f:100,h:35, t:20},
-  beans:        {f:100,h:35, t:20},
-  tort_flour:   {f:50, h:25, t:15},
-  tort_corn:    {f:45, h:15, t:10},
-  tort_hard:    {f:30, h:10, t:8},
-  avo_rolls:    {f:240,h:80, t:40},
-  taquitos:     {f:240,h:90, t:40},
-  guac:         {f:200,h:50, t:30},
-  shr_lettuce:  {f:100,h:35, t:20},
-  shr_cheese:   {f:120,h:40, t:25},
-  diced_tom:    {f:200,h:50, t:30},
-  sour_cream:   {f:200,h:50, t:30},
-  pickled_jal:  {f:200,h:50, t:30},
-  salsa:        {f:75, h:35, t:20},
-  guac_side:    {f:200,h:50, t:30},
+// PAN CAPS
+const C={
+faj:{f:25,h:15,t:15}, taco_chx:{f:85,h:25,t:15}, taco_beef:{f:100,h:25,t:15},
+nacho_chx:{f:85,h:25,t:15}, nacho_beef:{f:100,h:25,t:15}, nacho_veg:{f:75,h:15,t:10},
+queso:{f:100,h:35,t:25}, rice:{f:100,h:35,t:20}, beans:{f:100,h:35,t:20},
+tf:{f:50,h:25,t:15}, tc:{f:45,h:15,t:10}, th:{f:30,h:10,t:8},
+avo:{f:240,h:80,t:40}, taq:{f:240,h:90,t:40}, guac:{f:200,h:50,t:30},
+lett:{f:100,h:35,t:20}, chse:{f:120,h:40,t:25}, pico:{f:200,h:50,t:30},
+sc:{f:200,h:50,t:30}, jal:{f:200,h:50,t:30}, salsa:{f:75,h:35,t:20}
 };
 
-// Round UP to nearest pan — NO partial pan language
-function pansUp(cap, qty) {
-  if (!qty || qty <= 0 || !cap) return {f:0,h:0,t:0};
-  // Try fitting in smallest pans first going up
-  const full = Math.ceil(qty / cap.f);
-  return {f:full, h:0, t:0};
+// PAN LOGIC
+// Rule 1: If qty fits in third pan -> 1 Third Pan
+// Rule 2: If qty fits in half pan -> 1 Half Pan
+// Rule 3: If qty fits in full pan -> 1 Full Pan
+// Rule 4: If qty > full pan -> split into multiple full pans evenly
+function smartPan(cap,qty){
+if(!qty||qty<=0)return{label:’–’,fp:0};
+if(qty<=cap.t)return{label:‘1 Third Pan’,fp:0};
+if(qty<=cap.h)return{label:‘1 Half Pan’,fp:0};
+if(qty<=cap.f)return{label:‘1 Full Pan’,fp:1};
+const n=Math.ceil(qty/cap.f);
+const each=Math.ceil(qty/n);
+return{label:n+’ Full Pans (’+each+’ persons each)’,fp:n};
+}
+function tortPan(cap,tortillas){
+if(!tortillas||tortillas<=0)return{label:’–’,fp:0};
+const n=Math.ceil(tortillas/cap.f);
+return{label:n+’ Full Pan’+(n>1?‘s’:’’)+’ (’+tortillas+’ tortillas total)’,fp:n};
+}
+function icePan(persons){
+const full=Math.floor(persons/15),rem=persons-full*15;
+const half=rem>0?Math.ceil(rem/8):0;
+const parts=[];
+if(full>0)parts.push(full+’ Full Pan’+(full>1?‘s’:’’)+’ Cold (15p=2gal each)’);
+if(half>0)parts.push(half+’ Half Pan’+(half>1?‘s’:’’)+’ Cold (8p=1gal each)’);
+return parts.join(’ + ‘)||‘1 Half Pan Cold’;
+}
+function waterLabel(fp){
+if(!fp||fp<=0)return null;
+const g=fp/5;
+if(g>=1){const w=Math.floor(g),r=g-w;if(r===0)return w+’ gallon’+(w>1?‘s’:’’);if(r<=0.25)return(w?w+’ and ‘:’’)+’\u00BC gallon’;if(r<=0.5)return(w?w+’ and ‘:’’)+’\u00BD gallon’;if(r<=0.75)return(w?w+’ and ‘:’’)+’\u00BE gallon’;return(w+1)+’ gallons’;}
+if(g<=0.2)return’\u00BC gallon (fill \u00BC of jug)’;if(g<=0.5)return’\u00BD gallon’;if(g<=0.8)return’\u00BE gallon’;return’1 gallon’;
+}
+function chipBags(qty){const b=Math.ceil(qty/20);return b+’ Large White Bag’+(b>1?‘s’:’’)+’ (20 persons/bag)’;}
+function salsaStr(qty){return smartPan(C.salsa,qty).label;}
+
+// UTENSILS
+let U={t9:0,t6:[],ladle:[],sp9:[],sp5:[]};
+function resetU(){U={t9:0,t6:[],ladle:[],sp9:[],sp5:[]};}
+function addU(type,label,n){
+const cnt=Math.max(1,Math.round(n||1));
+for(let i=0;i<cnt;i++){
+if(type===‘t9’)U.t9++;
+else if(type===‘t6’)U.t6.push(label);
+else if(type===‘ladle’)U.ladle.push(label);
+else if(type===‘sp9’)U.sp9.push(label);
+else if(type===‘sp5’)U.sp5.push(label);
+}
 }
 
-// Better: use smallest combination that fits without partial
-function bestPans(cap, qty) {
-  if (!qty || qty <= 0 || !cap) return {f:0,h:0,t:0};
-  // Find best combination: minimize pans, always round UP
-  let best = {f: Math.ceil(qty/cap.f), h:0, t:0};
-  // Try with thirds and halves to minimize total
-  if (cap.t) {
-    for (let f=0; f<=Math.ceil(qty/cap.f); f++) {
-      const rem1 = qty - f*cap.f;
-      if (rem1 < 0) break;
-      if (rem1 === 0) { best = {f,h:0,t:0}; break; }
-      if (cap.h) {
-        for (let h=0; h<=Math.ceil(rem1/cap.h); h++) {
-          const rem2 = rem1 - h*cap.h;
-          if (rem2 < 0) break;
-          if (rem2 === 0) {
-            if ((f+h) < (best.f+best.h+best.t)) best={f,h,t:0};
-            break;
-          }
-          const t = Math.ceil(rem2/cap.t);
-          const rem3 = rem2 - t*cap.t; // This is always 0 or positive after ceiling
-          if ((f+h+t) < (best.f+best.h+best.t)) best={f,h,t};
-          break;
-        }
-      }
-    }
-  } else if (cap.h) {
-    for (let f=0; f<=Math.ceil(qty/cap.f); f++) {
-      const rem1 = qty - f*cap.f;
-      if (rem1 < 0) break;
-      if (rem1 === 0) { if (f<best.f+best.h) best={f,h:0,t:0}; break; }
-      const h = Math.ceil(rem1/cap.h);
-      if ((f+h) < (best.f+best.h+best.t)) best={f,h,t:0};
-      break;
-    }
-  }
-  return best;
-}
-
-function panStr(p, cap) {
-  if (!p || (p.f===0 && p.h===0 && p.t===0)) return '—';
-  const parts=[];
-  if (p.f > 0) parts.push(`${p.f} Full Pan${p.f>1?'s':''}`);
-  if (p.h > 0) parts.push(`${p.h} Half Pan${p.h>1?'s':''}`);
-  if (p.t > 0) parts.push(`${p.t} Third Pan${p.t>1?'s':''}`);
-  // Add fill level for last pan if not exactly full
-  const filled = p.f*(cap?.f||0) + p.h*(cap?.h||0) + p.t*(cap?.t||0);
-  // If it fills exactly we're good; if more than needed, note fill level
-  return parts.join(' + ');
-}
-
-function countFullPans(p) {
-  return (p.f||0); // Only full pans count for water
-}
-
-function waterStr(fullPans) {
-  if (!fullPans || fullPans === 0) return null;
-  const gal = fullPans / 5;
-  if (gal >= 1) {
-    const whole = Math.floor(gal);
-    const rem = gal - whole;
-    if (rem === 0) return `${whole} gallon${whole>1?'s':''}`;
-    if (rem <= 0.25) return `${whole > 0 ? whole + ' and ' : ''}¼ gallon`;
-    if (rem <= 0.5)  return `${whole > 0 ? whole + ' and ' : ''}½ gallon`;
-    if (rem <= 0.75) return `${whole > 0 ? whole + ' and ' : ''}¾ gallon`;
-    return `${whole + 1} gallons`;
-  }
-  if (gal <= 0.2)  return '¼ gallon (fill ¼ of jug)';
-  if (gal <= 0.4)  return '½ gallon (fill halfway)';
-  if (gal <= 0.6)  return '½ gallon';
-  if (gal <= 0.8)  return '¾ gallon';
-  return '1 gallon';
-}
-
-// Tortilla calc: 3 per person, rounded up
-function tortCalc(qty, cap) {
-  const tortillas = Math.ceil(qty * 3);
-  const p = bestPans(cap, tortillas);
-  return {tortillas, p};
-}
-
-// Global chip/salsa tracker
-let gChipQty = 0;
-let gSalsaQty = 0;
-
-// Utensil tracker — counts per pan
-const UTEN = {t9:0, t6_small:[], ladle:[], sp9:[], sp5:[]};
-function resetUtensils(){UTEN.t9=0;UTEN.t6_small=[];UTEN.ladle=[];UTEN.sp9=[];UTEN.sp5=[];}
-function addUten(type, label, count) {
-  const n=Math.max(1,Math.round(count));
-  for(let i=0;i<n;i++){
-    if(type==='t9') UTEN.t9++;
-    else if(type==='t6') UTEN.t6_small.push(label);
-    else if(type==='ladle') UTEN.ladle.push(label);
-    else if(type==='sp9') UTEN.sp9.push(label);
-    else if(type==='sp5') UTEN.sp5.push(label);
-  }
-}
-
-// ═══════════════════════════════════
-// MENU
-// ═══════════════════════════════════
-const MENU = [
-
-{id:'apps', title:'Mix N Match Appetizers', desc:'Exactly 2 selections — portions split in half',
- note:'<strong>Select exactly 2 appetizers.</strong> Portions are halved because items are split — each item is calculated at half the guest count.',
- type:'mnm',
- apps:[
-  {id:'app-avo',  label:'Avocado Rolls',   cap:CAP.avo_rolls, hasSalsa:false,
-   subs:[]},
-  {id:'app-taq',  label:'Brisket Taquitos',cap:CAP.taquitos,  hasSalsa:false,
-   subs:[]},
-  {id:'app-guac', label:'Guacamole',       cap:CAP.guac,      hasSalsa:false,
-   subs:[]},
-  {id:'app-regq', label:'Regular Queso',   cap:CAP.queso,     hasChips:true, hasSalsa:false,
-   subs:[{id:'s-spicyq-app',label:'Spicy Queso'}]},
-  {id:'app-spq',  label:'Spicy Queso',     cap:CAP.queso,     hasChips:true, hasSalsa:false,
-   subs:[{id:'s-regq-app',label:'Regular Queso'}]},
- ]
-},
-
-{id:'taco', title:'Taco Bar', desc:'Protein selection required',
- note:'Select your protein choice. Tortillas, Mexican Rice, Refried Beans, Shredded Lettuce, Shredded Cheese, Diced Tomatoes, Chips & Salsa all auto-calculate.',
- type:'bar',
- proteins:[
-  {id:'t-chx',  label:'Salsa Chicken', cap:CAP.taco_chx,  uten:'t6'},
-  {id:'t-beef', label:'Ground Beef',   cap:CAP.taco_beef, uten:'sp9'},
-  {id:'t-mix',  label:'Mixed Protein', cap:null,           uten:'t6', isMixed:true,
-   capA:CAP.taco_chx, capB:CAP.taco_beef, utenA:'t6', utenB:'sp9'},
- ],
- tortillaCap: CAP.tort_flour,
- subs:[
-  {id:'t-s-charro', label:'Sub Charro Beans for Refried'},
-  {id:'t-s-white',  label:'Sub White Rice for Mexican Rice'},
-  {id:'t-s-corn',   label:'Sub Corn Tortillas',   tortCap:CAP.tort_corn},
-  {id:'t-s-hard',   label:'Sub Hard Shell Tortillas', tortCap:CAP.tort_hard},
- ],
- autoSides:[
-  {label:'Mexican Rice',       cap:CAP.rice,        uten:'sp9'},
-  {label:'Refried Beans',      cap:CAP.beans,       uten:'ladle'},
-  {label:'Shredded Lettuce',   cap:CAP.shr_lettuce, uten:'t6', oz:'3 oz'},
-  {label:'Shredded Cheese',    cap:CAP.shr_cheese,  uten:'t6', oz:'3 oz'},
-  {label:'Diced Tomatoes',     cap:CAP.diced_tom,   uten:null,  oz:'1 oz'},
-  {label:'Chips & Salsa',      isChips:true},
- ],
- hasChips:true, hasSalsa:true
-},
-
-{id:'nacho', title:'Nacho Bar', desc:'Protein selection required',
- note:'Select your protein choice. Spicy Queso, Chips, Shredded Lettuce, Shredded Cheese, Diced Tomatoes, Sour Cream, Pickled Jalapeños & Salsa all auto-calculate.',
- type:'bar',
- proteins:[
-  {id:'n-spicyq',label:'Spicy Queso + Salsa Chicken', cap:CAP.nacho_chx,  uten:'t6'},
-  {id:'n-beef',  label:'Ground Beef',                  cap:CAP.nacho_beef, uten:'sp9'},
-  {id:'n-veg',   label:'Fire Roasted Veggies',          cap:CAP.nacho_veg,  uten:'t6'},
-  {id:'n-mix',   label:'Mixed Protein',                 cap:null,           uten:'t6', isMixed:true,
-   capA:CAP.nacho_chx, capB:CAP.nacho_beef, utenA:'t6', utenB:'sp9'},
- ],
- tortillaCap: null,
- subs:[
-  {id:'n-s-reg',   label:'Sub Regular Queso for Spicy'},
-  {id:'n-s-beef2', label:'Sub Ground Beef for Salsa Chicken'},
- ],
- autoSides:[
-  {label:'Spicy Queso',       cap:CAP.queso,       uten:'ladle'},
-  {label:'Shredded Lettuce',  cap:CAP.shr_lettuce, uten:'t6', oz:'3 oz'},
-  {label:'Shredded Cheese',   cap:CAP.shr_cheese,  uten:'t6', oz:'2 oz'},
-  {label:'Diced Tomatoes',    cap:CAP.diced_tom,   uten:null,  oz:'1 oz'},
-  {label:'Sour Cream',        cap:CAP.sour_cream,  uten:'sp5', oz:'1 oz'},
-  {label:'Pickled Jalapeños', cap:CAP.pickled_jal, uten:'t6',  oz:'1 oz'},
-  {label:'Chips & Salsa',     isChips:true},
- ],
- hasChips:true, hasSalsa:true
-},
-
-{id:'fajita', title:'Fajita Bar', desc:'Protein selection required',
- note:'Select your protein. Tortillas (3 per person), Mexican Rice, Charro Beans, Shredded Lettuce, Shredded Cheese, Pico de Gallo, Sour Cream, Guacamole, Chips & Salsa all auto-calculate.',
- type:'bar',
- proteins:[
-  {id:'f-cs',  label:'Chicken & Steak',        cap:CAP.fajita_prot, uten:'t6'},
-  {id:'f-c',   label:'Chicken',                cap:CAP.fajita_prot, uten:'t6'},
-  {id:'f-s',   label:'Steak',                  cap:CAP.fajita_prot, uten:'t6'},
-  {id:'f-csh', label:'Chicken, Steak & Shrimp',cap:CAP.fajita_prot, uten:'t6'},
-  {id:'f-sh',  label:'Shrimp',                 cap:CAP.fajita_prot, uten:'t6'},
-  {id:'f-v',   label:'Veggie',                 cap:CAP.fajita_prot, uten:'t6'},
- ],
- tortillaCap: CAP.tort_flour,
- subs:[
-  {id:'f-s-charro2',label:'Sub Black Beans for Charro'},
-  {id:'f-s-white2', label:'Sub White Rice for Mexican Rice'},
-  {id:'f-s-corn2',  label:'Sub Corn Tortillas',    tortCap:CAP.tort_corn},
-  {id:'f-s-hard2',  label:'Sub Hard Shell Tortillas', tortCap:CAP.tort_hard},
-  {id:'f-s-lc',     label:'Sub Lettuce Cup'},
- ],
- autoSides:[
-  {label:'Mexican Rice',      cap:CAP.rice,        uten:'sp9'},
-  {label:'Charro Beans',      cap:CAP.beans,       uten:'ladle'},
-  {label:'Shredded Lettuce',  cap:CAP.shr_lettuce, uten:'t6', oz:'3 oz'},
-  {label:'Shredded Cheese',   cap:CAP.shr_cheese,  uten:'t6', oz:'2 oz'},
-  {label:'Pico de Gallo',     cap:CAP.diced_tom,   uten:'sp5', oz:'1 oz'},
-  {label:'Sour Cream',        cap:CAP.sour_cream,  uten:'sp5', oz:'1 oz'},
-  {label:'Guacamole',         cap:CAP.guac_side,   uten:'sp5', oz:'1 oz'},
-  {label:'Chips & Salsa',     isChips:true},
- ],
- hasChips:true, hasSalsa:true
-},
-
-{id:'salad', title:'Salads', desc:'Rings in as units — e.g. 2 House Salads',
- note:'Each unit serves 10 persons (1 full pan). Tap to add how many of each salad.',
- type:'salads',
- items:[
-  {id:'s-house',label:'House Salad',
-   includes:'Mixed Greens, Red Onions, Sliced Avocado, Shredded Cheese, Cubed Cucumber, Diced Tomato',
-   dressing:'Cilantro Ranch',
-   dressSubs:['Mango Vinaigrette','Oregano Vinaigrette','Chipotle Ranch'],
-   uten:'t6'},
-  {id:'s-kale', label:"Farmer's Kale Salad",
-   includes:'Kale Greens, Mixed Greens, Radish, Cubed Avocado, Shredded Cheese, Cubed Cucumber, Pickled Onions',
-   dressing:'Oregano Vinaigrette (tossed)',
-   dressSubs:['Mango Vinaigrette (on side)','Cilantro Ranch (on side)','Chipotle Ranch (on side)'],
-   uten:'t6'},
-  {id:'s-mex',  label:'Mexican Chopped Salad',
-   includes:'Mixed Greens, Red Onions, Shredded Cheese, Black Bean Salsa, Diced Tomato, Roasted Corn, Crumbled Bacon, Tortilla Strips, Grilled Chicken',
-   dressing:'Mango Vinaigrette',
-   dressSubs:['Cilantro Ranch','Oregano Vinaigrette','Chipotle Ranch'],
-   uten:'t6'},
- ]
-},
-
-{id:'sides', title:'Sides', desc:'Rings in as units where noted',
- note:'Chips & Queso serve 1 per person. Salsa rings in as units.',
- type:'sides',
- items:[
-  {id:'si-crq', label:'Chips & Regular Queso',  cap:CAP.queso,    byPerson:true,  hasChips:true,
-   subs:[{id:'si-s-spicy',label:'Sub Spicy Queso'}], uten:{ladle:true,t9chips:true}},
-  {id:'si-csq', label:'Chips & Spicy Queso',    cap:CAP.queso,    byPerson:true,  hasChips:true,
-   subs:[{id:'si-s-reg',label:'Sub Regular Queso'}], uten:{ladle:true,t9chips:true}},
-  {id:'si-cg',  label:'Chips & Guacamole',      cap:CAP.guac,     byPerson:true,  hasChips:true,
-   subs:[], uten:{sp5:true,t9chips:true}},
-  {id:'si-salsa',label:'Extra Homemade Salsa',  cap:CAP.salsa,    byPerson:false, hasChips:false,
-   unitLabel:'Extra Homemade Salsa', servesPersons:10,
-   subs:[], uten:{ladle:true}},
-  {id:'si-sc',  label:'Sour Cream',             cap:CAP.sour_cream,byPerson:true, hasChips:false,
-   subs:[], uten:{sp5:true}},
- ]
-},
-
-{id:'dessert', title:'Desserts', desc:'Rings in as units — cake pan sizing',
- note:'Sopapillas tossed in cinnamon sugar. Brownies covered in powdered sugar. Uses cake pans — 18" pan = 36 persons, 12" pan = 24 persons.',
- type:'desserts',
- items:[
-  {id:'d-sop', label:'Sopapillas',
-   syrup:'Raw Honey',
-   syrSubs:['Caramel Syrup','Chocolate Syrup'],
-   uten:'t9'},
-  {id:'d-bro', label:'Double Fudge Brownies',
-   syrup:'Chocolate Syrup + Caramel Syrup',
-   syrSubs:[],
-   uten:'t9'},
- ]
-},
-
-{id:'bev', title:'Beverages', desc:'Rings in as units — 8 persons per gallon',
- note:'Each unit = 1 gallon jug (8 persons). Fill to top, attach correct label sticker. Ice shown as pan.',
- type:'beverages',
- items:[
-  {id:'b-sweet', label:'Sweet Tea',      includes:'Ice, Plastic Cups'},
-  {id:'b-un',    label:'Unsweet Tea',    includes:'Ice, Plastic Cups'},
-  {id:'b-lem',   label:'Pink Lemonade',  includes:'Ice'},
-  {id:'b-peach', label:'Peach Tea',      includes:'Ice, Peach Monin Syrup (10 oz per jug)'},
- ]
-},
-
-]; // end MENU
-
-// ═══════════════════════════════════
 // NAV
-// ═══════════════════════════════════
 function goPage(n){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('pg'+n).classList.add('active');
-  ['st1','st2','st3'].forEach((id,i)=>{
-    const el=document.getElementById(id);el.classList.remove('active','done');
-    if(i+1<n)el.classList.add('done');else if(i+1===n)el.classList.add('active');
-  });
-  window.scrollTo({top:0,behavior:'smooth'});
+document.querySelectorAll(’.page’).forEach(p=>p.classList.remove(‘active’));
+document.getElementById(‘pg’+n).classList.add(‘active’);
+[‘st1’,‘st2’,‘st3’].forEach((id,i)=>{const el=document.getElementById(id);el.classList.remove(‘active’,‘done’);if(i+1<n)el.classList.add(‘done’);else if(i+1===n)el.classList.add(‘active’);});
+window.scrollTo({top:0,behavior:‘smooth’});
 }
 function goP2(){
-  const nm=document.getElementById('fName').value.trim();
-  const or=document.getElementById('fOrder').value.trim();
-  const gs=parseInt(document.getElementById('fGuests').value);
-  const ti=document.getElementById('fTime').value;
-  const ad=document.getElementById('fAddr').value.trim();
-  if(!nm){alert('Enter your name.');return;}
-  if(!or){alert('Enter the order name.');return;}
-  if(!gs||gs<1){alert('Enter total guest count.');return;}
-  if(!ti){alert('Enter food arrival time.');return;}
-  if(!ad){alert('Enter delivery address.');return;}
-  ST.name=nm;ST.order=or;ST.guests=gs;ST.time=ti;ST.address=ad;
-  gChipQty=0;gSalsaQty=0;ST.hasBev=false;
-  buildMenu();goPage(2);
+const nm=document.getElementById(‘fName’).value.trim();
+const or=document.getElementById(‘fOrder’).value.trim();
+const gs=parseInt(document.getElementById(‘fGuests’).value);
+const ti=document.getElementById(‘fTime’).value;
+const ad=document.getElementById(‘fAddr’).value.trim();
+if(!nm){alert(‘Enter your name.’);return;}if(!or){alert(‘Enter order name.’);return;}
+if(!gs||gs<1){alert(‘Enter total guest count.’);return;}if(!ti){alert(‘Enter arrival time.’);return;}if(!ad){alert(‘Enter delivery address.’);return;}
+ST.name=nm;ST.order=or;ST.guests=gs;ST.time=ti;ST.address=ad;gChipQty=0;ST.hasBev=false;ST.cart=[];
+buildMenu();goPage(2);
 }
-function goP3(){
-  if(!ST.cart.length){alert('Add at least one item first.');return;}
-  buildSummary();goPage(3);
-}
+function goP3(){if(!ST.cart.length){alert(‘Add at least one item first.’);return;}buildSummary();goPage(3);}
 
-// ═══════════════════════════════════
 // DRIVE TIME
-// ═══════════════════════════════════
 async function calcTravel(){
-  const addr=document.getElementById('fAddr').value.trim();
-  const ti=document.getElementById('fTime').value;
-  if(!addr){alert('Enter delivery address first.');return;}
-  if(!ti){alert('Enter arrival time first.');return;}
-  const box=document.getElementById('tbox');
-  box.classList.add('show');
-  document.getElementById('tLeave').textContent='...';
-  document.getElementById('tDet').textContent='Calculating...';
-  const [h,m]=ti.split(':').map(Number);
-  const arr=new Date();arr.setHours(h,m,0,0);
-  if(arr<new Date())arr.setDate(arr.getDate()+1);
-  try{
-    let lat=null,lng=null,note='';
-    // Try full address
-    const r1=await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(addr)}&limit=1&countrycodes=us`,{headers:{'Accept-Language':'en-US','User-Agent':'HueyLueysCatering'}}).then(r=>r.json()).catch(()=>[]);
-    if(r1.length){lat=parseFloat(r1[0].lat);lng=parseFloat(r1[0].lon);}
-    // Try zip
-    if(lat===null){
-      const zip=(addr.match(/\b(\d{5})\b/)||[])[1];
-      if(zip){const r2=await fetch(`https://nominatim.openstreetmap.org/search?format=json&postalcode=${zip}&countrycodes=us&limit=1`,{headers:{'Accept-Language':'en-US','User-Agent':'HueyLueysCatering'}}).then(r=>r.json()).catch(()=>[]);
-        if(r2.length){lat=parseFloat(r2[0].lat);lng=parseFloat(r2[0].lon);note='(ZIP estimate) ';}
-      }
-    }
-    // Try city
-    if(lat===null){
-      const cm=(addr.match(/([A-Za-z\s]+),?\s*(GA|Georgia)/i)||[]);
-      if(cm[1]){const r3=await fetch(`https://nominatim.openstreetmap.org/search?format=json&city=${encodeURIComponent(cm[1].trim())}&state=Georgia&countrycodes=us&limit=1`,{headers:{'Accept-Language':'en-US','User-Agent':'HueyLueysCatering'}}).then(r=>r.json()).catch(()=>[]);
-        if(r3.length){lat=parseFloat(r3[0].lat);lng=parseFloat(r3[0].lon);note='(City estimate) ';}
-      }
-    }
-    if(lat===null)throw new Error('not found');
-    const R=3958.8,dLat=(lat-STORE_LAT)*Math.PI/180,dLon=(lng-STORE_LNG)*Math.PI/180;
-    const a=Math.sin(dLat/2)**2+Math.cos(STORE_LAT*Math.PI/180)*Math.cos(lat*Math.PI/180)*Math.sin(dLon/2)**2;
-    const miles=R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
-    const mins=Math.round(miles*1.35/32*60+5);
-    const disp=mins>=60?`${Math.floor(mins/60)}h ${mins%60}m`:`${mins} min`;
-    const ld=new Date(arr.getTime()-(mins+5)*60*1000);
-    const ls=ld.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-    document.getElementById('tLeave').textContent=ls;
-    document.getElementById('tDet').textContent=`${note}${miles.toFixed(1)} miles — about ${disp} drive`;
-    ST.leaveTime=ls;ST.travelInfo=`${miles.toFixed(1)} miles, ~${disp}`;
-  }catch(e){
-    document.getElementById('tLeave').textContent='Check Manually';
-    document.getElementById('tDet').textContent='Could not locate — verify address and try again.';
-  }
+const addr=document.getElementById(‘fAddr’).value.trim();
+const ti=document.getElementById(‘fTime’).value;
+if(!addr){alert(‘Enter delivery address first.’);return;}if(!ti){alert(‘Enter arrival time first.’);return;}
+const box=document.getElementById(‘tbox’);box.classList.add(‘show’);
+document.getElementById(‘tLeave’).textContent=’…’;document.getElementById(‘tDet’).textContent=‘Calculating…’;
+const [h,m]=ti.split(’:’).map(Number);const arr=new Date();arr.setHours(h,m,0,0);if(arr<new Date())arr.setDate(arr.getDate()+1);
+try{
+let lat=null,lng=null,note=’’;
+const r1=await fetch(‘https://nominatim.openstreetmap.org/search?format=json&q=’+encodeURIComponent(addr)+’&limit=1&countrycodes=us’,{headers:{‘Accept-Language’:‘en-US’,‘User-Agent’:‘HueyLueysCatering’}}).then(r=>r.json()).catch(()=>[]);
+if(r1.length){lat=parseFloat(r1[0].lat);lng=parseFloat(r1[0].lon);}
+if(lat===null){const zip=(addr.match(/\b(\d{5})\b/)||[])[1];if(zip){const r2=await fetch(‘https://nominatim.openstreetmap.org/search?format=json&postalcode=’+zip+’&countrycodes=us&limit=1’,{headers:{‘Accept-Language’:‘en-US’,‘User-Agent’:‘HueyLueysCatering’}}).then(r=>r.json()).catch(()=>[]);if(r2.length){lat=parseFloat(r2[0].lat);lng=parseFloat(r2[0].lon);note=’(ZIP estimate) ‘;}}}
+if(lat===null){const cm=(addr.match(/([A-Za-z\s]+),?\s*(GA|Georgia)/i)||[]);if(cm[1]){const r3=await fetch(‘https://nominatim.openstreetmap.org/search?format=json&city=’+encodeURIComponent(cm[1].trim())+’&state=Georgia&countrycodes=us&limit=1’,{headers:{‘Accept-Language’:‘en-US’,‘User-Agent’:‘HueyLueysCatering’}}).then(r=>r.json()).catch(()=>[]);if(r3.length){lat=parseFloat(r3[0].lat);lng=parseFloat(r3[0].lon);note=’(City estimate) ‘;}}}
+if(lat===null)throw new Error(‘not found’);
+const R=3958.8,dLat=(lat-STORE_LAT)*Math.PI/180,dLon=(lng-STORE_LNG)*Math.PI/180;
+const a=Math.sin(dLat/2)**2+Math.cos(STORE_LAT*Math.PI/180)*Math.cos(lat*Math.PI/180)*Math.sin(dLon/2)**2;
+const miles=R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+const mins=Math.round(miles*1.35/32*60+5);
+const disp=mins>=60?Math.floor(mins/60)+‘h ‘+mins%60+‘m’:mins+’ min’;
+const ld=new Date(arr.getTime()-(mins+5)*60*1000);
+const ls=ld.toLocaleTimeString([],{hour:‘2-digit’,minute:‘2-digit’});
+document.getElementById(‘tLeave’).textContent=ls;
+document.getElementById(‘tDet’).textContent=note+miles.toFixed(1)+’ miles — about ‘+disp+’ drive’;
+ST.leaveTime=ls;ST.travelInfo=miles.toFixed(1)+’ miles, ~’+disp;
+}catch(e){document.getElementById(‘tLeave’).textContent=‘Check Manually’;document.getElementById(‘tDet’).textContent=‘Could not locate — verify address and try again.’;}
 }
 
-// ═══════════════════════════════════
+// MENU DATA
+const MENU=[
+{id:‘apps’,title:‘Mix N Match Appetizers’,desc:‘Exactly 2 selections — halved portions’,
+note:’<strong>Select exactly 2 apps.</strong> Each item is portioned at half the guest count.’,type:‘mnm’,
+apps:[
+{id:‘a-avo’,label:‘Avocado Rolls’,cap:C.avo,hasChips:false,garnish:‘Cilantro Cream Dip, Shredded Lettuce Garnish, Pickled Onion Garnish’,uten:‘t6’},
+{id:‘a-taq’,label:‘Brisket Taquitos’,cap:C.taq,hasChips:false,garnish:’’,uten:‘t6’},
+{id:‘a-gua’,label:‘Guacamole’,cap:C.guac,hasChips:false,garnish:‘Pickled Radish Garnish’,uten:‘sp5’},
+{id:‘a-rq’,label:‘Regular Queso’,cap:C.queso,hasChips:true,garnish:’’,uten:‘ladle’},
+{id:‘a-sq’,label:‘Spicy Queso’,cap:C.queso,hasChips:true,garnish:‘Pico de Gallo Garnish’,uten:‘ladle’},
+]},
+{id:‘taco’,title:‘Taco Bar’,desc:‘Select protein — Refried Beans & Flour Tortillas auto-included’,
+note:‘Select protein. Flour Tortillas (3/person), Mexican Rice, Refried Beans, Shredded Lettuce, Shredded Cheese, Diced Tomatoes, Regular Salsa & Chips all auto-calculate. No Sour Cream.’,type:‘bar’,
+proteins:[
+{id:‘t-chx’,label:‘Salsa Chicken’,cap:C.taco_chx,uten:‘t6’},
+{id:‘t-beef’,label:‘Ground Beef’,cap:C.taco_beef,uten:‘sp9’},
+{id:‘t-mix’,label:‘Mixed: Salsa Chicken + Ground Beef’,cap:null,isMixed:true,capA:C.taco_chx,capB:C.taco_beef,utenA:‘t6’,utenB:‘sp9’},
+{id:‘t-both’,label:‘Chicken & Beef +$3’,cap:null,isMixed:true,capA:C.taco_chx,capB:C.taco_beef,utenA:‘t6’,utenB:‘sp9’},
+],tortCap:C.tf,
+sides:[
+{lbl:‘Mexican Rice’,cap:C.rice,uten:‘sp9’,hot:true},
+{lbl:‘Refried Beans’,cap:C.beans,uten:‘ladle’,hot:true},
+{lbl:‘Shredded Lettuce’,cap:C.lett,uten:‘t6’,hot:false},
+{lbl:‘Shredded Cheese’,cap:C.chse,uten:‘t6’,hot:false},
+{lbl:‘Diced Tomatoes’,cap:C.pico,uten:null,hot:false},
+],
+subs:[{id:‘ts1’,label:‘Sub Charro Beans for Refried’},{id:‘ts2’,label:‘Sub White Rice for Mexican Rice’},{id:‘ts3’,label:‘Sub Corn Tortillas’,tc:C.tc},{id:‘ts4’,label:‘Sub Hard Shell Tortillas’,tc:C.th}],
+hasChips:true,hasSalsa:true},
+{id:‘nacho’,title:‘Nacho Bar’,desc:‘Select protein — Spicy Queso always included’,
+note:‘Select protein. Spicy Queso, Chips, Shredded Lettuce, Shredded Cheese, Diced Tomatoes, Sour Cream, Pickled Jalapeños & Regular Salsa all auto-calculate. No rice or beans.’,type:‘bar’,
+proteins:[
+{id:‘n-chx’,label:‘Salsa Chicken’,cap:C.nacho_chx,uten:‘t6’},
+{id:‘n-beef’,label:‘Ground Beef’,cap:C.nacho_beef,uten:‘sp9’},
+{id:‘n-veg’,label:‘Fire Roasted Veggies’,cap:C.nacho_veg,uten:‘t6’},
+{id:‘n-mix’,label:‘Mixed: Salsa Chicken + Ground Beef’,cap:null,isMixed:true,capA:C.nacho_chx,capB:C.nacho_beef,utenA:‘t6’,utenB:‘sp9’},
+{id:‘n-both’,label:‘Chicken & Beef +$3’,cap:null,isMixed:true,capA:C.nacho_chx,capB:C.nacho_beef,utenA:‘t6’,utenB:‘sp9’},
+],tortCap:null,
+sides:[
+{lbl:‘Spicy Queso’,cap:C.queso,uten:‘ladle’,hot:true},
+{lbl:‘Shredded Lettuce’,cap:C.lett,uten:‘t6’,hot:false},
+{lbl:‘Shredded Cheese’,cap:C.chse,uten:‘t6’,hot:false},
+{lbl:‘Diced Tomatoes’,cap:C.pico,uten:null,hot:false},
+{lbl:‘Sour Cream’,cap:C.sc,uten:‘sp5’,hot:false},
+{lbl:‘Pickled Jalapenos’,cap:C.jal,uten:‘t6’,hot:false},
+],
+subs:[{id:‘ns1’,label:‘Sub Regular Queso for Spicy’}],
+hasChips:true,hasSalsa:true},
+{id:‘fajita’,title:‘Fajita Bar’,desc:‘Select protein — Charro Beans & Flour Tortillas auto-included’,
+note:‘Select protein. Flour Tortillas (3/person), Mexican Rice, Charro Beans, Shredded Lettuce, Shredded Cheese, Pico de Gallo, Sour Cream, Guacamole, Radish Garnish, Lime Wedges, Regular Salsa & Chips all auto-calculate.’,type:‘bar’,
+proteins:[
+{id:‘f-cs’,label:‘Chicken & Steak’,cap:C.faj,uten:‘t6’},
+{id:‘f-c’,label:‘Chicken’,cap:C.faj,uten:‘t6’},
+{id:‘f-s’,label:‘Steak’,cap:C.faj,uten:‘t6’},
+{id:‘f-csh’,label:‘Chicken, Steak & Shrimp’,cap:C.faj,uten:‘t6’},
+{id:‘f-sh’,label:‘Shrimp’,cap:C.faj,uten:‘t6’},
+{id:‘f-v’,label:‘Veggie’,cap:C.faj,uten:‘t6’},
+],tortCap:C.tf,
+sides:[
+{lbl:‘Mexican Rice’,cap:C.rice,uten:‘sp9’,hot:true},
+{lbl:‘Charro Beans’,cap:C.beans,uten:‘ladle’,hot:true},
+{lbl:‘Shredded Lettuce’,cap:C.lett,uten:‘t6’,hot:false},
+{lbl:‘Shredded Cheese’,cap:C.chse,uten:‘t6’,hot:false},
+{lbl:‘Pico de Gallo’,cap:C.pico,uten:‘sp5’,hot:false},
+{lbl:‘Sour Cream’,cap:C.sc,uten:‘sp5’,hot:false},
+{lbl:‘Guacamole’,cap:C.guac,uten:‘sp5’,hot:false},
+],
+garnish:‘Radish Garnish + Lime Wedges’,
+subs:[{id:‘fs1’,label:‘Sub Black Beans for Charro’},{id:‘fs2’,label:‘Sub Refried Beans for Charro’},{id:‘fs3’,label:‘Sub White Rice for Mexican Rice’},{id:‘fs4’,label:‘Sub Corn Tortillas’,tc:C.tc},{id:‘fs5’,label:‘Sub Hard Shell Tortillas’,tc:C.th},{id:‘fs6’,label:‘Sub Lettuce Cup’}],
+hasChips:true,hasSalsa:true},
+{id:‘salad’,title:‘Salads’,desc:‘Rings in as units — 10 persons per salad’,
+note:‘Each unit = 1 full pan (10 persons). Enter how many salads. Select dressing substitution if needed.’,type:‘salads’,
+items:[
+{id:‘s-house’,label:‘House Salad’,dressing:‘Cilantro Ranch’,dressSubs:[‘Mango Vinaigrette’,‘Oregano Vinaigrette’,‘Chipotle Ranch’]},
+{id:‘s-kale’,label:“Farmer’s Kale Salad”,dressing:‘Oregano Vinaigrette (tossed)’,dressSubs:[‘Mango Vinaigrette (on side)’,‘Cilantro Ranch (on side)’,‘Chipotle Ranch (on side)’]},
+{id:‘s-mex’,label:‘Mexican Chopped Salad’,dressing:‘Mango Vinaigrette’,extra:‘Grilled Chicken (included)’,dressSubs:[‘Cilantro Ranch’,‘Oregano Vinaigrette’,‘Chipotle Ranch’]},
+]},
+{id:‘sides’,title:‘Sides’,desc:‘Add-on selections’,
+note:‘Enter guest count for Queso/Guac/Sour Cream. Extra Homemade Salsa rings in as units (10 persons each).’,type:‘sides’,
+items:[
+{id:‘si-rq’,label:‘Chips & Regular Queso’,cap:C.queso,byP:true,hasChips:true,subs:[{id:‘si-rq1’,label:‘Sub Spicy Queso’}],uten:{ladle:true,t9:true}},
+{id:‘si-sq’,label:‘Chips & Spicy Queso’,cap:C.queso,byP:true,hasChips:true,subs:[{id:‘si-sq1’,label:‘Sub Regular Queso’}],uten:{ladle:true,t9:true}},
+{id:‘si-cg’,label:‘Chips & Guacamole’,cap:C.guac,byP:true,hasChips:true,subs:[],uten:{sp5:true,t9:true}},
+{id:‘si-sal’,label:‘Extra Homemade Salsa’,cap:C.salsa,byP:false,hasChips:false,each:10,subs:[],uten:{ladle:true}},
+{id:‘si-sc’,label:‘Sour Cream’,cap:C.sc,byP:true,hasChips:false,subs:[],uten:{sp5:true}},
+]},
+{id:‘dessert’,title:‘Desserts’,desc:‘Rings in as orders — 1 x 12” Cake Pan per order’,
+note:‘Each order = 1 x 12” Cake Pan (24 persons capacity). Sopapillas tossed in cinnamon sugar. Brownies covered in powdered sugar.’,type:‘desserts’,
+items:[
+{id:‘d-sop’,label:‘Sopapillas’,syrup:‘Raw Honey’,syrSubs:[‘Caramel Syrup’,‘Chocolate Syrup’]},
+{id:‘d-bro’,label:‘Double Fudge Brownies’,syrup:‘Chocolate Syrup + Caramel Syrup’,syrSubs:[]},
+]},
+{id:‘bev’,title:‘Beverages’,desc:‘Rings in as jugs — 8 persons per gallon jug’,
+note:‘Each unit = 1 gallon jug. Fill to top, attach correct label sticker. Ice shown in pans.’,type:‘beverages’,
+items:[
+{id:‘b-sw’,label:‘Sweet Tea’,hasCups:true},
+{id:‘b-un’,label:‘Unsweet Tea’,hasCups:true},
+{id:‘b-lem’,label:‘Pink Lemonade’,hasCups:false},
+{id:‘b-pea’,label:‘Peach Tea’,hasCups:false,extra:‘Peach Monin Syrup (10 oz per jug)’},
+]},
+];
+
 // BUILD MENU
-// ═══════════════════════════════════
 function buildMenu(){
-  const wrap=document.getElementById('menuWrap');wrap.innerHTML='';
-  MENU.forEach((cat,ci)=>{
-    const div=document.createElement('div');div.className='cat';
-    div.innerHTML=`
-      <div class="cat-hd" onclick="togCat(${ci})">
-        <div><div class="cat-title">${cat.title}</div><div class="cat-desc">${cat.desc}</div></div>
-        <div class="cat-right">
-          <span class="cat-badge" id="cb_${ci}">0</span>
-          <svg class="chev" id="ch_${ci}" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-      </div>
-      <div class="cat-body" id="catb_${ci}">
-        <div class="cat-note">${cat.note}</div>
-        ${renderCat(cat,ci)}
-      </div>`;
-    wrap.appendChild(div);
-  });
+const w=document.getElementById(‘menuWrap’);w.innerHTML=’’;
+MENU.forEach((cat,ci)=>{
+const d=document.createElement(‘div’);d.className=‘cat’;
+d.innerHTML=’<div class="cat-hd" onclick="togCat('+ci+')">’
++’<div><div class="cat-title">’+cat.title+’</div><div class="cat-desc">’+cat.desc+’</div></div>’
++’<div class="cat-right"><span class="cat-badge" id="cb_'+ci+'">0</span>’
++’<svg class="chev" id="ch_'+ci+'" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div>’
++’<div class="cat-body" id="catb_'+ci+'"><div class="cat-note">’+cat.note+’</div>’+renderCat(cat,ci)+’</div>’;
+w.appendChild(d);
+});
 }
-function togCat(ci){document.getElementById('catb_'+ci).classList.toggle('open');document.getElementById('ch_'+ci).classList.toggle('open');}
-function badgeUp(ci,catId){const cnt=ST.cart.filter(c=>c.catId===catId).length;const el=document.getElementById('cb_'+ci);if(el){el.textContent=cnt;el.classList.toggle('on',cnt>0);}}
-
+function togCat(ci){document.getElementById(‘catb_’+ci).classList.toggle(‘open’);document.getElementById(‘ch_’+ci).classList.toggle(‘open’);}
+function bdg(ci,catId){const cnt=ST.cart.filter(c=>c.catId===catId).length;const el=document.getElementById(‘cb_’+ci);if(el){el.textContent=cnt;el.classList.toggle(‘on’,cnt>0);}}
 function renderCat(cat,ci){
-  if(cat.type==='mnm')       return renderMNM(cat,ci);
-  if(cat.type==='bar')       return renderBar(cat,ci);
-  if(cat.type==='salads')    return renderSalads(cat,ci);
-  if(cat.type==='sides')     return renderSides(cat,ci);
-  if(cat.type==='desserts')  return renderDesserts(cat,ci);
-  if(cat.type==='beverages') return renderBevs(cat,ci);
-  return '';
+if(cat.type===‘mnm’)return rMNM(cat,ci);
+if(cat.type===‘bar’)return rBar(cat,ci);
+if(cat.type===‘salads’)return rSalads(cat,ci);
+if(cat.type===‘sides’)return rSides(cat,ci);
+if(cat.type===‘desserts’)return rDesserts(cat,ci);
+if(cat.type===‘beverages’)return rBevs(cat,ci);
+return ‘’;
 }
 
-// ─── MIX N MATCH ───────────────────
-function renderMNM(cat,ci){
-  return `<div style="padding:13px">
-    <div class="mnm-sec">
-      <div class="mnm-hd">Select Exactly 2 <span class="rbadge org">REQUIRED</span></div>
-      <div class="mnm-sub">Each item is portioned at half the guest count</div>
-      ${cat.apps.map(a=>`
-        <div class="mnm-opt" id="mnml_${a.id}" onclick="togMNM('${a.id}')">
-          <input type="checkbox" id="mnm_${a.id}"/>
-          <span>${a.label}</span>
-        </div>`).join('')}
-      <div class="mnm-err" id="mnmerr_${ci}">Select exactly 2 appetizers.</div>
-    </div>
-    <div class="qty-row">
-      <span style="font-size:.7rem;color:var(--mut);font-weight:700">Guest Count:</span>
-      <input class="qty-in" type="number" id="mnmqty_${ci}" min="1" placeholder="0"/>
-      <span class="qty-unit">persons</span>
-      <button class="add-btn" onclick="addMNM('${cat.id}',${ci})">Add to Order</button>
-      <span class="added-tag" id="at_${cat.id}">Added</span>
-    </div></div>`;
+// MIX N MATCH
+function rMNM(cat,ci){
+return ‘<div style="padding:13px"><div class="mnm-sec">’
++’<div class="mnm-hd">Select Exactly 2 <span class="rbadge org">REQUIRED</span></div>’
++’<div class="mnm-sub">Each item calculated at half the guest count</div>’
++cat.apps.map(a=>’<div class="mnm-opt" id="ml_'+a.id+'" onclick="togM(\''+a.id+'\')">’
++’<input type="checkbox" id="m_'+a.id+'"/> ‘+a.label+’</div>’).join(’’)
++’<div class="mnm-err" id="me_'+ci+'">Select exactly 2 appetizers.</div>’
++’</div><div class="qty-row">’
++’<span style="font-size:.7rem;color:var(--mut);font-weight:700">Guest Count:</span>’
++’<input class="qty-in" type="number" id="mq_'+ci+'" min="1" placeholder="0"/>’
++’<span class="qty-unit">persons</span>’
++’<button class="add-btn" onclick="addMNM(\''+cat.id+'\','+ci+')">Add to Order</button>’
++’<span class="added-tag" id="at_'+cat.id+'">Added</span></div></div>’;
 }
-function togMNM(id){const cb=document.getElementById('mnm_'+id);const lb=document.getElementById('mnml_'+id);lb.classList.toggle('sel-org',cb.checked);}
+function togM(id){const cb=document.getElementById(‘m_’+id);const lb=document.getElementById(‘ml_’+id);lb.classList.toggle(‘sel-org’,cb.checked);}
 function addMNM(catId,ci){
-  const cat=MENU.find(c=>c.id===catId);
-  const sel=cat.apps.filter(a=>document.getElementById('mnm_'+a.id)?.checked);
-  const err=document.getElementById('mnmerr_'+ci);
-  if(sel.length!==2){err.classList.add('show');return;}
-  err.classList.remove('show');
-  const qty=parseInt(document.getElementById('mnmqty_'+ci)?.value);
-  if(!qty||qty<1){alert('Enter guest count.');return;}
-  const halfQty=Math.ceil(qty/2);
-  const rows=[];
-  sel.forEach(a=>{
-    const p=bestPans(a.cap,halfQty);
-    rows.push({label:a.label,p,cap:a.cap});
-    if(a.hasChips)gChipQty=Math.max(gChipQty,qty);
-  });
-  // Chips for queso apps added to global
-  const hasQ=sel.some(a=>a.id.includes('q'));
-  if(hasQ)gChipQty=Math.max(gChipQty,qty);
-
-  ST.cart=ST.cart.filter(c=>c.catId!==catId);
-  ST.cart.push({id:catId,catId,name:'Mix N Match Apps',qty,
-    label:sel.map(a=>a.label).join(' + '),
-    sub:'',rows,type:'mnm',
-    utenData:sel.map(a=>{
-      const p=bestPans(a.cap,halfQty);
-      return {type:a.id.includes('q')?'ladle':a.id.includes('guac')?'sp5':'t6',
-              label:a.label,pans:p.f+p.h+p.t};
-    })
-  });
-  document.getElementById('at_'+catId)?.classList.add('on');
-  renderCart();badgeUp(ci,catId);
+const cat=MENU.find(c=>c.id===catId);
+const sel=cat.apps.filter(a=>document.getElementById(‘m_’+a.id)?.checked);
+const err=document.getElementById(‘me_’+ci);
+if(sel.length!==2){err.classList.add(‘show’);return;}
+err.classList.remove(‘show’);
+const qty=parseInt(document.getElementById(‘mq_’+ci)?.value);
+if(!qty||qty<1){alert(‘Enter guest count.’);return;}
+const half=Math.ceil(qty/2);
+const rows=[];const ud=[];
+sel.forEach(a=>{
+const p=smartPan(a.cap,half);
+rows.push({i:a.label,v:p.label});
+if(a.garnish)rows.push({i:‘Garnish’,v:a.garnish});
+ud.push({type:a.uten,label:a.label,n:p.fp||1});
+if(a.hasChips)gChipQty=Math.max(gChipQty,qty);
+});
+ST.cart=ST.cart.filter(c=>c.catId!==catId);
+ST.cart.push({id:catId,catId,name:‘Mix N Match Apps’,qty,label:sel.map(a=>a.label).join(’ + ‘),sub:’’,rows,ud,type:‘mnm’,hasChips:sel.some(a=>a.hasChips),tfp:0});
+document.getElementById(‘at_’+catId)?.classList.add(‘on’);rCart();bdg(ci,catId);
 }
 
-// ─── BAR ────────────────────────────
-function renderBar(cat,ci){
-  const protOpts=cat.proteins.map(p=>`
-    <div class="sel-opt" id="popt_${cat.id}_${p.id}" onclick="selProt('${cat.id}','${p.id}')">
-      <input type="radio" name="pr_${cat.id}" value="${p.id}"/> ${p.label}
-    </div>`).join('');
-  const subSection=cat.subs.length?`
-    <button class="sub-toggle" onclick="togSub('subp_${cat.id}')">Substitutions</button>
-    <div class="sub-panel" id="subp_${cat.id}">
-      <div class="sub-panel-hd">Select substitution:</div>
-      ${cat.subs.map(s=>`
-        <div class="sub-item" id="si_${s.id}" onclick="selSub('${cat.id}','${s.id}')">
-          <input type="radio" name="sub_${cat.id}" value="${s.id}"/> ${s.label}
-        </div>`).join('')}
-    </div>`:'';
-  return `<div style="padding:13px">
-    <div class="req-sec prot">
-      <div class="req-hd org">Protein <span class="rbadge org">REQUIRED</span></div>
-      ${protOpts}
-    </div>
-    ${subSection}
-    <div class="qty-row">
-      <span style="font-size:.7rem;color:var(--mut);font-weight:700">Guest Count:</span>
-      <input class="qty-in" type="number" id="qty_${cat.id}" min="1" placeholder="0"/>
-      <span class="qty-unit">persons</span>
-      <button class="add-btn" onclick="addBar('${cat.id}',${ci})">Add to Order</button>
-      <span class="added-tag" id="at_${cat.id}">Added</span>
-    </div></div>`;
+// BAR
+function rBar(cat,ci){
+const po=cat.proteins.map(p=>’<div class="sel-opt" id="po_'+cat.id+'_'+p.id+'" onclick="selP(\''+cat.id+'\',\''+p.id+'\')">’
++’<input type="radio" name="pr_'+cat.id+'" value="'+p.id+'"/> ‘+p.label+’</div>’).join(’’);
+const ss=cat.subs.length?’<button class="sub-toggle" onclick="togS(\'sb_'+cat.id+'\')">Substitutions</button>’
++’<div class="sub-panel" id="sb_'+cat.id+'"><div class="sub-panel-hd">Select substitution:</div>’
++cat.subs.map(s=>’<div class="sub-item" id="si_'+s.id+'" onclick="selSub(\''+cat.id+'\',\''+s.id+'\')">’
++’<input type="radio" name="sub_'+cat.id+'" value="'+s.id+'"/> ‘+s.label+’</div>’).join(’’)+’</div>’:’’;
+return ‘<div style="padding:13px"><div class="req-sec org"><div class="req-hd org">Protein <span class="rbadge org">REQUIRED</span></div>’+po+’</div>’
++ss+’<div class="qty-row">’
++’<span style="font-size:.7rem;color:var(--mut);font-weight:700">Guest Count:</span>’
++’<input class="qty-in" type="number" id="qty_'+cat.id+'" min="1" placeholder="0"/>’
++’<span class="qty-unit">persons</span>’
++’<button class="add-btn" onclick="addBar(\''+cat.id+'\','+ci+')">Add to Order</button>’
++’<span class="added-tag" id="at_'+cat.id+'">Added</span></div></div>’;
 }
-function selProt(catId,pid){
-  const cat=MENU.find(c=>c.id===catId);
-  cat.proteins.forEach(p=>{const el=document.getElementById(`popt_${catId}_${p.id}`);if(el){el.classList.toggle('sel-org',p.id===pid);el.querySelector('input').checked=(p.id===pid);}});
-}
-function togSub(id){document.getElementById(id).classList.toggle('open');}
-function selSub(catId,sid){
-  const cat=MENU.find(c=>c.id===catId);
-  cat.subs.forEach(s=>{const el=document.getElementById('si_'+s.id);if(el){el.classList.toggle('sel-org',s.id===sid);el.querySelector('input').checked=(s.id===sid);}});
-}
+function selP(catId,pid){const cat=MENU.find(c=>c.id===catId);cat.proteins.forEach(p=>{const el=document.getElementById(‘po_’+catId+’*’+p.id);if(el){el.classList.toggle(‘sel-org’,p.id===pid);el.querySelector(‘input’).checked=(p.id===pid);}});}
+function togS(id){document.getElementById(id).classList.toggle(‘open’);}
+function selSub(catId,sid){const cat=MENU.find(c=>c.id===catId);cat.subs.forEach(s=>{const el=document.getElementById(’si*’+s.id);if(el){el.classList.toggle(‘sel-org’,s.id===sid);el.querySelector(‘input’).checked=(s.id===sid);}});}
+
 function addBar(catId,ci){
-  const cat=MENU.find(c=>c.id===catId);
-  const pr=document.querySelector(`input[name="pr_${catId}"]:checked`);
-  if(!pr){alert('Select a protein first.');return;}
-  const qty=parseInt(document.getElementById('qty_'+catId)?.value);
-  if(!qty||qty<1){alert('Enter guest count.');return;}
-  const prot=cat.proteins.find(p=>p.id===pr.value);
-  const subR=document.querySelector(`input[name="sub_${catId}"]:checked`);
-  const sub=subR?cat.subs.find(s=>s.id===subR.value):null;
+const cat=MENU.find(c=>c.id===catId);
+const pr=document.querySelector(‘input[name=“pr_’+catId+’”]:checked’);
+if(!pr){alert(‘Select a protein first.’);return;}
+const qty=parseInt(document.getElementById(‘qty_’+catId)?.value);
+if(!qty||qty<1){alert(‘Enter guest count.’);return;}
+const prot=cat.proteins.find(p=>p.id===pr.value);
+const subR=document.querySelector(‘input[name=“sub_’+catId+’”]:checked’);
+const sub=subR?cat.subs.find(s=>s.id===subR.value):null;
+const rows=[];const ud=[];let tfp=0;
 
-  const rows=[];
-  const utenData=[];
-
-  // Protein
-  if(prot.isMixed){
-    const hA=Math.ceil(qty/2),hB=Math.floor(qty/2);
-    const pA=bestPans(prot.capA,hA),pB=bestPans(prot.capB,hB);
-    rows.push({label:'Salsa Chicken (half)',p:pA,cap:prot.capA});
-    rows.push({label:'Ground Beef (half)',p:pB,cap:prot.capB});
-    utenData.push({type:prot.utenA,label:'Salsa Chicken',pans:pA.f+pA.h+pA.t});
-    utenData.push({type:prot.utenB,label:'Ground Beef',pans:pB.f+pB.h+pB.t});
-  } else {
-    const pp=bestPans(prot.cap,qty);
-    rows.push({label:prot.label,p:pp,cap:prot.cap});
-    utenData.push({type:prot.uten,label:prot.label,pans:pp.f+pp.h+pp.t});
-  }
-
-  // Tortillas
-  let tortCap=cat.tortillaCap;
-  const tortSub=sub&&sub.tortCap?sub:null;
-  if(tortSub)tortCap=tortSub.tortCap;
-  if(tortCap){
-    const tortillas=Math.ceil(qty*3);
-    const tp=bestPans(tortCap,tortillas);
-    const tortLabel=tortSub?tortSub.label.replace(/^Sub /,''):
-      catId==='taco'?'Flour Tortillas':catId==='fajita'?'Flour Tortillas (3 per person)':'Flour Tortillas';
-    rows.push({label:tortLabel,p:tp,cap:tortCap});
-    utenData.push({type:'t6',label:'Tortillas',pans:tp.f+tp.h+tp.t});
-  }
-
-  // Auto sides
-  cat.autoSides.forEach(s=>{
-    if(s.isChips){gChipQty=Math.max(gChipQty,qty);gSalsaQty=Math.max(gSalsaQty,qty);return;}
-    // Apply bean/rice substitution
-    let sLabel=s.label;
-    if(sub){
-      if(sub.id.includes('charro')&&s.label==='Refried Beans')sLabel='Charro Beans';
-      if(sub.id.includes('charro2')&&s.label==='Charro Beans')sLabel='Black Beans';
-      if(sub.id.includes('white')&&s.label==='Mexican Rice')sLabel='White Rice';
-      if(sub.id.includes('white2')&&s.label==='Mexican Rice')sLabel='White Rice';
-    }
-    const p=bestPans(s.cap,qty);
-    rows.push({label:sLabel,p,cap:s.cap});
-    if(s.uten)utenData.push({type:s.uten,label:sLabel,pans:p.f+p.h+p.t});
-  });
-
-  // Wire rack water (hot full pans only)
-  const hotFullPans=rows.filter(r=>r.p).reduce((acc,r)=>acc+(r.p.f||0),0);
-  const waterNeeded=waterStr(hotFullPans);
-  if(waterNeeded)rows.push({label:'Water for wire racks',p:null,cap:null,isWater:true,waterVal:waterNeeded});
-
-  if(cat.hasChips){gChipQty=Math.max(gChipQty,qty);gSalsaQty=Math.max(gSalsaQty,qty);}
-
-  ST.cart=ST.cart.filter(c=>c.catId!==catId);
-  ST.cart.push({id:catId,catId,name:cat.title,qty,
-    label:prot.label+(sub?` + ${sub.label}`:''),
-    sub:sub?sub.label:'',rows,type:'bar',utenData});
-  document.getElementById('at_'+catId)?.classList.add('on');
-  renderCart();badgeUp(ci,catId);
+// Protein
+if(prot.isMixed){
+const hA=Math.ceil(qty/2),hB=Math.floor(qty/2);
+const pA=smartPan(prot.capA,hA),pB=smartPan(prot.capB,hB);
+rows.push({i:‘Salsa Chicken (half)’,v:pA.label});rows.push({i:‘Ground Beef (half)’,v:pB.label});
+ud.push({type:prot.utenA,label:‘Salsa Chicken’,n:pA.fp||1});ud.push({type:prot.utenB,label:‘Ground Beef’,n:pB.fp||1});
+tfp+=pA.fp+pB.fp;
+} else {
+const pp=smartPan(prot.cap,qty);rows.push({i:prot.label,v:pp.label});ud.push({type:prot.uten,label:prot.label,n:pp.fp||1});tfp+=pp.fp;
 }
 
-// ─── SALADS ─────────────────────────
-function renderSalads(cat,ci){
-  return cat.items.map(s=>`
-    <div class="mitem">
-      <div class="mi-name">${s.label}</div>
-      <div style="padding-top:8px">
-        <div style="font-size:.68rem;font-weight:700;color:var(--grn);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Dressing Substitution</div>
-        ${s.dressSubs.map(d=>`
-          <div class="sub-item" onclick="selDress(this,'${s.id}')">
-            <input type="radio" name="dr_${s.id}" value="${d}"/> ${d}
-          </div>`).join('')}
-      </div>
-      <div class="qty-row">
-        <span style="font-size:.7rem;color:var(--mut);font-weight:700">How many:</span>
-        <input class="qty-in" type="number" id="qty_${s.id}" min="1" placeholder="0"/>
-        <span class="qty-unit">salads</span>
-        <button class="add-btn" onclick="addSalad('${cat.id}','${s.id}',${ci})">Add to Order</button>
-        <span class="added-tag" id="at_${s.id}">Added</span>
-      </div>
-    </div>`).join('');
+// Tortillas
+let tCap=cat.tortCap;const tortSub=sub&&sub.tc?sub:null;if(tortSub)tCap=tortSub.tc;
+if(tCap){const tt=qty*3;const tp=tortPan(tCap,tt);const tl=tortSub?tortSub.label.replace(/^Sub /,’’):‘Flour Tortillas’;rows.push({i:tl,v:tp.label});ud.push({type:‘t6’,label:‘Tortillas’,n:tp.fp||1});tfp+=tp.fp;}
+
+// Sides
+cat.sides.forEach(s=>{
+let lbl=s.lbl;
+if(sub){if(sub.id===‘ts1’&&lbl===‘Refried Beans’)lbl=‘Charro Beans’;if(sub.id===‘fs1’&&lbl===‘Charro Beans’)lbl=‘Black Beans’;if(sub.id===‘fs2’&&lbl===‘Charro Beans’)lbl=‘Refried Beans’;if((sub.id===‘ts2’||sub.id===‘fs3’)&&lbl===‘Mexican Rice’)lbl=‘White Rice’;}
+const p=smartPan(s.cap,qty);rows.push({i:lbl,v:p.label});
+if(s.hot)tfp+=p.fp;
+if(s.uten)ud.push({type:s.uten,label:lbl,n:p.fp||1});
+});
+
+// Garnish (Fajita)
+if(cat.garnish)rows.push({i:‘Garnish’,v:cat.garnish});
+
+// Water
+const wtr=waterLabel(tfp);if(wtr)rows.push({i:‘Water for wire racks’,v:wtr,isNote:true});
+
+if(cat.hasChips)gChipQty=Math.max(gChipQty,qty);
+
+ST.cart=ST.cart.filter(c=>c.catId!==catId);
+ST.cart.push({id:catId,catId,name:cat.title,qty,label:prot.label+(sub?’ + ‘+sub.label:’’),sub:sub?sub.label:’’,rows,ud,type:‘bar’,hasChips:cat.hasChips,hasSalsa:cat.hasSalsa,tfp});
+document.getElementById(‘at_’+catId)?.classList.add(‘on’);rCart();bdg(ci,catId);
 }
-function selDress(el,sid){el.parentElement.querySelectorAll('.sub-item').forEach(o=>{o.classList.remove('sel-org');o.querySelector('input').checked=false;});el.classList.add('sel-org');el.querySelector('input').checked=true;}
+
+// SALADS
+function rSalads(cat,ci){
+return cat.items.map(s=>’<div class="mitem"><div class="mi-name">’+s.label+’</div>’
++(s.extra?’<div style="font-size:.71rem;color:var(--grn);font-weight:700;margin-top:4px">’+s.extra+’ — auto-included</div>’:’’)
++’<div style="margin-top:9px"><div style="font-size:.66rem;font-weight:700;color:var(--grn);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Dressing Substitution</div>’
++s.dressSubs.map(d=>’<div class="sub-item" onclick="selDr(this,\''+s.id+'\')"><input type="radio" name="dr_'+s.id+'" value="'+d+'"/> ‘+d+’</div>’).join(’’)+’</div>’
++’<div class="qty-row"><span style="font-size:.7rem;color:var(--mut);font-weight:700">How many:</span>’
++’<input class="qty-in" type="number" id="qty_'+s.id+'" min="1" placeholder="0"/>’
++’<span class="qty-unit">salads</span>’
++’<button class="add-btn" onclick="addSalad(\''+cat.id+'\',\''+s.id+'\','+ci+')">Add to Order</button>’
++’<span class="added-tag" id="at_'+s.id+'">Added</span></div></div>’).join(’’);
+}
+function selDr(el,sid){el.parentElement.querySelectorAll(’.sub-item’).forEach(o=>{o.classList.remove(‘sel-org’);o.querySelector(‘input’).checked=false;});el.classList.add(‘sel-org’);el.querySelector(‘input’).checked=true;}
 function addSalad(catId,sid,ci){
-  const cat=MENU.find(c=>c.id===catId);
-  const s=cat.items.find(x=>x.id===sid);
-  const qty=parseInt(document.getElementById('qty_'+sid)?.value);
-  if(!qty||qty<1){alert('Enter quantity.');return;}
-  const dr=document.querySelector(`input[name="dr_${sid}"]:checked`);
-  const dressing=dr?dr.value:s.dressing;
-  const persons=qty*10;
-  const rows=[
-    {label:`${qty} × ${s.label} (${persons} persons)`,p:null,isUnit:true,unitVal:`${qty} Full Pan${qty>1?'s':''}`,cap:null},
-    {label:'Dressing',p:null,isUnit:true,unitVal:dressing,cap:null},
-  ];
-  ST.cart.push({id:sid,catId,name:s.label,qty,label:`${qty} ${s.label}${qty>1?'s':''}`,sub:dressing,
-    rows,type:'salad',utenData:[{type:'t6',label:s.label,pans:qty},{type:'ladle',label:'Dressing',pans:qty}]});
-  document.getElementById('at_'+sid)?.classList.add('on');
-  renderCart();badgeUp(ci,catId);
+const cat=MENU.find(c=>c.id===catId);const s=cat.items.find(x=>x.id===sid);
+const qty=parseInt(document.getElementById(‘qty_’+sid)?.value);if(!qty||qty<1){alert(‘Enter quantity.’);return;}
+const dr=document.querySelector(‘input[name=“dr_’+sid+’”]:checked’);const dressing=dr?dr.value:s.dressing;
+const rows=[{i:qty+’ x ‘+s.label,v:qty+’ Full Pan’+(qty>1?‘s’:’’)+’ (10 persons each)’},{i:‘Dressing’,v:dressing}];
+if(s.extra)rows.splice(1,0,{i:‘Included’,v:s.extra});
+ST.cart.push({id:sid,catId,name:s.label,qty,label:qty+’ ‘+s.label+(qty>1?‘s’:’’),sub:dressing,rows,ud:[{type:‘t6’,label:s.label,n:qty},{type:‘ladle’,label:‘Dressing’,n:qty}],type:‘salad’,tfp:0});
+document.getElementById(‘at_’+sid)?.classList.add(‘on’);rCart();bdg(ci,catId);
 }
 
-// ─── SIDES ──────────────────────────
-function renderSides(cat,ci){
-  return cat.items.map(s=>`
-    <div class="mitem">
-      <div class="mi-name">${s.label}</div>
-      ${s.subs.length?`
-        <button class="sub-toggle" onclick="togSub('subsi_${s.id}')">Substitutions</button>
-        <div class="sub-panel" id="subsi_${s.id}">
-          <div class="sub-panel-hd">Select substitution:</div>
-          ${s.subs.map(sb=>`<div class="sub-item" onclick="this.classList.toggle('sel-org');this.querySelector('input').checked=!this.querySelector('input').checked"><input type="radio" name="subsi_${s.id}" value="${sb.id}"/> ${sb.label}</div>`).join('')}
-        </div>`:''}
-      <div class="qty-row">
-        <span style="font-size:.7rem;color:var(--mut);font-weight:700">${s.byPerson?'Guest Count:':'How many:'}</span>
-        <input class="qty-in" type="number" id="qty_${s.id}" min="1" placeholder="0"/>
-        <span class="qty-unit">${s.byPerson?'persons':'units'}</span>
-        <button class="add-btn" onclick="addSide('${cat.id}','${s.id}',${ci})">Add to Order</button>
-        <span class="added-tag" id="at_${s.id}">Added</span>
-      </div>
-    </div>`).join('');
+// SIDES
+function rSides(cat,ci){
+return cat.items.map(s=>’<div class="mitem"><div class="mi-name">’+s.label+’</div>’
++(s.subs.length?’<button class="sub-toggle" onclick="togS(\'sbsi_'+s.id+'\')">Substitutions</button>’
++’<div class="sub-panel" id="sbsi_'+s.id+'"><div class="sub-panel-hd">Select substitution:</div>’
++s.subs.map(sb=>’<div class="sub-item" onclick="this.classList.toggle(\'sel-org\');this.querySelector(\'input\').checked=!this.querySelector(\'input\').checked"><input type="radio" name="sbsi_'+s.id+'" value="'+sb.id+'"/> ‘+sb.label+’</div>’).join(’’)+’</div>’:’’)
++’<div class="qty-row"><span style="font-size:.7rem;color:var(--mut);font-weight:700">’+(s.byP?‘Guest Count:’:‘How many:’)+’</span>’
++’<input class="qty-in" type="number" id="qty_'+s.id+'" min="1" placeholder="0"/>’
++’<span class="qty-unit">’+(s.byP?‘persons’:‘units’)+’</span>’
++’<button class="add-btn" onclick="addSide(\''+cat.id+'\',\''+s.id+'\','+ci+')">Add to Order</button>’
++’<span class="added-tag" id="at_'+s.id+'">Added</span></div></div>’).join(’’);
 }
 function addSide(catId,sid,ci){
-  const cat=MENU.find(c=>c.id===catId);
-  const s=cat.items.find(x=>x.id===sid);
-  const qty=parseInt(document.getElementById('qty_'+sid)?.value);
-  if(!qty||qty<1){alert('Enter quantity.');return;}
-  const subR=document.querySelector(`input[name="subsi_${sid}"]:checked`);
-  const sub=subR?s.subs.find(x=>x.id===subR.value)?.label||'':'';
-
-  const rows=[];const utenData=[];
-  if(s.byPerson){
-    const p=bestPans(s.cap,qty);
-    rows.push({label:s.label,p,cap:s.cap});
-    if(s.uten?.ladle)utenData.push({type:'ladle',label:s.label,pans:p.f+p.h+p.t});
-    if(s.uten?.sp5)  utenData.push({type:'sp5',  label:s.label,pans:p.f+p.h+p.t});
-    if(s.uten?.t9chips)utenData.push({type:'t9',  label:'Chips',pans:1});
-    if(s.hasChips)gChipQty=Math.max(gChipQty,qty);
-  } else {
-    // Unit-based (salsa)
-    const persons=qty*(s.servesPersons||10);
-    const p=bestPans(s.cap,persons);
-    rows.push({label:`${qty} × ${s.unitLabel||s.label}`,p,cap:s.cap});
-    if(s.uten?.ladle)utenData.push({type:'ladle',label:s.label,pans:p.f+p.h+p.t});
-  }
-  const label=s.byPerson?`${qty} persons`:
-    `${qty} ${s.unitLabel||s.label}${qty>1?'s':''}`;
-  ST.cart.push({id:sid,catId,name:s.label,qty,label,sub,rows,type:'side',utenData});
-  document.getElementById('at_'+sid)?.classList.add('on');
-  renderCart();badgeUp(ci,catId);
+const cat=MENU.find(c=>c.id===catId);const s=cat.items.find(x=>x.id===sid);
+const qty=parseInt(document.getElementById(‘qty_’+sid)?.value);if(!qty||qty<1){alert(‘Enter quantity.’);return;}
+const rows=[];const ud=[];
+if(s.byP){const p=smartPan(s.cap,qty);rows.push({i:s.label,v:p.label});if(s.uten.ladle)ud.push({type:‘ladle’,label:s.label,n:p.fp||1});if(s.uten.sp5)ud.push({type:‘sp5’,label:s.label,n:p.fp||1});if(s.uten.t9)ud.push({type:‘t9’,label:‘Chips’,n:1});if(s.hasChips)gChipQty=Math.max(gChipQty,qty);}
+else{const persons=qty*(s.each||10);const p=smartPan(s.cap,persons);rows.push({i:qty+’ x ‘+s.label,v:p.label});if(s.uten.ladle)ud.push({type:‘ladle’,label:s.label,n:p.fp||1});}
+const lbl=s.byP?qty+’ persons’:qty+’ ‘+s.label+(qty>1?‘s’:’’);
+const subR=document.querySelector(‘input[name=“sbsi_’+sid+’”]:checked’);const sub=subR?s.subs.find(x=>x.id===subR.value)?.label||’’:’’;
+ST.cart.push({id:sid,catId,name:s.label,qty,label:lbl,sub,rows,ud,type:‘side’,tfp:0});
+document.getElementById(‘at_’+sid)?.classList.add(‘on’);rCart();bdg(ci,catId);
 }
 
-// ─── DESSERTS ───────────────────────
-function renderDesserts(cat,ci){
-  return cat.items.map(d=>`
-    <div class="mitem">
-      <div class="mi-name">${d.label}</div>
-      ${d.syrSubs.length?`
-        <button class="sub-toggle" onclick="togSub('subds_${d.id}')">Syrup Substitution</button>
-        <div class="sub-panel" id="subds_${d.id}">
-          <div class="sub-panel-hd">Sub default syrup:</div>
-          ${d.syrSubs.map(sb=>`<div class="sub-item" onclick="this.classList.toggle('sel-org');this.querySelector('input').checked=!this.querySelector('input').checked"><input type="radio" name="syrds_${d.id}" value="${sb}"/> ${sb}</div>`).join('')}
-        </div>`:''}
-      <div class="qty-row">
-        <span style="font-size:.7rem;color:var(--mut);font-weight:700">How many:</span>
-        <input class="qty-in" type="number" id="qty_${d.id}" min="1" placeholder="0"/>
-        <span class="qty-unit">orders</span>
-        <button class="add-btn" onclick="addDessert('${cat.id}','${d.id}',${ci})">Add to Order</button>
-        <span class="added-tag" id="at_${d.id}">Added</span>
-      </div>
-    </div>`).join('');
+// DESSERTS
+function rDesserts(cat,ci){
+return cat.items.map(d=>’<div class="mitem"><div class="mi-name">’+d.label+’</div>’
++(d.syrSubs.length?’<button class="sub-toggle" onclick="togS(\'sbds_'+d.id+'\')">Syrup Substitution</button>’
++’<div class="sub-panel" id="sbds_'+d.id+'"><div class="sub-panel-hd">Sub default syrup:</div>’
++d.syrSubs.map(sb=>’<div class="sub-item" onclick="this.classList.toggle(\'sel-org\');this.querySelector(\'input\').checked=!this.querySelector(\'input\').checked"><input type="radio" name="syrd_'+d.id+'" value="'+sb+'"/> ‘+sb+’</div>’).join(’’)+’</div>’:’’)
++’<div class="qty-row"><span style="font-size:.7rem;color:var(--mut);font-weight:700">How many orders:</span>’
++’<input class="qty-in" type="number" id="qty_'+d.id+'" min="1" placeholder="0"/>’
++’<span class="qty-unit">orders</span>’
++’<button class="add-btn" onclick="addDes(\''+cat.id+'\',\''+d.id+'\','+ci+')">Add to Order</button>’
++’<span class="added-tag" id="at_'+d.id+'">Added</span></div></div>’).join(’’);
 }
-function addDessert(catId,did,ci){
-  const cat=MENU.find(c=>c.id===catId);
-  const d=cat.items.find(x=>x.id===did);
-  const qty=parseInt(document.getElementById('qty_'+did)?.value);
-  if(!qty||qty<1){alert('Enter quantity.');return;}
-  const subR=document.querySelector(`input[name="syrds_${did}"]:checked`);
-  const syrup=subR?subR.value:d.syrup;
-  // Cake pans: 18" = 36, 12" = 24
-  // Use 18" first then 12" to fill
-  const cake18=Math.floor(qty/36), rem=qty%36;
-  const cake12=rem>0?Math.ceil(rem/24):0;
-  const rows=[
-    {label:d.label,p:null,isUnit:true,unitVal:`${cake18>0?cake18+' × 18" Cake Pan':''}${cake18>0&&cake12>0?' + ':''}${cake12>0?cake12+' × 12" Cake Pan':''}`.trim(),cap:null},
-    {label:'Syrup',p:null,isUnit:true,unitVal:syrup,cap:null},
-  ];
-  const ladles=(cake18+cake12);
-  ST.cart.push({id:did,catId,name:d.label,qty,label:`${qty} orders of ${d.label}`,sub:syrup,
-    rows,type:'dessert',utenData:[{type:'t9',label:d.label,pans:cake18+cake12},{type:'ladle',label:'Syrup',pans:ladles}]});
-  document.getElementById('at_'+did)?.classList.add('on');
-  renderCart();badgeUp(ci,catId);
+function addDes(catId,did,ci){
+const cat=MENU.find(c=>c.id===catId);const d=cat.items.find(x=>x.id===did);
+const qty=parseInt(document.getElementById(‘qty_’+did)?.value);if(!qty||qty<1){alert(‘Enter quantity.’);return;}
+const subR=document.querySelector(‘input[name=“syrd_’+did+’”]:checked’);const syrup=subR?subR.value:d.syrup;
+const rows=[{i:d.label,v:qty+’ x 12” Cake Pan’+(qty>1?‘s’:’’)+’ (’+qty*24+’ persons capacity)’},{i:‘Syrup’,v:syrup}];
+ST.cart.push({id:did,catId,name:d.label,qty,label:qty+’ order’+(qty>1?‘s’:’’)+’ of ’+d.label,sub:syrup,rows,ud:[{type:‘t9’,label:d.label,n:qty},{type:‘ladle’,label:‘Syrup’,n:qty}],type:‘dessert’,tfp:0});
+document.getElementById(‘at_’+did)?.classList.add(‘on’);rCart();bdg(ci,catId);
 }
 
-// ─── BEVERAGES ──────────────────────
-function renderBevs(cat,ci){
-  return cat.items.map(b=>`
-    <div class="mitem">
-      <div class="mi-name">${b.label}</div>
-      <div class="qty-row">
-        <span style="font-size:.7rem;color:var(--mut);font-weight:700">How many jugs:</span>
-        <input class="qty-in" type="number" id="qty_${b.id}" min="1" placeholder="0"/>
-        <span class="qty-unit">jugs</span>
-        <button class="add-btn" onclick="addBev('${cat.id}','${b.id}',${ci})">Add to Order</button>
-        <span class="added-tag" id="at_${b.id}">Added</span>
-      </div>
-    </div>`).join('');
+// BEVERAGES
+function rBevs(cat,ci){
+return cat.items.map(b=>’<div class="mitem"><div class="mi-name">’+b.label+’</div>’
++’<div class="qty-row"><span style="font-size:.7rem;color:var(--mut);font-weight:700">How many jugs:</span>’
++’<input class="qty-in" type="number" id="qty_'+b.id+'" min="1" placeholder="0"/>’
++’<span class="qty-unit">jugs</span>’
++’<button class="add-btn" onclick="addBev(\''+cat.id+'\',\''+b.id+'\','+ci+')">Add to Order</button>’
++’<span class="added-tag" id="at_'+b.id+'">Added</span></div></div>’).join(’’);
 }
 function addBev(catId,bid,ci){
-  const cat=MENU.find(c=>c.id===catId);
-  const b=cat.items.find(x=>x.id===bid);
-  const qty=parseInt(document.getElementById('qty_'+bid)?.value);
-  if(!qty||qty<1){alert('Enter quantity.');return;}
-  const persons=qty*8;
-  // Ice as pan
-  const iceFull=Math.floor(persons/15);const iceRem=persons%15;
-  const iceHalf=iceRem>0?Math.ceil(iceRem/8):0;
-  const iceStr=`${iceFull>0?iceFull+' Full Pan'+(iceFull>1?'s':''):''}${iceFull>0&&iceHalf>0?' + ':''}${iceHalf>0?iceHalf+' Half Pan'+(iceHalf>1?'s':''):''}`.trim()||'1 Half Pan';
-  const rows=[
-    {label:`${qty} × ${b.label}`,p:null,isUnit:true,unitVal:`${qty} Gallon Jug${qty>1?'s':''}`,cap:null},
-    {label:'Ice',p:null,isUnit:true,unitVal:iceStr,cap:null},
-  ];
-  ST.hasBev=true;
-  ST.cart.push({id:bid,catId,name:b.label,qty,label:`${qty} ${b.label}${qty>1?'s':''}`,sub:'',
-    rows,type:'bev',utenData:[{type:'sp9',label:'Ice',pans:iceFull+iceHalf}]});
-  document.getElementById('at_'+bid)?.classList.add('on');
-  renderCart();badgeUp(ci,catId);
+const cat=MENU.find(c=>c.id===catId);const b=cat.items.find(x=>x.id===bid);
+const qty=parseInt(document.getElementById(‘qty_’+bid)?.value);if(!qty||qty<1){alert(‘Enter quantity.’);return;}
+const persons=qty*8;
+const rows=[{i:qty+’ x ‘+b.label,v:qty+’ Gallon Jug’+(qty>1?‘s’:’’)},{i:‘Ice’,v:icePan(persons)}];
+if(b.hasCups)rows.push({i:‘Plastic Cups’,v:ST.guests+’ cups (1 per guest)’});
+if(b.extra)rows.push({i:‘Extra’,v:b.extra});
+ST.hasBev=true;
+ST.cart.push({id:bid,catId,name:b.label,qty,label:qty+’ ‘+b.label+(qty>1?‘s’:’’),sub:’’,rows,ud:[{type:‘sp9’,label:‘Ice’,n:1}],type:‘bev’,hasCups:b.hasCups,tfp:0});
+document.getElementById(‘at_’+bid)?.classList.add(‘on’);rCart();bdg(ci,catId);
 }
 
-// ─── CART ────────────────────────────
+// CART
 function removeItem(id){
-  ST.cart=ST.cart.filter(c=>c.id!==id);
-  document.getElementById('at_'+id)?.classList.remove('on');
-  // Recalc chips/salsa/bev
-  gChipQty=0;gSalsaQty=0;ST.hasBev=false;
-  ST.cart.forEach(c=>{
-    if(c.type==='bar'||c.type==='mnm'){
-      gChipQty=Math.max(gChipQty,c.qty);
-      if(c.type==='bar')gSalsaQty=Math.max(gSalsaQty,c.qty);
-    }
-    if(c.type==='bev')ST.hasBev=true;
-    if(c.type==='side'){const cat=MENU.find(m=>m.id===c.catId);const si=cat?.items?.find(i=>i.id===c.id);if(si?.hasChips)gChipQty=Math.max(gChipQty,c.qty);}
-  });
-  renderCart();
-  MENU.forEach((_,ci)=>{const catId=MENU[ci].id;badgeUp(ci,catId);});
+ST.cart=ST.cart.filter(c=>c.id!==id);document.getElementById(‘at_’+id)?.classList.remove(‘on’);
+gChipQty=0;ST.hasBev=false;
+ST.cart.forEach(c=>{if(c.hasChips)gChipQty=Math.max(gChipQty,c.qty);if(c.type===‘bev’)ST.hasBev=true;});
+rCart();MENU.forEach((_,ci)=>{const catId=MENU[ci].id;bdg(ci,catId);});
+}
+function rCart(){
+const list=document.getElementById(‘cartList’);const btn=document.getElementById(‘reviewBtn’);
+if(!ST.cart.length){list.innerHTML=’<div class="cart-empty">No items added yet</div>’;btn.style.display=‘none’;return;}
+btn.style.display=‘block’;
+list.innerHTML=ST.cart.map(c=>’<div class="cart-item"><div class="ci-info"><div class="ci-name">’+c.name+’</div><div class="ci-sub">’+c.label+’</div>’+(c.sub&&c.sub!==c.label?’<div class="ci-qty">’+c.sub+’</div>’:’’)+’</div><button class="ci-rm" onclick="removeItem(\''+c.id+'\')">Remove</button></div>’).join(’’);
 }
 
-function renderCart(){
-  const list=document.getElementById('cartList');
-  const btn=document.getElementById('reviewBtn');
-  if(!ST.cart.length){list.innerHTML='<div class="cart-empty">No items added yet</div>';btn.style.display='none';return;}
-  btn.style.display='block';
-  list.innerHTML=ST.cart.map(c=>`
-    <div class="cart-item">
-      <div class="ci-info">
-        <div class="ci-name">${c.name}</div>
-        <div class="ci-sub">${c.label}</div>
-        ${c.sub&&c.sub!==c.label?`<div class="ci-qty">${c.sub}</div>`:''}
-      </div>
-      <button class="ci-rm" onclick="removeItem('${c.id}')">Remove</button>
-    </div>`).join('');
-}
-
-// ═══════════════════════════════════
 // SUMMARY
-// ═══════════════════════════════════
 function buildSummary(){
-  const arr=ST.time?new Date('1970-01-01T'+ST.time).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'--';
-  const guests=ST.guests||0;
+const arr=ST.time?new Date(‘1970-01-01T’+ST.time).toLocaleTimeString([],{hour:‘2-digit’,minute:‘2-digit’}):’–’;
+const guests=ST.guests||0;
+resetU();ST.cart.forEach(c=>(c.ud||[]).forEach(u=>addU(u.type,u.label,u.n)));
+if(gChipQty>0)U.t9=Math.max(U.t9,1);
+let totalHotFP=0;ST.cart.forEach(c=>{if(c.type===‘bar’)totalHotFP+=(c.tfp||0);});
+const wtr=waterLabel(totalHotFP);
+const mints=Math.ceil(guests/2);const qCards=Math.ceil(guests/2);
+const tents=Math.min(2,Math.ceil(guests/10)||1);const cups=ST.hasBev?guests:0;
+let html=’’;
 
-  // Reset and calc utensils
-  resetUtensils();
-  ST.cart.forEach(c=>(c.utenData||[]).forEach(u=>addUten(u.type,u.label,u.pans)));
-  // Chips = 1 Tongs 9" total
-  if(gChipQty>0)UTEN.t9=Math.max(UTEN.t9,1);
+// ORDER INFO
+html+=’<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Order Info</div><div class="sum-body">’
++’<div class="info-chip">Driver: <strong>’+ST.name+’</strong></div>’
++’<div class="info-chip">Order: <strong>’+ST.order+’</strong></div>’
++’<div class="info-chip">Total Guests: <strong>’+guests+’</strong></div>’
++’<div class="info-chip">Arrival Time: <strong>’+arr+’</strong></div>’
++’<div class="info-chip">Address: <strong>’+ST.address+’</strong></div>’
++(ST.leaveTime?’<div class="info-chip info-chip-org">Leave Store By: <strong style="font-size:1.05rem;color:var(--org)">’+ST.leaveTime+’</strong>’+(ST.travelInfo?’ • ‘+ST.travelInfo:’’)+’</div>’:’’)
++’</div></div>’;
 
-  // Wire racks = total hot full pans across all items
-  let totalHotFullPans=0;
-  ST.cart.forEach(c=>{
-    (c.rows||[]).forEach(r=>{
-      if(r.p&&r.cap&&!r.isWater&&!r.isUnit){
-        // Hot items: bars and most desserts
-        totalHotFullPans+=r.p.f||0;
-      }
-    });
-  });
-  const wireRacks=totalHotFullPans;
-  const waterNeeded=waterStr(totalHotFullPans)||null;
+// PANS
+html+=’<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Pans & Quantities</div><div class="sum-body">’;
+ST.cart.forEach(c=>{
+html+=’<div class="calc-block"><div class="calc-title">’+c.name+’ — ‘+c.label+’</div>’;
+(c.rows||[]).forEach(r=>{html+=’<div class="calc-row"><span class="calc-item">’+r.i+’</span><span class="calc-qty">’+r.v+’</span></div>’;});
+html+=’</div>’;
+});
+if(gChipQty>0){
+html+=’<div class="chips-block"><div class="chips-title">Chips & Salsa — Combined Total</div>’
++’<div class="chips-row"><span style="font-weight:600">Chips</span><span style="color:var(--org);font-weight:800">’+chipBags(gChipQty)+’</span></div>’
++’<div class="chips-row"><span style="font-weight:600">Salsa</span><span style="color:var(--org);font-weight:800">’+salsaStr(gChipQty)+’</span></div></div>’;
+}
+html+=’</div></div>’;
 
-  // Guest-count based supplies
-  const mints=Math.ceil(guests/2);
-  const quesoCards=Math.ceil(guests/2);
-  const plates=guests;
-  const utensils=guests;
-  const napkins=guests;
-  const cups=ST.hasBev?guests:0;
-  const tents=Math.min(2, Math.ceil(guests/10));
-  const bizCards=3;
-  const flyers=3;
-
-  let html='';
-
-  // ORDER INFO
-  html+=`<div class="sum-card">
-    <div class="sum-hd"><div class="sum-dot"></div>Order Info</div>
-    <div class="sum-body">
-      <div class="info-chip">Driver: <strong>${ST.name}</strong></div>
-      <div class="info-chip">Order: <strong>${ST.order}</strong></div>
-      <div class="info-chip">Total Guests: <strong>${guests}</strong></div>
-      <div class="info-chip">Arrival Time: <strong>${arr}</strong></div>
-      <div class="info-chip">Address: <strong>${ST.address}</strong></div>
-      ${ST.leaveTime?`<div class="info-chip info-chip-org">Leave Store By: <strong style="font-size:1.05rem;color:var(--org)">${ST.leaveTime}</strong>${ST.travelInfo?' &bull; '+ST.travelInfo:''}</div>`:''}
-    </div></div>`;
-
-  // PAN CALCULATIONS
-  html+=`<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Pans & Quantities</div><div class="sum-body">`;
-  ST.cart.forEach(c=>{
-    html+=`<div class="calc-block"><div class="calc-title">${c.name} — ${c.label}</div>`;
-    (c.rows||[]).forEach(r=>{
-      const val=r.isUnit?r.unitVal:r.isWater?r.waterVal:(r.p?panStr(r.p,r.cap):'—');
-      html+=`<div class="calc-row"><span class="calc-item">${r.label}</span><span class="calc-qty">${val}</span></div>`;
-    });
-    html+='</div>';
-  });
-
-  // Chips & Salsa combined
-  if(gChipQty>0||gSalsaQty>0){
-    const chipBags=Math.ceil(gChipQty/20);
-    const salsaP=gSalsaQty>0?bestPans(CAP.salsa,gSalsaQty):null;
-    html+=`<div class="chips-block"><div class="chips-title">Chips & Salsa — Combined Total</div>
-      ${gChipQty>0?`<div class="chips-row"><span class="calc-item">Chips</span><span class="calc-qty" style="color:var(--org)">${chipBags} Large White Bag${chipBags>1?'s':''}</span></div>`:''}
-      ${salsaP?`<div class="chips-row"><span class="calc-item">Salsa</span><span class="calc-qty" style="color:var(--org)">${panStr(salsaP,CAP.salsa)}</span></div>`:''}
-    </div>`;
-  }
-  html+='</div></div>';
-
-  // UTENSILS
-  const utenLines=[];
-  const totalTongs=UTEN.t9+(UTEN.t6_small.length>0?1:0);
-  // Group small tongs by unique label
-  const t6unique=[...new Set(UTEN.t6_small)];
-  if(UTEN.t9>0||UTEN.t6_small.length>0){
-    const totalT=UTEN.t9+t6unique.length;
-    let detail=[];
-    if(UTEN.t9>0)detail.push(`${UTEN.t9} Large Tong${UTEN.t9>1?'s':''} — Chips / Sopapillas / Brownies`);
-    t6unique.forEach(lbl=>detail.push(`1 Small Tong — ${lbl}`));
-    utenLines.push({name:`${totalT} Tong${totalT>1?'s':''} Total`,detail:detail.join(' · ')});
-  }
-  const lUnique=[...new Set(UTEN.ladle)];
-  if(lUnique.length>0)utenLines.push({name:`${lUnique.length} Ladle${lUnique.length>1?'s':''} 2oz`,detail:lUnique.join(' · ')});
-  const s9unique=[...new Set(UTEN.sp9)];
-  if(s9unique.length>0)utenLines.push({name:`${s9unique.length} Black 9" Spoon${s9unique.length>1?'s':''} (Large)`,detail:s9unique.join(' · ')});
-  const s5unique=[...new Set(UTEN.sp5)];
-  if(s5unique.length>0)utenLines.push({name:`${s5unique.length} Black 5" Spoon${s5unique.length>1?'s':''} (Small)`,detail:s5unique.join(' · ')});
-
-  if(utenLines.length){
-    html+=`<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Utensils Needed</div>
-    <div class="sum-body"><div class="uten-block"><div class="uten-title">1 utensil per pan — calculated from your order</div>
-      ${utenLines.map(u=>`<div class="uten-row">
-        <div><div class="uten-name">${u.name}</div><div class="uten-detail">${u.detail}</div></div>
-      </div>`).join('')}
-    </div></div></div>`;
-  }
-
-  // WHAT TO BRING — guest count driven
-  html+=`<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>What to Bring — Based on ${guests} Guests</div>
-  <div class="sum-body">
-    <div class="always-row"><span class="always-item">Plates</span><span class="always-qty org">${plates}</span></div>
-    <div class="always-row"><span class="always-item">Utensils (cutlery sets)</span><span class="always-qty org">${utensils}</span></div>
-    <div class="always-row"><span class="always-item">Napkins</span><span class="always-qty org">${napkins}</span></div>
-    <div class="always-row"><span class="always-item">Mints</span><span class="always-qty org">${mints}</span></div>
-    <div class="always-row"><span class="always-item">Queso Cards</span><span class="always-qty org">${quesoCards}</span></div>
-    ${cups>0?`<div class="always-row"><span class="always-item">Plastic Cups (beverage ordered)</span><span class="always-qty org">${cups}</span></div>`:''}
-    <div class="always-row"><span class="always-item">Pop-Up Tents</span><span class="always-qty org">${tents}</span></div>
-    <div class="always-row"><span class="always-item">Business Cards</span><span class="always-qty org">${bizCards}</span></div>
-    <div class="always-row"><span class="always-item">Catering Flyers</span><span class="always-qty org">${flyers}</span></div>
-    <div class="always-row"><span class="always-item">Steak Knife</span><span class="always-qty org">1</span></div>
-    <div class="always-row"><span class="always-item">Rag</span><span class="always-qty org">1</span></div>
-    <div class="always-row"><span class="always-item">Gloves</span><span class="always-qty org">4</span></div>
-    <div class="always-row"><span class="always-item">Lighters</span><span class="always-qty org">1</span></div>
-  </div></div>`;
-
-  // WIRE RACKS & WATER
-  html+=`<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Wire Racks & Setup</div>
-  <div class="sum-body">
-    <div class="always-row"><span class="always-item">Wire Racks Needed</span><span class="always-qty org">${wireRacks} rack${wireRacks!==1?'s':''}</span></div>
-    <div class="always-row"><span class="always-item">Full Pans Needed</span><span class="always-qty org">${wireRacks} full pan${wireRacks!==1?'s':''} (1 per rack)</span></div>
-    <div class="always-row"><span class="always-item">Burners / Sternos</span><span class="always-qty org">${wireRacks} (1 per rack)</span></div>
-    ${waterNeeded?`<div class="always-row"><span class="always-item">Water</span><span class="always-qty org">${waterNeeded}</span></div>`:''}
-  </div></div>`;
-
-  // WIRE RACK WARNING — always visible, outside collapse
-  html+=`<div class="rack-warn">Never leave wire rack spots empty — water boils out 3x faster when uncovered!</div>`;
-
-  // SETUP FLOW — collapsible
-  html+=`<button class="setup-toggle" onclick="togSetup()">
-    Setup Flow — Tap to Expand
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" id="setupChev"><polyline points="6 9 12 15 18 9"/></svg>
-  </button>
-  <div class="setup-body" id="setupBody">
-    <div style="height:10px"></div>
-    ${[
-      'Mark "On the Way" in EZ Cater text before leaving store',
-      'Find ideal guest flow start area at venue — avoid clusters',
-      'Set out Plates, Utensils, Napkins, Queso Cards, Business Cards, Mints, Flyers & Pop-Up Tent neatly',
-      'If beverages — set up ice at sink, pour drinks, place cups. Second tent here.',
-      'Set wire racks, light sternos. Store sterno tops in white bag inside brown lid bag.',
-      'Start Left to Right: Tortillas or Chips first',
-      'Add filler items then hot sides',
-      'Chips & Salsa placed after wire rack section',
-      'Cold sides: Lettuce → Cheese → Toppings',
-      'Salad (if ordered) goes next — Dessert follows',
-      'Remove all lids — stack neatly in paper bag',
-      'Place correct utensil in each item',
-      'Walk the setup with your rag — leave it clean',
-      'Pack trash, empty water container, head out',
-    ].map((s,i)=>`<div class="flow-step"><div class="flow-num">${i+1}</div><div>${s}</div></div>`).join('')}
-  </div>`;
-
-  document.getElementById('sumBody').innerHTML=html;
+// UTENSILS
+const uLines=[];
+const t6u=[…new Set(U.t6)];const totalT=U.t9+t6u.length;
+if(totalT>0){const parts=[];if(U.t9>0)parts.push(U.t9+’ Large Tong’+(U.t9>1?‘s’:’’)+’ — Chips / Sopapillas / Brownies’);t6u.forEach(l=>parts.push(‘1 Small Tong — ‘+l));uLines.push({name:totalT+’ Tong’+(totalT>1?‘s’:’’)+’ Total’,detail:parts.join(’<br>’)});}
+const lU=[…new Set(U.ladle)];if(lU.length)uLines.push({name:lU.length+’ Ladle’+(lU.length>1?‘s’:’’)+’ 2oz’,detail:lU.join(’, ‘)});
+const s9U=[…new Set(U.sp9)];if(s9U.length)uLines.push({name:s9U.length+’ Black 9” Spoon’+(s9U.length>1?‘s’:’’)+’ (Large)’,detail:s9U.join(’, ‘)});
+const s5U=[…new Set(U.sp5)];if(s5U.length)uLines.push({name:s5U.length+’ Black 5” Spoon’+(s5U.length>1?‘s’:’’)+’ (Small)’,detail:s5U.join(’, ‘)});
+if(uLines.length){
+html+=’<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Utensils Needed</div><div class="sum-body">’
++’<div class="uten-block"><div class="uten-title">1 utensil per pan — calculated from your order</div>’
++uLines.map(u=>’<div class="uten-row"><div class="uten-name">’+u.name+’</div><div class="uten-detail">’+u.detail+’</div></div>’).join(’’)
++’</div></div></div>’;
 }
 
-function togSetup(){
-  document.getElementById('setupBody').classList.toggle('open');
-  document.getElementById('setupChev').style.transform=
-    document.getElementById('setupBody').classList.contains('open')?'rotate(180deg)':'';
-}
+// WHAT TO BRING
+html+=’<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>What to Bring — Based on ‘+guests+’ Guests</div><div class="sum-body">’
++[[‘Plates’,guests],[‘Utensils (cutlery)’,guests],[‘Napkins’,guests],[‘Mints’,mints],[‘Queso Cards’,qCards]]
+.map(([k,v])=>’<div class="always-row"><span class="always-item">’+k+’</span><span class="always-qty">’+v+’</span></div>’).join(’’)
++(cups>0?’<div class="always-row"><span class="always-item">Plastic Cups (beverage ordered)</span><span class="always-qty">’+cups+’</span></div>’:’’)
++’<div class="always-row"><span class="always-item">Pop-Up Tents</span><span class="always-qty">’+tents+’</span></div>’
++’<div class="always-row"><span class="always-item">Business Cards</span><span class="always-qty">3</span></div>’
++’<div class="always-row"><span class="always-item">Catering Flyers</span><span class="always-qty">3</span></div>’
++’<div class="always-row"><span class="always-item">Steak Knife</span><span class="always-qty">1</span></div>’
++’<div class="always-row"><span class="always-item">Rag</span><span class="always-qty">1</span></div>’
++’<div class="always-row"><span class="always-item">Gloves</span><span class="always-qty">4</span></div>’
++’<div class="always-row"><span class="always-item">Lighters</span><span class="always-qty">1</span></div>’
++’</div></div>’;
 
-// ═══════════════════════════════════
+// WIRE RACKS
+html+=’<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Wire Racks & Setup</div><div class="sum-body">’
++’<div class="always-row"><span class="always-item">Wire Racks</span><span class="always-qty">’+totalHotFP+’</span></div>’
++’<div class="always-row"><span class="always-item">Full Pans (1 per rack)</span><span class="always-qty">’+totalHotFP+’</span></div>’
++’<div class="always-row"><span class="always-item">Burners / Sternos</span><span class="always-qty">’+totalHotFP+’</span></div>’
++(wtr?’<div class="always-row"><span class="always-item">Water</span><span class="always-qty">’+wtr+’</span></div>’:’’)
++’</div></div>’;
+
+// WARN
+html+=’<div class="rack-warn">Never leave wire rack spots empty — water boils out 3x faster when uncovered!</div>’;
+
+// SETUP FLOW
+const steps=[‘Mark “On the Way” in EZ Cater before leaving’,‘Find ideal guest flow start area at venue’,‘Set out Plates, Utensils, Napkins, Queso Cards, Business Cards, Mints, Flyers & Pop-Up Tent’,‘If beverages — set up ice at sink, pour drinks, place cups. Second tent here.’,‘Set wire racks, light sternos. Sterno tops into white bag inside brown lid bag.’,‘Left to Right: Tortillas or Chips first’,‘Add filler items then hot sides’,‘Chips & Salsa after wire rack section’,‘Cold sides: Lettuce → Cheese → Toppings’,‘Salad (if ordered) then Dessert’,‘Remove all lids — stack in paper bag’,‘Place correct utensil in each item’,‘Walk setup with rag — leave it clean’,‘Pack trash, empty water container, head out’];
+html+=’<button class="setup-toggle" onclick="togSetup()">Setup Flow — Tap to Expand <svg id="sc" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>’
++’<div class="setup-body" id="setupBody"><div style="height:10px"></div>’
++steps.map((s,i)=>’<div class="flow-step"><div class="flow-num">’+(i+1)+’</div><div>’+s+’</div></div>’).join(’’)+’</div>’;
+
+document.getElementById(‘sumBody’).innerHTML=html;
+}
+function togSetup(){const b=document.getElementById(‘setupBody’);b.classList.toggle(‘open’);document.getElementById(‘sc’).style.transform=b.classList.contains(‘open’)?‘rotate(180deg)’:’’;}
+
 // EMAIL
-// ═══════════════════════════════════
 function sendEmail(){
-  const arr=ST.time?new Date('1970-01-01T'+ST.time).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'--';
-  const guests=ST.guests||0;
-  const mints=Math.ceil(guests/2);
-  const quesoCards=Math.ceil(guests/2);
-  const cups=ST.hasBev?guests:0;
-  const tents=Math.min(2,Math.ceil(guests/10));
-  const SEP='─'.repeat(44);
-  let b=`HUEY LUEY'S CATERING ORDER\n${SEP}\n\n`;
-  b+=`Driver:       ${ST.name}\nOrder:        ${ST.order}\nGuests:       ${guests}\nArrival:      ${arr}\nAddress:      ${ST.address}\n`;
-  if(ST.leaveTime)b+=`Leave By:     ${ST.leaveTime}${ST.travelInfo?' ('+ST.travelInfo+')':''}\n`;
-  b+=`\n${SEP}\nPANS & QUANTITIES\n${SEP}\n`;
-  ST.cart.forEach(c=>{
-    b+=`\n${c.name} — ${c.label}\n`;
-    (c.rows||[]).forEach(r=>{
-      const val=r.isUnit?r.unitVal:r.isWater?r.waterVal:(r.p?panStr(r.p,r.cap):'—');
-      b+=`  ${r.label}: ${val}\n`;
-    });
-  });
-  if(gChipQty>0){
-    const chipBags=Math.ceil(gChipQty/20);
-    const salsaP=gSalsaQty>0?bestPans(CAP.salsa,gSalsaQty):null;
-    b+=`\nCHIPS & SALSA (Combined)\n`;
-    if(chipBags)b+=`  Chips: ${chipBags} Large White Bag${chipBags>1?'s':''}\n`;
-    if(salsaP)b+=`  Salsa: ${panStr(salsaP,CAP.salsa)}\n`;
-  }
-  b+=`\n${SEP}\nWHAT TO BRING\n${SEP}\n`;
-  b+=`Plates: ${guests}\nUtensils: ${guests}\nNapkins: ${guests}\nMints: ${mints}\nQueso Cards: ${quesoCards}\n`;
-  if(cups>0)b+=`Plastic Cups: ${cups}\n`;
-  b+=`Pop-Up Tents: ${tents}\nBusiness Cards: 3\nCatering Flyers: 3\nSteak Knife: 1\nRag: 1\nGloves: 4\nLighters: 1\n`;
-  b+=`\n${SEP}\nWIRE RACK SETUP\n${SEP}\n`;
-  const hotFP=ST.cart.reduce((acc,c)=>acc+(c.rows||[]).reduce((a2,r)=>a2+(r.p&&!r.isWater&&!r.isUnit?(r.p.f||0):0),0),0);
-  const wr=waterStr(hotFP);
-  b+=`Wire Racks: ${hotFP}\nFull Pans: ${hotFP}\nBurners/Sternos: ${hotFP}\n`;
-  if(wr)b+=`Water: ${wr}\n`;
-  b+=`\n${SEP}\nSent via Huey Luey's Catering Guide`;
-  window.location.href=`mailto:tylerhawthorne@hueylueys.com?subject=${encodeURIComponent('Catering: '+ST.order+' — Arrival '+arr)}&body=${encodeURIComponent(b)}`;
-  setTimeout(()=>{const s=document.getElementById('emlSt');s.className='eml-st ok';s.textContent='Email client opened — tap Send in your mail app.';},800);
+const arr=ST.time?new Date(‘1970-01-01T’+ST.time).toLocaleTimeString([],{hour:‘2-digit’,minute:‘2-digit’}):’–’;
+const guests=ST.guests||0;const mints=Math.ceil(guests/2);const qCards=Math.ceil(guests/2);
+const tents=Math.min(2,Math.ceil(guests/10)||1);const cups=ST.hasBev?guests:0;
+let totalHotFP=0;ST.cart.forEach(c=>{if(c.type===‘bar’)totalHotFP+=(c.tfp||0);});
+const wtr=waterLabel(totalHotFP);
+const SEP=’––––––––––––––––––––––’;
+let b=‘HUEY LUEYS CATERING ORDER\n’+SEP+’\n\nDriver: ‘+ST.name+’\nOrder: ‘+ST.order+’\nGuests: ‘+guests+’\nArrival: ‘+arr+’\nAddress: ‘+ST.address+’\n’;
+if(ST.leaveTime)b+=‘Leave By: ‘+ST.leaveTime+(ST.travelInfo?’ (’+ST.travelInfo+’)’:’’)+’\n’;
+b+=’\n’+SEP+’\nPANS & QUANTITIES\n’+SEP+’\n’;
+ST.cart.forEach(c=>{b+=’\n’+c.name+’ - ‘+c.label+’\n’;(c.rows||[]).forEach(r=>{b+=’  ‘+r.i+’: ‘+r.v+’\n’;});});
+if(gChipQty>0){b+=’\nCHIPS & SALSA (Combined)\n  Chips: ‘+chipBags(gChipQty)+’\n  Salsa: ‘+salsaStr(gChipQty)+’\n’;}
+b+=’\n’+SEP+’\nWHAT TO BRING\n’+SEP+’\n’;
+b+=‘Plates: ‘+guests+’\nUtensils: ‘+guests+’\nNapkins: ‘+guests+’\nMints: ‘+mints+’\nQueso Cards: ‘+qCards+’\n’;
+if(cups>0)b+=‘Plastic Cups: ‘+cups+’\n’;
+b+=‘Pop-Up Tents: ‘+tents+’\nBusiness Cards: 3\nCatering Flyers: 3\nSteak Knife: 1\nRag: 1\nGloves: 4\nLighters: 1\n’;
+b+=’\n’+SEP+’\nWIRE RACKS\n’+SEP+’\n’;
+b+=‘Wire Racks: ‘+totalHotFP+’\nFull Pans: ‘+totalHotFP+’\nBurners/Sternos: ‘+totalHotFP+’\n’;
+if(wtr)b+=‘Water: ‘+wtr+’\n’;
+b+=’\nSent via Huey Lueys Catering Guide’;
+window.location.href=‘mailto:tylerhawthorne@hueylueys.com?subject=’+encodeURIComponent(‘Catering: ‘+ST.order+’ - Arrival ‘+arr)+’&body=’+encodeURIComponent(b);
+setTimeout(()=>{const s=document.getElementById(‘emlSt’);s.className=‘eml-st ok’;s.textContent=‘Email client opened - tap Send in your mail app.’;},800);
 }
 </script>
+
 </body>
 </html>
