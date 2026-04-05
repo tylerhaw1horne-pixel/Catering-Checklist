@@ -564,9 +564,9 @@ return '<div style="padding:13px"><div class="req-sec org"><div class="req-hd or
 +'<button class="add-btn" onclick="addBar(\''+cat.id+'\','+ci+')">Add to Order</button>'
 +'<span class="added-tag" id="at_'+cat.id+'">Added</span></div></div>';
 }
-function selP(catId,pid){const cat=MENU.find(c=>c.id===catId);cat.proteins.forEach(p=>{const el=document.getElementById('po_'+catId+'*'+p.id);if(el){el.classList.toggle('sel-org',p.id===pid);el.querySelector('input').checked=(p.id===pid);}});}
+function selP(catId,pid){const cat=MENU.find(c=>c.id===catId);cat.proteins.forEach(p=>{const el=document.getElementById('po_'+catId+'_'+p.id);if(el){el.classList.toggle('sel-org',p.id===pid);el.querySelector('input').checked=(p.id===pid);}});}
 function togSP(id){document.getElementById(id).classList.toggle('open');}
-function selSub(catId,sid){const cat=MENU.find(c=>c.id===catId);cat.subs.forEach(s=>{const el=document.getElementById('si*'+s.id);if(el){el.classList.toggle('sel-org',s.id===sid);el.querySelector('input').checked=(s.id===sid);}});}
+function selSub(catId,sid){const cat=MENU.find(c=>c.id===catId);cat.subs.forEach(s=>{const el=document.getElementById('si_'+s.id);if(el){el.classList.toggle('sel-org',s.id===sid);el.querySelector('input').checked=(s.id===sid);}});}
 
 function addBar(catId,ci){
   const cat=MENU.find(c=>c.id===catId);
@@ -635,14 +635,14 @@ return cat.items.map(s=>'<div class="mitem"><div class="mi-name">'+s.label+'</di
 +'<span class="added-tag" id="at_'+s.id+'">Added</span></div></div>').join('');
 }
 function selDr(sid,di){
-const allDivs=document.querySelectorAll('[id^="drs_'+sid+'*"]');
+const allDivs=document.querySelectorAll('[id^="drs_'+sid+'_"]');
 allDivs.forEach(el=>{el.classList.remove('sel-org');if(el.querySelector('input'))el.querySelector('input').checked=false;});
-const el=document.getElementById('drs*'+sid+'*'+di);
+const el=document.getElementById('drs_'+sid+'_'+di);
 if(el){el.classList.add('sel-org');if(el.querySelector('input'))el.querySelector('input').checked=true;}
 }
 function addSalad(catId,sid,ci){
 const cat=MENU.find(c=>c.id===catId);const s=cat.items.find(x=>x.id===sid);
-const qty=parseInt(document.getElementById('qty*'+sid)?.value);if(!qty||qty<1){alert('Enter quantity.');return;}
+const qty=parseInt(document.getElementById('qty_'+sid)?.value);if(!qty||qty<1){alert('Enter quantity.');return;}
 const dr=document.querySelector('input[name="dr_'+sid+'"]:checked');const dressing=dr?dr.value:s.dressing;
 const coldRows=[
 {lbl:qty+' x '+s.label,container:'Cold Pan / Cold Display'},
@@ -667,14 +667,14 @@ return cat.items.map(s=>'<div class="mitem"><div class="mi-name">'+s.label+'</di
 +'<span class="added-tag" id="at_'+s.id+'">Added</span></div></div>').join('');
 }
 function selSubOpt(sid,idx){
-const allD=document.querySelectorAll('[id^="sbopt_'+sid+'*"]');
+const allD=document.querySelectorAll('[id^="sbopt_'+sid+'_"]');
 allD.forEach(el=>{el.classList.remove('sel-org');if(el.querySelector('input'))el.querySelector('input').checked=false;});
-const el=document.getElementById('sbopt*'+sid+'*'+idx);
+const el=document.getElementById('sbopt_'+sid+'_'+idx);
 if(el){el.classList.add('sel-org');if(el.querySelector('input'))el.querySelector('input').checked=true;}
 }
 function addSide(catId,sid,ci){
 const cat=MENU.find(c=>c.id===catId);const s=cat.items.find(x=>x.id===sid);
-const qty=parseInt(document.getElementById('qty*'+sid)?.value);if(!qty||qty<1){alert('Enter quantity.');return;}
+const qty=parseInt(document.getElementById('qty_'+sid)?.value);if(!qty||qty<1){alert('Enter quantity.');return;}
 const hotRows=[];const coldRows=[];const ud=[];
 const persons=s.byP?qty:qty*(s.each||10);
 const c=getContainer(persons,'side');
@@ -709,14 +709,14 @@ return cat.items.map(d=>'<div class="mitem"><div class="mi-name">'+d.label+'</di
 +'<span class="added-tag" id="at_'+d.id+'">Added</span></div></div>').join('');
 }
 function selSyrOpt(did,idx){
-const allD=document.querySelectorAll('[id^="syropt_'+did+'*"]');
+const allD=document.querySelectorAll('[id^="syropt_'+did+'_"]');
 allD.forEach(el=>{el.classList.remove('sel-org');if(el.querySelector('input'))el.querySelector('input').checked=false;});
-const el=document.getElementById('syropt*'+did+'*'+idx);
+const el=document.getElementById('syropt_'+did+'_'+idx);
 if(el){el.classList.add('sel-org');if(el.querySelector('input'))el.querySelector('input').checked=true;}
 }
 function addDes(catId,did,ci){
 const cat=MENU.find(c=>c.id===catId);const d=cat.items.find(x=>x.id===did);
-const qty=parseInt(document.getElementById('qty*'+did)?.value);if(!qty||qty<1){alert('Enter quantity.');return;}
+const qty=parseInt(document.getElementById('qty_'+did)?.value);if(!qty||qty<1){alert('Enter quantity.');return;}
 const subR=document.querySelector('input[name="syrd_'+did+'"]:checked');const syrup=subR?subR.value:d.syrup;
 const coldRows=[
 {lbl:d.label,container:qty+' x 12" Cake Pan'+(qty>1?'s':'')},
