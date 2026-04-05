@@ -786,7 +786,7 @@ html+=’<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Or
 +’</div></div>’;
 
 // HOT ITEMS — WIRE RACK
-const allHotRows=[];ST.cart.forEach(c=>(c.hotRows||[]).forEach(r=>allHotRows.push({…r,from:c.name})));
+const allHotRows=[];ST.cart.forEach(c=>(c.hotRows||[]).forEach(r=>allHotRows.push({...r,from:c.name})));
 if(allHotRows.length){
 html+=’<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Hot Items — Wire Rack</div><div class="sum-body">’;
 // Group by source
@@ -824,11 +824,11 @@ html+=’<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Ch
 
 // UTENSILS
 const uLines=[];
-const t6u=[…new Set(U.t6)];const totalT=U.t9+t6u.length;
+const t6u=[...new Set(U.t6)];const totalT=U.t9+t6u.length;
 if(totalT>0){const parts=[];if(U.t9>0)parts.push(U.t9+’ Large Tong’+(U.t9>1?‘s’:’’)+’ — Chips / Sopapillas / Brownies’);t6u.forEach(l=>parts.push(‘1 Small Tong — ‘+l));uLines.push({name:totalT+’ Tong’+(totalT>1?‘s’:’’)+’ Total’,detail:parts.join(’<br>’)});}
-const lU=[…new Set(U.ladle)];if(lU.length)uLines.push({name:lU.length+’ Ladle’+(lU.length>1?‘s’:’’)+’ 2oz’,detail:lU.join(’, ‘)});
-const s9U=[…new Set(U.sp9)];if(s9U.length)uLines.push({name:s9U.length+’ Black 9” Spoon’+(s9U.length>1?‘s’:’’)+’ (Large)’,detail:s9U.join(’, ‘)});
-const s5U=[…new Set(U.sp5)];if(s5U.length)uLines.push({name:s5U.length+’ Black 5” Spoon’+(s5U.length>1?‘s’:’’)+’ (Small)’,detail:s5U.join(’, ‘)});
+const lU=[...new Set(U.ladle)];if(lU.length)uLines.push({name:lU.length+’ Ladle’+(lU.length>1?‘s’:’’)+’ 2oz’,detail:lU.join(’, ‘)});
+const s9U=[...new Set(U.sp9)];if(s9U.length)uLines.push({name:s9U.length+’ Black 9” Spoon’+(s9U.length>1?‘s’:’’)+’ (Large)’,detail:s9U.join(’, ‘)});
+const s5U=[...new Set(U.sp5)];if(s5U.length)uLines.push({name:s5U.length+’ Black 5” Spoon’+(s5U.length>1?‘s’:’’)+’ (Small)’,detail:s5U.join(’, ‘)});
 if(uLines.length){
 html+=’<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Utensils Needed</div><div class="sum-body">’
 +’<div class="uten-block"><div class="uten-title">1 utensil per container/pan</div>’
