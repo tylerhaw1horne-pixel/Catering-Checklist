@@ -274,7 +274,7 @@ function getContainer(guests, itemType) {
 }
 function proteinPans(guests, label) {
   if (guests <= 15) return [{lbl:label, container:'Third Pan', slot:0.33}];
-  if (guests <= 39) return [{lbl:label, container:'Half Pan', slot:0.5}];
+  if (guests <= 25) return [{lbl:label, container:'Half Pan', slot:0.5}];
   const pans = Math.ceil(guests / 25);
   const base = Math.floor(guests / pans);
   const extra = guests % pans;
