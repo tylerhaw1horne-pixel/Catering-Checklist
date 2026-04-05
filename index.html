@@ -292,10 +292,10 @@ function hotPan(guests, ozPerPerson) {
 function waterFrac(racks){
 if(!racks||racks<=0)return null;
 const g=racks/5;
-if(g>=1){const w=Math.floor(g),r=g-w;if(r===0)return w+’ gallon’+(w>1?‘s’:’’);if(r<=0.25)return(w?w+’ and ‘:’’)+’\u00BC gallon’;if(r<=0.5)return(w?w+’ and ‘:’’)+’\u00BD gallon’;if(r<=0.75)return(w?w+’ and ‘:’’)+’\u00BE gallon’;return(w+1)+’ gallons’;}
-if(g<=0.2)return’\u00BC gallon’;if(g<=0.5)return’\u00BD gallon’;if(g<=0.8)return’\u00BE gallon’;return’1 gallon’;
+if(g>=1){const w=Math.floor(g),r=g-w;if(r===0)return w+' gallon'+(w>1?'s':'');if(r<=0.25)return(w?w+' and ':'')+'\u00BC gallon';if(r<=0.5)return(w?w+' and ':'')+'\u00BD gallon';if(r<=0.75)return(w?w+' and ':'')+'\u00BE gallon';return(w+1)+' gallons';}
+if(g<=0.2)return'\u00BC gallon';if(g<=0.5)return'\u00BD gallon';if(g<=0.8)return'\u00BE gallon';return'1 gallon';
 }
-function chipBags(qty){const b=Math.ceil(qty/20);return b+’ Large White Bag’+(b>1?‘s’:’’)+’ (20 persons/bag)’;}
+function chipBags(qty){const b=Math.ceil(qty/20);return b+' Large White Bag'+(b>1?'s':'')+' (20 persons/bag)';}
 
 // ═══════════════════════════════════════════
 // UTENSIL TRACKING
@@ -305,11 +305,11 @@ function resetU(){U={t9:0,t6:[],ladle:[],sp9:[],sp5:[]};}
 function addU(type,label,n){
 const cnt=Math.max(1,Math.round(n||1));
 for(let i=0;i<cnt;i++){
-if(type===‘t9’)U.t9++;
-else if(type===‘t6’)U.t6.push(label);
-else if(type===‘ladle’)U.ladle.push(label);
-else if(type===‘sp9’)U.sp9.push(label);
-else if(type===‘sp5’)U.sp5.push(label);
+if(type==='t9')U.t9++;
+else if(type==='t6')U.t6.push(label);
+else if(type==='ladle')U.ladle.push(label);
+else if(type==='sp9')U.sp9.push(label);
+else if(type==='sp5')U.sp5.push(label);
 }
 }
 
@@ -317,163 +317,163 @@ else if(type===‘sp5’)U.sp5.push(label);
 // NAV
 // ═══════════════════════════════════════════
 function goPage(n){
-document.querySelectorAll(’.page’).forEach(p=>p.classList.remove(‘active’));
-document.getElementById(‘pg’+n).classList.add(‘active’);
-[‘st1’,‘st2’,‘st3’].forEach((id,i)=>{const el=document.getElementById(id);el.classList.remove(‘active’,‘done’);if(i+1<n)el.classList.add(‘done’);else if(i+1===n)el.classList.add(‘active’);});
-window.scrollTo({top:0,behavior:‘smooth’});
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById('pg'+n).classList.add('active');
+['st1','st2','st3'].forEach((id,i)=>{const el=document.getElementById(id);el.classList.remove('active','done');if(i+1<n)el.classList.add('done');else if(i+1===n)el.classList.add('active');});
+window.scrollTo({top:0,behavior:'smooth'});
 }
 function goP2(){
-const nm=document.getElementById(‘fName’).value.trim();
-const or=document.getElementById(‘fOrder’).value.trim();
-const gs=parseInt(document.getElementById(‘fGuests’).value);
-const ti=document.getElementById(‘fTime’).value;
-const ad=document.getElementById(‘fAddr’).value.trim();
-if(!nm){alert(‘Enter your name.’);return;}if(!or){alert(‘Enter order name.’);return;}
-if(!gs||gs<1){alert(‘Enter total guest count.’);return;}if(!ti){alert(‘Enter arrival time.’);return;}if(!ad){alert(‘Enter delivery address.’);return;}
+const nm=document.getElementById('fName').value.trim();
+const or=document.getElementById('fOrder').value.trim();
+const gs=parseInt(document.getElementById('fGuests').value);
+const ti=document.getElementById('fTime').value;
+const ad=document.getElementById('fAddr').value.trim();
+if(!nm){alert('Enter your name.');return;}if(!or){alert('Enter order name.');return;}
+if(!gs||gs<1){alert('Enter total guest count.');return;}if(!ti){alert('Enter arrival time.');return;}if(!ad){alert('Enter delivery address.');return;}
 ST.name=nm;ST.order=or;ST.guests=gs;ST.time=ti;ST.address=ad;gChipQty=0;ST.hasBev=false;ST.cart=[];
 buildMenu();goPage(2);
 }
-function goP3(){if(!ST.cart.length){alert(‘Add at least one item first.’);return;}buildSummary();goPage(3);}
+function goP3(){if(!ST.cart.length){alert('Add at least one item first.');return;}buildSummary();goPage(3);}
 
 // ═══════════════════════════════════════════
 // DRIVE TIME
 // ═══════════════════════════════════════════
 async function calcTravel(){
-const addr=document.getElementById(‘fAddr’).value.trim();
-const ti=document.getElementById(‘fTime’).value;
-if(!addr){alert(‘Enter delivery address first.’);return;}if(!ti){alert(‘Enter arrival time first.’);return;}
-const box=document.getElementById(‘tbox’);box.classList.add(‘show’);
-document.getElementById(‘tLeave’).textContent=’…’;document.getElementById(‘tDet’).textContent=‘Calculating…’;
-const [h,m]=ti.split(’:’).map(Number);const arr=new Date();arr.setHours(h,m,0,0);if(arr<new Date())arr.setDate(arr.getDate()+1);
+const addr=document.getElementById('fAddr').value.trim();
+const ti=document.getElementById('fTime').value;
+if(!addr){alert('Enter delivery address first.');return;}if(!ti){alert('Enter arrival time first.');return;}
+const box=document.getElementById('tbox');box.classList.add('show');
+document.getElementById('tLeave').textContent='…';document.getElementById('tDet').textContent='Calculating…';
+const [h,m]=ti.split(':').map(Number);const arr=new Date();arr.setHours(h,m,0,0);if(arr<new Date())arr.setDate(arr.getDate()+1);
 try{
-let lat=null,lng=null,note=’’;
-const r1=await fetch(‘https://nominatim.openstreetmap.org/search?format=json&q=’+encodeURIComponent(addr)+’&limit=1&countrycodes=us’,{headers:{‘Accept-Language’:‘en-US’,‘User-Agent’:‘HueyLueysCatering’}}).then(r=>r.json()).catch(()=>[]);
+let lat=null,lng=null,note='';
+const r1=await fetch('https://nominatim.openstreetmap.org/search?format=json&q='+encodeURIComponent(addr)+'&limit=1&countrycodes=us',{headers:{'Accept-Language':'en-US','User-Agent':'HueyLueysCatering'}}).then(r=>r.json()).catch(()=>[]);
 if(r1.length){lat=parseFloat(r1[0].lat);lng=parseFloat(r1[0].lon);}
-if(lat===null){const zip=(addr.match(/\b(\d{5})\b/)||[])[1];if(zip){const r2=await fetch(‘https://nominatim.openstreetmap.org/search?format=json&postalcode=’+zip+’&countrycodes=us&limit=1’,{headers:{‘Accept-Language’:‘en-US’,‘User-Agent’:‘HueyLueysCatering’}}).then(r=>r.json()).catch(()=>[]);if(r2.length){lat=parseFloat(r2[0].lat);lng=parseFloat(r2[0].lon);note=’(ZIP estimate) ‘;}}}
-if(lat===null){const cm=(addr.match(/([A-Za-z\s]+),?\s*(GA|Georgia)/i)||[]);if(cm[1]){const r3=await fetch(‘https://nominatim.openstreetmap.org/search?format=json&city=’+encodeURIComponent(cm[1].trim())+’&state=Georgia&countrycodes=us&limit=1’,{headers:{‘Accept-Language’:‘en-US’,‘User-Agent’:‘HueyLueysCatering’}}).then(r=>r.json()).catch(()=>[]);if(r3.length){lat=parseFloat(r3[0].lat);lng=parseFloat(r3[0].lon);note=’(City estimate) ‘;}}}
-if(lat===null)throw new Error(‘not found’);
+if(lat===null){const zip=(addr.match(/\b(\d{5})\b/)||[])[1];if(zip){const r2=await fetch('https://nominatim.openstreetmap.org/search?format=json&postalcode='+zip+'&countrycodes=us&limit=1',{headers:{'Accept-Language':'en-US','User-Agent':'HueyLueysCatering'}}).then(r=>r.json()).catch(()=>[]);if(r2.length){lat=parseFloat(r2[0].lat);lng=parseFloat(r2[0].lon);note='(ZIP estimate) ';}}}
+if(lat===null){const cm=(addr.match(/([A-Za-z\s]+),?\s*(GA|Georgia)/i)||[]);if(cm[1]){const r3=await fetch('https://nominatim.openstreetmap.org/search?format=json&city='+encodeURIComponent(cm[1].trim())+'&state=Georgia&countrycodes=us&limit=1',{headers:{'Accept-Language':'en-US','User-Agent':'HueyLueysCatering'}}).then(r=>r.json()).catch(()=>[]);if(r3.length){lat=parseFloat(r3[0].lat);lng=parseFloat(r3[0].lon);note='(City estimate) ';}}}
+if(lat===null)throw new Error('not found');
 const R=3958.8,dLat=(lat-STORE_LAT)*Math.PI/180,dLon=(lng-STORE_LNG)*Math.PI/180;
 const a=Math.sin(dLat/2)**2+Math.cos(STORE_LAT*Math.PI/180)*Math.cos(lat*Math.PI/180)*Math.sin(dLon/2)**2;
 const miles=R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
 const mins=Math.round(miles*1.35/32*60+5);
-const disp=mins>=60?Math.floor(mins/60)+‘h ‘+mins%60+‘m’:mins+’ min’;
+const disp=mins>=60?Math.floor(mins/60)+'h '+mins%60+'m':mins+' min';
 const ld=new Date(arr.getTime()-(mins+5)*60*1000);
-const ls=ld.toLocaleTimeString([],{hour:‘2-digit’,minute:‘2-digit’});
-document.getElementById(‘tLeave’).textContent=ls;
-document.getElementById(‘tDet’).textContent=note+miles.toFixed(1)+’ miles — about ‘+disp+’ drive’;
-ST.leaveTime=ls;ST.travelInfo=miles.toFixed(1)+’ miles, ~’+disp;
-}catch(e){document.getElementById(‘tLeave’).textContent=‘Check Manually’;document.getElementById(‘tDet’).textContent=‘Could not locate — verify address and try again.’;}
+const ls=ld.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+document.getElementById('tLeave').textContent=ls;
+document.getElementById('tDet').textContent=note+miles.toFixed(1)+' miles — about '+disp+' drive';
+ST.leaveTime=ls;ST.travelInfo=miles.toFixed(1)+' miles, ~'+disp;
+}catch(e){document.getElementById('tLeave').textContent='Check Manually';document.getElementById('tDet').textContent='Could not locate — verify address and try again.';}
 }
 
 // ═══════════════════════════════════════════
 // MENU DATA
 // ═══════════════════════════════════════════
 const MENU=[
-{id:‘apps’,title:‘Mix N Match Appetizers’,desc:‘Exactly 2 selections — halved portions’,
-note:’<strong>Select exactly 2 apps.</strong> Each item is portioned at half the guest count. Queso apps include Chips.’,type:‘mnm’,
+{id:'apps',title:'Mix N Match Appetizers',desc:'Exactly 2 selections — halved portions',
+note:'<strong>Select exactly 2 apps.</strong> Each item is portioned at half the guest count. Queso apps include Chips.',type:'mnm',
 apps:[
-{id:‘a-avo’,label:‘Avocado Rolls’,hasChips:false,ozPP:1,garnish:‘Cilantro Cream Dip (32oz Container), Shredded Lettuce Garnish (Clamshell), Pickled Onion Garnish (Clamshell)’,uten:‘t6’},
-{id:‘a-taq’,label:‘Brisket Taquitos’,hasChips:false,ozPP:1,garnish:’’,uten:‘t6’},
-{id:‘a-gua’,label:‘Guacamole’,hasChips:false,ozPP:3,garnish:‘Pickled Radish Garnish (Clamshell)’,uten:‘sp5’},
-{id:‘a-rq’, label:‘Regular Queso’,hasChips:true,ozPP:3,garnish:’’,uten:‘ladle’},
-{id:‘a-sq’, label:‘Spicy Queso’,hasChips:true,ozPP:3,garnish:‘Pico de Gallo Garnish (Clamshell)’,uten:‘ladle’},
+{id:'a-avo',label:'Avocado Rolls',hasChips:false,ozPP:1,garnish:'Cilantro Cream Dip (32oz Container), Shredded Lettuce Garnish (Clamshell), Pickled Onion Garnish (Clamshell)',uten:'t6'},
+{id:'a-taq',label:'Brisket Taquitos',hasChips:false,ozPP:1,garnish:'',uten:'t6'},
+{id:'a-gua',label:'Guacamole',hasChips:false,ozPP:3,garnish:'Pickled Radish Garnish (Clamshell)',uten:'sp5'},
+{id:'a-rq', label:'Regular Queso',hasChips:true,ozPP:3,garnish:'',uten:'ladle'},
+{id:'a-sq', label:'Spicy Queso',hasChips:true,ozPP:3,garnish:'Pico de Gallo Garnish (Clamshell)',uten:'ladle'},
 ]},
-{id:‘taco’,title:‘Taco Bar’,desc:‘Select protein — Refried Beans & Flour Tortillas auto-included’,
-note:‘Select protein. All hot items go on wire racks. Cold sides go in clamshells.’,type:‘bar’,
+{id:'taco',title:'Taco Bar',desc:'Select protein — Refried Beans & Flour Tortillas auto-included',
+note:'Select protein. All hot items go on wire racks. Cold sides go in clamshells.',type:'bar',
 proteins:[
-{id:‘t-chx’, label:‘Salsa Chicken’,ozPP:3,uten:‘t6’,isMixed:false},
-{id:‘t-beef’,label:‘Ground Beef’,ozPP:3,uten:‘sp9’,isMixed:false},
-{id:‘t-mix’, label:‘Mixed: Salsa Chicken + Ground Beef’,ozPP:3,uten:‘t6’,isMixed:true},
-{id:‘t-both’,label:‘Chicken & Beef +$3’,ozPP:3,uten:‘t6’,isMixed:true},
+{id:'t-chx', label:'Salsa Chicken',ozPP:3,uten:'t6',isMixed:false},
+{id:'t-beef',label:'Ground Beef',ozPP:3,uten:'sp9',isMixed:false},
+{id:'t-mix', label:'Mixed: Salsa Chicken + Ground Beef',ozPP:3,uten:'t6',isMixed:true},
+{id:'t-both',label:'Chicken & Beef +$3',ozPP:3,uten:'t6',isMixed:true},
 ],
 tortOzPP:4.5,
 hotSides:[
-{lbl:‘Mexican Rice’,ozPP:3,uten:‘sp9’},
-{lbl:‘Refried Beans’,ozPP:3,uten:‘ladle’},
+{lbl:'Mexican Rice',ozPP:3,uten:'sp9'},
+{lbl:'Refried Beans',ozPP:3,uten:'ladle'},
 ],
 coldSides:[
-{lbl:‘Shredded Lettuce’,uten:‘t6’},
-{lbl:‘Shredded Cheese’,uten:‘t6’},
-{lbl:‘Diced Tomatoes’,uten:null},
+{lbl:'Shredded Lettuce',uten:'t6'},
+{lbl:'Shredded Cheese',uten:'t6'},
+{lbl:'Diced Tomatoes',uten:null},
 ],
-subs:[{id:‘ts1’,label:‘Sub Charro Beans for Refried’},{id:‘ts2’,label:‘Sub White Rice for Mexican Rice’},{id:‘ts3’,label:‘Sub Corn Tortillas’,tortOz:3.5},{id:‘ts4’,label:‘Sub Hard Shell Tortillas’,tortOz:3}],
+subs:[{id:'ts1',label:'Sub Charro Beans for Refried'},{id:'ts2',label:'Sub White Rice for Mexican Rice'},{id:'ts3',label:'Sub Corn Tortillas',tortOz:3.5},{id:'ts4',label:'Sub Hard Shell Tortillas',tortOz:3}],
 hasChips:true},
-{id:‘nacho’,title:‘Nacho Bar’,desc:‘Select protein — Spicy Queso always included’,
-note:‘Select protein. All hot items on wire racks. Cold sides in clamshells. No rice or beans.’,type:‘bar’,
+{id:'nacho',title:'Nacho Bar',desc:'Select protein — Spicy Queso always included',
+note:'Select protein. All hot items on wire racks. Cold sides in clamshells. No rice or beans.',type:'bar',
 proteins:[
-{id:‘n-chx’, label:‘Salsa Chicken’,ozPP:3,uten:‘t6’,isMixed:false},
-{id:‘n-beef’,label:‘Ground Beef’,ozPP:3,uten:‘sp9’,isMixed:false},
-{id:‘n-veg’, label:‘Fire Roasted Veggies’,ozPP:3,uten:‘t6’,isMixed:false},
-{id:‘n-mix’, label:‘Mixed: Salsa Chicken + Ground Beef’,ozPP:3,uten:‘t6’,isMixed:true},
-{id:‘n-both’,label:‘Chicken & Beef +$3’,ozPP:3,uten:‘t6’,isMixed:true},
+{id:'n-chx', label:'Salsa Chicken',ozPP:3,uten:'t6',isMixed:false},
+{id:'n-beef',label:'Ground Beef',ozPP:3,uten:'sp9',isMixed:false},
+{id:'n-veg', label:'Fire Roasted Veggies',ozPP:3,uten:'t6',isMixed:false},
+{id:'n-mix', label:'Mixed: Salsa Chicken + Ground Beef',ozPP:3,uten:'t6',isMixed:true},
+{id:'n-both',label:'Chicken & Beef +$3',ozPP:3,uten:'t6',isMixed:true},
 ],
 tortOzPP:0,
 hotSides:[
-{lbl:‘Spicy Queso’,ozPP:3,uten:‘ladle’},
+{lbl:'Spicy Queso',ozPP:3,uten:'ladle'},
 ],
 coldSides:[
-{lbl:‘Shredded Lettuce’,uten:‘t6’},
-{lbl:‘Shredded Cheese’,uten:‘t6’},
-{lbl:‘Diced Tomatoes’,uten:null},
-{lbl:‘Sour Cream’,uten:‘sp5’},
-{lbl:‘Pickled Jalapenos’,uten:‘t6’},
+{lbl:'Shredded Lettuce',uten:'t6'},
+{lbl:'Shredded Cheese',uten:'t6'},
+{lbl:'Diced Tomatoes',uten:null},
+{lbl:'Sour Cream',uten:'sp5'},
+{lbl:'Pickled Jalapenos',uten:'t6'},
 ],
-subs:[{id:‘ns1’,label:‘Sub Regular Queso for Spicy’}],
+subs:[{id:'ns1',label:'Sub Regular Queso for Spicy'}],
 hasChips:true},
-{id:‘fajita’,title:‘Fajita Bar’,desc:‘Select protein — Charro Beans & Flour Tortillas auto-included’,
-note:‘Select protein. All hot items on wire racks. Cold sides in clamshells.’,type:‘bar’,
+{id:'fajita',title:'Fajita Bar',desc:'Select protein — Charro Beans & Flour Tortillas auto-included',
+note:'Select protein. All hot items on wire racks. Cold sides in clamshells.',type:'bar',
 proteins:[
-{id:‘f-cs’, label:‘Chicken & Steak’,ozPP:4,uten:‘t6’,isMixed:false},
-{id:‘f-c’,  label:‘Chicken’,ozPP:4,uten:‘t6’,isMixed:false},
-{id:‘f-s’,  label:‘Steak’,ozPP:4,uten:‘t6’,isMixed:false},
-{id:‘f-csh’,label:‘Chicken, Steak & Shrimp’,ozPP:4,uten:‘t6’,isMixed:false},
-{id:‘f-sh’, label:‘Shrimp’,ozPP:3,uten:‘t6’,isMixed:false},
-{id:‘f-v’,  label:‘Veggie’,ozPP:3,uten:‘t6’,isMixed:false},
+{id:'f-cs', label:'Chicken & Steak',ozPP:4,uten:'t6',isMixed:false},
+{id:'f-c',  label:'Chicken',ozPP:4,uten:'t6',isMixed:false},
+{id:'f-s',  label:'Steak',ozPP:4,uten:'t6',isMixed:false},
+{id:'f-csh',label:'Chicken, Steak & Shrimp',ozPP:4,uten:'t6',isMixed:false},
+{id:'f-sh', label:'Shrimp',ozPP:3,uten:'t6',isMixed:false},
+{id:'f-v',  label:'Veggie',ozPP:3,uten:'t6',isMixed:false},
 ],
 tortOzPP:4.5,
 hotSides:[
-{lbl:‘Mexican Rice’,ozPP:3,uten:‘sp9’},
-{lbl:‘Charro Beans’,ozPP:3,uten:‘ladle’},
+{lbl:'Mexican Rice',ozPP:3,uten:'sp9'},
+{lbl:'Charro Beans',ozPP:3,uten:'ladle'},
 ],
 coldSides:[
-{lbl:‘Shredded Lettuce’,uten:‘t6’},
-{lbl:‘Shredded Cheese’,uten:‘t6’},
-{lbl:‘Pico de Gallo’,uten:‘sp5’},
-{lbl:‘Sour Cream’,uten:‘sp5’},
-{lbl:‘Guacamole’,uten:‘sp5’},
+{lbl:'Shredded Lettuce',uten:'t6'},
+{lbl:'Shredded Cheese',uten:'t6'},
+{lbl:'Pico de Gallo',uten:'sp5'},
+{lbl:'Sour Cream',uten:'sp5'},
+{lbl:'Guacamole',uten:'sp5'},
 ],
-garnish:‘Radish Garnish + Lime Wedges’,
-subs:[{id:‘fs1’,label:‘Sub Black Beans for Charro’},{id:‘fs2’,label:‘Sub Refried Beans for Charro’},{id:‘fs3’,label:‘Sub White Rice for Mexican Rice’},{id:‘fs4’,label:‘Sub Corn Tortillas’,tortOz:3.5},{id:‘fs5’,label:‘Sub Hard Shell Tortillas’,tortOz:3},{id:‘fs6’,label:‘Sub Lettuce Cup’}],
+garnish:'Radish Garnish + Lime Wedges',
+subs:[{id:'fs1',label:'Sub Black Beans for Charro'},{id:'fs2',label:'Sub Refried Beans for Charro'},{id:'fs3',label:'Sub White Rice for Mexican Rice'},{id:'fs4',label:'Sub Corn Tortillas',tortOz:3.5},{id:'fs5',label:'Sub Hard Shell Tortillas',tortOz:3},{id:'fs6',label:'Sub Lettuce Cup'}],
 hasChips:true},
-{id:‘salad’,title:‘Salads’,desc:‘Each salad serves 10 persons — select how many’,
-note:‘Each salad order = 1 full serving for 10 persons. Dressing goes in a 32oz deli container alongside.’,type:‘salads’,
+{id:'salad',title:'Salads',desc:'Each salad serves 10 persons — select how many',
+note:'Each salad order = 1 full serving for 10 persons. Dressing goes in a 32oz deli container alongside.',type:'salads',
 items:[
-{id:‘s-house’,label:‘House Salad’,dressing:‘Cilantro Ranch’,dressSubs:[‘Mango Vinaigrette’,‘Oregano Vinaigrette’,‘Chipotle Ranch’]},
-{id:‘s-kale’, label:“Farmer’s Kale Salad”,dressing:‘Oregano Vinaigrette (tossed)’,dressSubs:[‘Mango Vinaigrette (on side)’,‘Cilantro Ranch (on side)’,‘Chipotle Ranch (on side)’]},
-{id:‘s-mex’,  label:‘Mexican Chopped Salad’,dressing:‘Mango Vinaigrette’,extra:‘Grilled Chicken — auto-included’,dressSubs:[‘Cilantro Ranch’,‘Oregano Vinaigrette’,‘Chipotle Ranch’]},
+{id:'s-house',label:'House Salad',dressing:'Cilantro Ranch',dressSubs:['Mango Vinaigrette','Oregano Vinaigrette','Chipotle Ranch']},
+{id:'s-kale', label:"Farmer's Kale Salad",dressing:'Oregano Vinaigrette (tossed)',dressSubs:['Mango Vinaigrette (on side)','Cilantro Ranch (on side)','Chipotle Ranch (on side)']},
+{id:'s-mex',  label:'Mexican Chopped Salad',dressing:'Mango Vinaigrette',extra:'Grilled Chicken — auto-included',dressSubs:['Cilantro Ranch','Oregano Vinaigrette','Chipotle Ranch']},
 ]},
-{id:‘sides’,title:‘Sides’,desc:‘Add-on selections’,
-note:‘Chips & Queso/Guac: enter guest count. Extra Homemade Salsa: rings in as units. Sour Cream: enter guest count.’,type:‘sides’,
+{id:'sides',title:'Sides',desc:'Add-on selections',
+note:'Chips & Queso/Guac: enter guest count. Extra Homemade Salsa: rings in as units. Sour Cream: enter guest count.',type:'sides',
 items:[
-{id:‘si-rq’, label:‘Chips & Regular Queso’,ozPP:3,byP:true,hasChips:true,subs:[{id:‘si-rq1’,lbl:‘Sub Spicy Queso’}],utenH:‘ladle’,utenT:‘t9’},
-{id:‘si-sq’, label:‘Chips & Spicy Queso’,ozPP:3,byP:true,hasChips:true,subs:[{id:‘si-sq1’,lbl:‘Sub Regular Queso’}],utenH:‘ladle’,utenT:‘t9’},
-{id:‘si-cg’, label:‘Chips & Guacamole’,ozPP:3,byP:true,hasChips:true,subs:[],utenH:‘sp5’,utenT:‘t9’},
-{id:‘si-sal’,label:‘Extra Homemade Salsa’,ozPP:1,byP:false,hasChips:false,each:10,subs:[],utenH:‘ladle’,utenT:null},
-{id:‘si-sc’, label:‘Sour Cream’,ozPP:1,byP:true,hasChips:false,subs:[],utenH:‘sp5’,utenT:null},
+{id:'si-rq', label:'Chips & Regular Queso',ozPP:3,byP:true,hasChips:true,subs:[{id:'si-rq1',lbl:'Sub Spicy Queso'}],utenH:'ladle',utenT:'t9'},
+{id:'si-sq', label:'Chips & Spicy Queso',ozPP:3,byP:true,hasChips:true,subs:[{id:'si-sq1',lbl:'Sub Regular Queso'}],utenH:'ladle',utenT:'t9'},
+{id:'si-cg', label:'Chips & Guacamole',ozPP:3,byP:true,hasChips:true,subs:[],utenH:'sp5',utenT:'t9'},
+{id:'si-sal',label:'Extra Homemade Salsa',ozPP:1,byP:false,hasChips:false,each:10,subs:[],utenH:'ladle',utenT:null},
+{id:'si-sc', label:'Sour Cream',ozPP:1,byP:true,hasChips:false,subs:[],utenH:'sp5',utenT:null},
 ]},
-{id:‘dessert’,title:‘Desserts’,desc:‘Rings in as orders — 1 x 12” Cake Pan per order’,
-note:‘Each order = 1 x 12” Cake Pan. Sopapillas tossed in cinnamon sugar. Brownies covered in powdered sugar. NOT on wire racks.’,type:‘desserts’,
+{id:'dessert',title:'Desserts',desc:'Rings in as orders — 1 x 12" Cake Pan per order',
+note:'Each order = 1 x 12" Cake Pan. Sopapillas tossed in cinnamon sugar. Brownies covered in powdered sugar. NOT on wire racks.',type:'desserts',
 items:[
-{id:‘d-sop’,label:‘Sopapillas’,syrup:‘Raw Honey’,syrSubs:[‘Caramel Syrup’,‘Chocolate Syrup’]},
-{id:‘d-bro’,label:‘Double Fudge Brownies’,syrup:‘Chocolate Syrup + Caramel Syrup’,syrSubs:[]},
+{id:'d-sop',label:'Sopapillas',syrup:'Raw Honey',syrSubs:['Caramel Syrup','Chocolate Syrup']},
+{id:'d-bro',label:'Double Fudge Brownies',syrup:'Chocolate Syrup + Caramel Syrup',syrSubs:[]},
 ]},
-{id:‘bev’,title:‘Beverages’,desc:‘Rings in as jugs — 8 persons per gallon jug’,
-note:‘Each unit = 1 gallon jug. Fill to top, attach correct label sticker.’,type:‘beverages’,
+{id:'bev',title:'Beverages',desc:'Rings in as jugs — 8 persons per gallon jug',
+note:'Each unit = 1 gallon jug. Fill to top, attach correct label sticker.',type:'beverages',
 items:[
-{id:‘b-sw’, label:‘Sweet Tea’,hasCups:true},
-{id:‘b-un’, label:‘Unsweet Tea’,hasCups:true},
-{id:‘b-lem’,label:‘Pink Lemonade’,hasCups:false},
-{id:‘b-pea’,label:‘Peach Tea’,hasCups:false,extra:‘Peach Monin Syrup (10 oz per jug)’},
+{id:'b-sw', label:'Sweet Tea',hasCups:true},
+{id:'b-un', label:'Unsweet Tea',hasCups:true},
+{id:'b-lem',label:'Pink Lemonade',hasCups:false},
+{id:'b-pea',label:'Peach Tea',hasCups:false,extra:'Peach Monin Syrup (10 oz per jug)'},
 ]},
 ];
 
@@ -481,53 +481,53 @@ items:[
 // MENU RENDER
 // ═══════════════════════════════════════════
 function buildMenu(){
-const w=document.getElementById(‘menuWrap’);w.innerHTML=’’;
+const w=document.getElementById('menuWrap');w.innerHTML='';
 MENU.forEach((cat,ci)=>{
-const d=document.createElement(‘div’);d.className=‘cat’;
-d.innerHTML=’<div class="cat-hd" onclick="togCat('+ci+')">’
-+’<div><div class="cat-title">’+cat.title+’</div><div class="cat-desc">’+cat.desc+’</div></div>’
-+’<div class="cat-right"><span class="cat-badge" id="cb_'+ci+'">0</span>’
-+’<svg class="chev" id="ch_'+ci+'" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div>’
-+’<div class="cat-body" id="catb_'+ci+'"><div class="cat-note">’+cat.note+’</div>’+renderCat(cat,ci)+’</div>’;
+const d=document.createElement('div');d.className='cat';
+d.innerHTML='<div class="cat-hd" onclick="togCat('+ci+')">'
++'<div><div class="cat-title">'+cat.title+'</div><div class="cat-desc">'+cat.desc+'</div></div>'
++'<div class="cat-right"><span class="cat-badge" id="cb_'+ci+'">0</span>'
++'<svg class="chev" id="ch_'+ci+'" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div>'
++'<div class="cat-body" id="catb_'+ci+'"><div class="cat-note">'+cat.note+'</div>'+renderCat(cat,ci)+'</div>';
 w.appendChild(d);
 });
 }
-function togCat(ci){document.getElementById(‘catb_’+ci).classList.toggle(‘open’);document.getElementById(‘ch_’+ci).classList.toggle(‘open’);}
-function bdg(ci,catId){const cnt=ST.cart.filter(c=>c.catId===catId).length;const el=document.getElementById(‘cb_’+ci);if(el){el.textContent=cnt;el.classList.toggle(‘on’,cnt>0);}}
+function togCat(ci){document.getElementById('catb_'+ci).classList.toggle('open');document.getElementById('ch_'+ci).classList.toggle('open');}
+function bdg(ci,catId){const cnt=ST.cart.filter(c=>c.catId===catId).length;const el=document.getElementById('cb_'+ci);if(el){el.textContent=cnt;el.classList.toggle('on',cnt>0);}}
 function renderCat(cat,ci){
-if(cat.type===‘mnm’)return rMNM(cat,ci);
-if(cat.type===‘bar’)return rBar(cat,ci);
-if(cat.type===‘salads’)return rSalads(cat,ci);
-if(cat.type===‘sides’)return rSides(cat,ci);
-if(cat.type===‘desserts’)return rDesserts(cat,ci);
-if(cat.type===‘beverages’)return rBevs(cat,ci);
-return ‘’;
+if(cat.type==='mnm')return rMNM(cat,ci);
+if(cat.type==='bar')return rBar(cat,ci);
+if(cat.type==='salads')return rSalads(cat,ci);
+if(cat.type==='sides')return rSides(cat,ci);
+if(cat.type==='desserts')return rDesserts(cat,ci);
+if(cat.type==='beverages')return rBevs(cat,ci);
+return '';
 }
 
 // MIX N MATCH
 function rMNM(cat,ci){
-return ‘<div style="padding:13px"><div class="mnm-sec">’
-+’<div class="mnm-hd">Select Exactly 2 <span class="rbadge org">REQUIRED</span></div>’
-+’<div class="mnm-sub">Each item calculated at half the guest count</div>’
-+cat.apps.map(a=>’<div class="mnm-opt" id="ml_'+a.id+'" onclick="togM(\''+a.id+'\')">’
-+’<input type="checkbox" id="m_'+a.id+'"/> ‘+a.label+’</div>’).join(’’)
-+’<div class="mnm-err" id="me_'+ci+'">Select exactly 2 appetizers.</div>’
-+’</div><div class="qty-row">’
-+’<span style="font-size:.7rem;color:var(--mut);font-weight:700">Guest Count:</span>’
-+’<input class="qty-in" type="number" id="mq_'+ci+'" min="1" placeholder="0"/>’
-+’<span class="qty-unit">persons</span>’
-+’<button class="add-btn" onclick="addMNM(\''+cat.id+'\','+ci+')">Add to Order</button>’
-+’<span class="added-tag" id="at_'+cat.id+'">Added</span></div></div>’;
+return '<div style="padding:13px"><div class="mnm-sec">'
++'<div class="mnm-hd">Select Exactly 2 <span class="rbadge org">REQUIRED</span></div>'
++'<div class="mnm-sub">Each item calculated at half the guest count</div>'
++cat.apps.map(a=>'<div class="mnm-opt" id="ml_'+a.id+'" onclick="togM(\''+a.id+'\')">'
++'<input type="checkbox" id="m_'+a.id+'"/> '+a.label+'</div>').join('')
++'<div class="mnm-err" id="me_'+ci+'">Select exactly 2 appetizers.</div>'
++'</div><div class="qty-row">'
++'<span style="font-size:.7rem;color:var(--mut);font-weight:700">Guest Count:</span>'
++'<input class="qty-in" type="number" id="mq_'+ci+'" min="1" placeholder="0"/>'
++'<span class="qty-unit">persons</span>'
++'<button class="add-btn" onclick="addMNM(\''+cat.id+'\','+ci+')">Add to Order</button>'
++'<span class="added-tag" id="at_'+cat.id+'">Added</span></div></div>';
 }
-function togM(id){const cb=document.getElementById(‘m_’+id);const lb=document.getElementById(‘ml_’+id);lb.classList.toggle(‘sel-org’,cb.checked);}
+function togM(id){const cb=document.getElementById('m_'+id);const lb=document.getElementById('ml_'+id);lb.classList.toggle('sel-org',cb.checked);}
 function addMNM(catId,ci){
 const cat=MENU.find(c=>c.id===catId);
-const sel=cat.apps.filter(a=>document.getElementById(‘m_’+a.id)?.checked);
-const err=document.getElementById(‘me_’+ci);
-if(sel.length!==2){err.classList.add(‘show’);return;}
-err.classList.remove(‘show’);
-const qty=parseInt(document.getElementById(‘mq_’+ci)?.value);
-if(!qty||qty<1){alert(‘Enter guest count.’);return;}
+const sel=cat.apps.filter(a=>document.getElementById('m_'+a.id)?.checked);
+const err=document.getElementById('me_'+ci);
+if(sel.length!==2){err.classList.add('show');return;}
+err.classList.remove('show');
+const qty=parseInt(document.getElementById('mq_'+ci)?.value);
+if(!qty||qty<1){alert('Enter guest count.');return;}
 const half=Math.ceil(qty/2);
 // hot rows for wire rack
 const hotRows=[];const coldRows=[];const ud=[];
@@ -536,37 +536,37 @@ const totalOz=half*a.ozPP;
 const c=getContainer(half,'side');
 const row={lbl:a.label,container:c.name,slot:c.slot,totalOz,isHot:true};
 hotRows.push(row);
-if(a.garnish)coldRows.push({lbl:‘Garnish’,container:‘Clamshell / 32oz Container’,notes:a.garnish});
+if(a.garnish)coldRows.push({lbl:'Garnish',container:'Clamshell / 32oz Container',notes:a.garnish});
 ud.push({type:a.uten,label:a.label,n:1});
 if(a.hasChips)gChipQty=Math.max(gChipQty,qty);
 });
 // queso sides note
-const hasQ=sel.some(a=>a.id.includes(‘q’));
-const chipNote=hasQ?chipBags(qty):’’;
+const hasQ=sel.some(a=>a.id.includes('q'));
+const chipNote=hasQ?chipBags(qty):'';
 ST.cart=ST.cart.filter(c=>c.catId!==catId);
-ST.cart.push({id:catId,catId,name:‘Mix N Match Apps’,qty,label:sel.map(a=>a.label).join(’ + ‘),sub:’’,hotRows,coldRows,chipNote,ud,type:‘mnm’,hasChips:hasQ});
-document.getElementById(‘at_’+catId)?.classList.add(‘on’);rCart();bdg(ci,catId);
+ST.cart.push({id:catId,catId,name:'Mix N Match Apps',qty,label:sel.map(a=>a.label).join(' + '),sub:'',hotRows,coldRows,chipNote,ud,type:'mnm',hasChips:hasQ});
+document.getElementById('at_'+catId)?.classList.add('on');rCart();bdg(ci,catId);
 }
 
 // BAR
 function rBar(cat,ci){
-const po=cat.proteins.map(p=>’<div class="sel-opt" id="po_'+cat.id+'_'+p.id+'" onclick="selP(\''+cat.id+'\',\''+p.id+'\')">’
-+’<input type="radio" name="pr_'+cat.id+'" value="'+p.id+'"/> ‘+p.label+’</div>’).join(’’);
-const ss=cat.subs.length?’<button class="sub-toggle" onclick="togSP(\'sb_'+cat.id+'\')">Substitutions</button>’
-+’<div class="sub-panel" id="sb_'+cat.id+'"><div class="sub-panel-hd">Select substitution:</div>’
-+cat.subs.map(s=>’<div class="sub-item" id="si_'+s.id+'" onclick="selSub(\''+cat.id+'\',\''+s.id+'\')">’
-+’<input type="radio" name="sub_'+cat.id+'" value="'+s.id+'"/> ‘+s.label+’</div>’).join(’’)+’</div>’:’’;
-return ‘<div style="padding:13px"><div class="req-sec org"><div class="req-hd org">Protein <span class="rbadge org">REQUIRED</span></div>’+po+’</div>’
-+ss+’<div class="qty-row">’
-+’<span style="font-size:.7rem;color:var(--mut);font-weight:700">Guest Count:</span>’
-+’<input class="qty-in" type="number" id="qty_'+cat.id+'" min="1" placeholder="0"/>’
-+’<span class="qty-unit">persons</span>’
-+’<button class="add-btn" onclick="addBar(\''+cat.id+'\','+ci+')">Add to Order</button>’
-+’<span class="added-tag" id="at_'+cat.id+'">Added</span></div></div>’;
+const po=cat.proteins.map(p=>'<div class="sel-opt" id="po_'+cat.id+'_'+p.id+'" onclick="selP(\''+cat.id+'\',\''+p.id+'\')">'
++'<input type="radio" name="pr_'+cat.id+'" value="'+p.id+'"/> '+p.label+'</div>').join('');
+const ss=cat.subs.length?'<button class="sub-toggle" onclick="togSP(\'sb_'+cat.id+'\')">Substitutions</button>'
++'<div class="sub-panel" id="sb_'+cat.id+'"><div class="sub-panel-hd">Select substitution:</div>'
++cat.subs.map(s=>'<div class="sub-item" id="si_'+s.id+'" onclick="selSub(\''+cat.id+'\',\''+s.id+'\')">'
++'<input type="radio" name="sub_'+cat.id+'" value="'+s.id+'"/> '+s.label+'</div>').join('')+'</div>':'';
+return '<div style="padding:13px"><div class="req-sec org"><div class="req-hd org">Protein <span class="rbadge org">REQUIRED</span></div>'+po+'</div>'
++ss+'<div class="qty-row">'
++'<span style="font-size:.7rem;color:var(--mut);font-weight:700">Guest Count:</span>'
++'<input class="qty-in" type="number" id="qty_'+cat.id+'" min="1" placeholder="0"/>'
++'<span class="qty-unit">persons</span>'
++'<button class="add-btn" onclick="addBar(\''+cat.id+'\','+ci+')">Add to Order</button>'
++'<span class="added-tag" id="at_'+cat.id+'">Added</span></div></div>';
 }
-function selP(catId,pid){const cat=MENU.find(c=>c.id===catId);cat.proteins.forEach(p=>{const el=document.getElementById(‘po_’+catId+’*’+p.id);if(el){el.classList.toggle(‘sel-org’,p.id===pid);el.querySelector(‘input’).checked=(p.id===pid);}});}
-function togSP(id){document.getElementById(id).classList.toggle(‘open’);}
-function selSub(catId,sid){const cat=MENU.find(c=>c.id===catId);cat.subs.forEach(s=>{const el=document.getElementById(’si*’+s.id);if(el){el.classList.toggle(‘sel-org’,s.id===sid);el.querySelector(‘input’).checked=(s.id===sid);}});}
+function selP(catId,pid){const cat=MENU.find(c=>c.id===catId);cat.proteins.forEach(p=>{const el=document.getElementById('po_'+catId+'*'+p.id);if(el){el.classList.toggle('sel-org',p.id===pid);el.querySelector('input').checked=(p.id===pid);}});}
+function togSP(id){document.getElementById(id).classList.toggle('open');}
+function selSub(catId,sid){const cat=MENU.find(c=>c.id===catId);cat.subs.forEach(s=>{const el=document.getElementById('si*'+s.id);if(el){el.classList.toggle('sel-org',s.id===sid);el.querySelector('input').checked=(s.id===sid);}});}
 
 function addBar(catId,ci){
   const cat=MENU.find(c=>c.id===catId);
@@ -624,156 +624,156 @@ function addBar(catId,ci){
 
 // SALADS
 function rSalads(cat,ci){
-return cat.items.map(s=>’<div class="mitem"><div class="mi-name">’+s.label+’</div>’
-+(s.extra?’<div style="font-size:.71rem;color:var(--grn);font-weight:700;margin-top:4px">’+s.extra+’</div>’:’’)
-+’<div style="margin-top:9px"><div style="font-size:.66rem;font-weight:700;color:var(--grn);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Dressing Substitution</div>’
-+s.dressSubs.map((d,di)=>’<div class="sub-item" id="drs_'+s.id+'_'+di+'" onclick="selDr(\''+s.id+'\','+di+')"><input type="radio" name="dr_'+s.id+'" value="'+d+'"/> ‘+d+’</div>’).join(’’)+’</div>’
-+’<div class="qty-row"><span style="font-size:.7rem;color:var(--mut);font-weight:700">How many:</span>’
-+’<input class="qty-in" type="number" id="qty_'+s.id+'" min="1" placeholder="0"/>’
-+’<span class="qty-unit">salads</span>’
-+’<button class="add-btn" onclick="addSalad(\''+cat.id+'\',\''+s.id+'\','+ci+')">Add to Order</button>’
-+’<span class="added-tag" id="at_'+s.id+'">Added</span></div></div>’).join(’’);
+return cat.items.map(s=>'<div class="mitem"><div class="mi-name">'+s.label+'</div>'
++(s.extra?'<div style="font-size:.71rem;color:var(--grn);font-weight:700;margin-top:4px">'+s.extra+'</div>':'')
++'<div style="margin-top:9px"><div style="font-size:.66rem;font-weight:700;color:var(--grn);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px">Dressing Substitution</div>'
++s.dressSubs.map((d,di)=>'<div class="sub-item" id="drs_'+s.id+'_'+di+'" onclick="selDr(\''+s.id+'\','+di+')"><input type="radio" name="dr_'+s.id+'" value="'+d+'"/> '+d+'</div>').join('')+'</div>'
++'<div class="qty-row"><span style="font-size:.7rem;color:var(--mut);font-weight:700">How many:</span>'
++'<input class="qty-in" type="number" id="qty_'+s.id+'" min="1" placeholder="0"/>'
++'<span class="qty-unit">salads</span>'
++'<button class="add-btn" onclick="addSalad(\''+cat.id+'\',\''+s.id+'\','+ci+')">Add to Order</button>'
++'<span class="added-tag" id="at_'+s.id+'">Added</span></div></div>').join('');
 }
 function selDr(sid,di){
-const allDivs=document.querySelectorAll(’[id^=“drs_’+sid+’*”]’);
-allDivs.forEach(el=>{el.classList.remove(‘sel-org’);if(el.querySelector(‘input’))el.querySelector(‘input’).checked=false;});
-const el=document.getElementById(’drs*’+sid+’*’+di);
-if(el){el.classList.add(‘sel-org’);if(el.querySelector(‘input’))el.querySelector(‘input’).checked=true;}
+const allDivs=document.querySelectorAll('[id^="drs_'+sid+'*"]');
+allDivs.forEach(el=>{el.classList.remove('sel-org');if(el.querySelector('input'))el.querySelector('input').checked=false;});
+const el=document.getElementById('drs*'+sid+'*'+di);
+if(el){el.classList.add('sel-org');if(el.querySelector('input'))el.querySelector('input').checked=true;}
 }
 function addSalad(catId,sid,ci){
 const cat=MENU.find(c=>c.id===catId);const s=cat.items.find(x=>x.id===sid);
-const qty=parseInt(document.getElementById(’qty*’+sid)?.value);if(!qty||qty<1){alert(‘Enter quantity.’);return;}
-const dr=document.querySelector(‘input[name=“dr_’+sid+’”]:checked’);const dressing=dr?dr.value:s.dressing;
+const qty=parseInt(document.getElementById('qty*'+sid)?.value);if(!qty||qty<1){alert('Enter quantity.');return;}
+const dr=document.querySelector('input[name="dr_'+sid+'"]:checked');const dressing=dr?dr.value:s.dressing;
 const coldRows=[
-{lbl:qty+’ x ‘+s.label,container:‘Cold Pan / Cold Display’},
-{lbl:‘Dressing: ‘+dressing,container:‘32oz Deli Container’},
+{lbl:qty+' x '+s.label,container:'Cold Pan / Cold Display'},
+{lbl:'Dressing: '+dressing,container:'32oz Deli Container'},
 ];
-if(s.extra)coldRows.push({lbl:s.extra,container:‘Included’});
-ST.cart.push({id:sid,catId,name:s.label,qty,label:qty+’ ‘+s.label+(qty>1?‘s’:’’),sub:dressing,hotRows:[],coldRows,chipNote:’’,ud:[{type:‘t6’,label:s.label,n:qty},{type:‘ladle’,label:‘Dressing’,n:qty}],type:‘salad’});
-document.getElementById(‘at_’+sid)?.classList.add(‘on’);rCart();bdg(ci,catId);
+if(s.extra)coldRows.push({lbl:s.extra,container:'Included'});
+ST.cart.push({id:sid,catId,name:s.label,qty,label:qty+' '+s.label+(qty>1?'s':''),sub:dressing,hotRows:[],coldRows,chipNote:'',ud:[{type:'t6',label:s.label,n:qty},{type:'ladle',label:'Dressing',n:qty}],type:'salad'});
+document.getElementById('at_'+sid)?.classList.add('on');rCart();bdg(ci,catId);
 }
 
 // SIDES
 function rSides(cat,ci){
-return cat.items.map(s=>’<div class="mitem"><div class="mi-name">’+s.label+’</div>’
-+(s.subs.length?’<button class="sub-toggle" onclick="togSP(\'sbsi_'+s.id+'\')">Substitutions</button>’
-+’<div class="sub-panel" id="sbsi_'+s.id+'"><div class="sub-panel-hd">Select substitution:</div>’
-+s.subs.map((sb,si)=>’<div class="sub-item" id="sbopt_'+s.id+'_'+si+'" onclick="selSubOpt(\''+s.id+'\','+si+')">’
-+’<input type="radio" name="sbsi_'+s.id+'" value="'+sb.id+'"/> ‘+sb.lbl+’</div>’).join(’’)+’</div>’:’’)
-+’<div class="qty-row"><span style="font-size:.7rem;color:var(--mut);font-weight:700">’+(s.byP?‘Guest Count:’:‘How many:’)+’</span>’
-+’<input class="qty-in" type="number" id="qty_'+s.id+'" min="1" placeholder="0"/>’
-+’<span class="qty-unit">’+(s.byP?‘persons’:‘units’)+’</span>’
-+’<button class="add-btn" onclick="addSide(\''+cat.id+'\',\''+s.id+'\','+ci+')">Add to Order</button>’
-+’<span class="added-tag" id="at_'+s.id+'">Added</span></div></div>’).join(’’);
+return cat.items.map(s=>'<div class="mitem"><div class="mi-name">'+s.label+'</div>'
++(s.subs.length?'<button class="sub-toggle" onclick="togSP(\'sbsi_'+s.id+'\')">Substitutions</button>'
++'<div class="sub-panel" id="sbsi_'+s.id+'"><div class="sub-panel-hd">Select substitution:</div>'
++s.subs.map((sb,si)=>'<div class="sub-item" id="sbopt_'+s.id+'_'+si+'" onclick="selSubOpt(\''+s.id+'\','+si+')">'
++'<input type="radio" name="sbsi_'+s.id+'" value="'+sb.id+'"/> '+sb.lbl+'</div>').join('')+'</div>':'')
++'<div class="qty-row"><span style="font-size:.7rem;color:var(--mut);font-weight:700">'+(s.byP?'Guest Count:':'How many:')+'</span>'
++'<input class="qty-in" type="number" id="qty_'+s.id+'" min="1" placeholder="0"/>'
++'<span class="qty-unit">'+(s.byP?'persons':'units')+'</span>'
++'<button class="add-btn" onclick="addSide(\''+cat.id+'\',\''+s.id+'\','+ci+')">Add to Order</button>'
++'<span class="added-tag" id="at_'+s.id+'">Added</span></div></div>').join('');
 }
 function selSubOpt(sid,idx){
-const allD=document.querySelectorAll(’[id^=“sbopt_’+sid+’*”]’);
-allD.forEach(el=>{el.classList.remove(‘sel-org’);if(el.querySelector(‘input’))el.querySelector(‘input’).checked=false;});
-const el=document.getElementById(’sbopt*’+sid+’*’+idx);
-if(el){el.classList.add(‘sel-org’);if(el.querySelector(‘input’))el.querySelector(‘input’).checked=true;}
+const allD=document.querySelectorAll('[id^="sbopt_'+sid+'*"]');
+allD.forEach(el=>{el.classList.remove('sel-org');if(el.querySelector('input'))el.querySelector('input').checked=false;});
+const el=document.getElementById('sbopt*'+sid+'*'+idx);
+if(el){el.classList.add('sel-org');if(el.querySelector('input'))el.querySelector('input').checked=true;}
 }
 function addSide(catId,sid,ci){
 const cat=MENU.find(c=>c.id===catId);const s=cat.items.find(x=>x.id===sid);
-const qty=parseInt(document.getElementById(’qty*’+sid)?.value);if(!qty||qty<1){alert(‘Enter quantity.’);return;}
+const qty=parseInt(document.getElementById('qty*'+sid)?.value);if(!qty||qty<1){alert('Enter quantity.');return;}
 const hotRows=[];const coldRows=[];const ud=[];
 const persons=s.byP?qty:qty*(s.each||10);
 const c=getContainer(persons,'side');
 // Queso/Guac sides go hot on rack; Sour Cream and salsa go cold
-if(s.id.includes(‘rq’)||s.id.includes(‘sq’)||s.id.includes(‘cg’)){
+if(s.id.includes('rq')||s.id.includes('sq')||s.id.includes('cg')){
 hotRows.push({lbl:s.label,container:c.name,slot:c.slot,totalOz:persons*s.ozPP});
 if(s.utenH)ud.push({type:s.utenH,label:s.label,n:1});
-if(s.utenT)ud.push({type:s.utenT,label:‘Chips’,n:1});
+if(s.utenT)ud.push({type:s.utenT,label:'Chips',n:1});
 } else {
-coldRows.push({lbl:s.label,container:‘32oz Container’});
+coldRows.push({lbl:s.label,container:'32oz Container'});
 if(s.utenH)ud.push({type:s.utenH,label:s.label,n:1});
 }
 if(s.hasChips)gChipQty=Math.max(gChipQty,persons);
-const subR=document.querySelector(‘input[name=“sbsi_’+sid+’”]:checked’);
-const sub=subR?s.subs.find(x=>x.id===subR.value)?.lbl||’’:’’;
-const lbl=s.byP?qty+’ persons’:qty+’ ‘+(s.label)+(qty>1?‘s’:’’);
-ST.cart.push({id:sid,catId,name:s.label,qty,label:lbl,sub,hotRows,coldRows,chipNote:’’,ud,type:‘side’});
-document.getElementById(‘at_’+sid)?.classList.add(‘on’);rCart();bdg(ci,catId);
+const subR=document.querySelector('input[name="sbsi_'+sid+'"]:checked');
+const sub=subR?s.subs.find(x=>x.id===subR.value)?.lbl||'':'';
+const lbl=s.byP?qty+' persons':qty+' '+(s.label)+(qty>1?'s':'');
+ST.cart.push({id:sid,catId,name:s.label,qty,label:lbl,sub,hotRows,coldRows,chipNote:'',ud,type:'side'});
+document.getElementById('at_'+sid)?.classList.add('on');rCart();bdg(ci,catId);
 }
 
 // DESSERTS
 function rDesserts(cat,ci){
-return cat.items.map(d=>’<div class="mitem"><div class="mi-name">’+d.label+’</div>’
-+(d.syrSubs.length?’<button class="sub-toggle" onclick="togSP(\'sbds_'+d.id+'\')">Syrup Substitution</button>’
-+’<div class="sub-panel" id="sbds_'+d.id+'"><div class="sub-panel-hd">Sub default syrup:</div>’
-+d.syrSubs.map((sb,si)=>’<div class="sub-item" id="syropt_'+d.id+'_'+si+'" onclick="selSyrOpt(\''+d.id+'\','+si+')">’
-+’<input type="radio" name="syrd_'+d.id+'" value="'+sb+'"/> ‘+sb+’</div>’).join(’’)+’</div>’:’’)
-+’<div class="qty-row"><span style="font-size:.7rem;color:var(--mut);font-weight:700">How many orders:</span>’
-+’<input class="qty-in" type="number" id="qty_'+d.id+'" min="1" placeholder="0"/>’
-+’<span class="qty-unit">orders</span>’
-+’<button class="add-btn" onclick="addDes(\''+cat.id+'\',\''+d.id+'\','+ci+')">Add to Order</button>’
-+’<span class="added-tag" id="at_'+d.id+'">Added</span></div></div>’).join(’’);
+return cat.items.map(d=>'<div class="mitem"><div class="mi-name">'+d.label+'</div>'
++(d.syrSubs.length?'<button class="sub-toggle" onclick="togSP(\'sbds_'+d.id+'\')">Syrup Substitution</button>'
++'<div class="sub-panel" id="sbds_'+d.id+'"><div class="sub-panel-hd">Sub default syrup:</div>'
++d.syrSubs.map((sb,si)=>'<div class="sub-item" id="syropt_'+d.id+'_'+si+'" onclick="selSyrOpt(\''+d.id+'\','+si+')">'
++'<input type="radio" name="syrd_'+d.id+'" value="'+sb+'"/> '+sb+'</div>').join('')+'</div>':'')
++'<div class="qty-row"><span style="font-size:.7rem;color:var(--mut);font-weight:700">How many orders:</span>'
++'<input class="qty-in" type="number" id="qty_'+d.id+'" min="1" placeholder="0"/>'
++'<span class="qty-unit">orders</span>'
++'<button class="add-btn" onclick="addDes(\''+cat.id+'\',\''+d.id+'\','+ci+')">Add to Order</button>'
++'<span class="added-tag" id="at_'+d.id+'">Added</span></div></div>').join('');
 }
 function selSyrOpt(did,idx){
-const allD=document.querySelectorAll(’[id^=“syropt_’+did+’*”]’);
-allD.forEach(el=>{el.classList.remove(‘sel-org’);if(el.querySelector(‘input’))el.querySelector(‘input’).checked=false;});
-const el=document.getElementById(’syropt*’+did+’*’+idx);
-if(el){el.classList.add(‘sel-org’);if(el.querySelector(‘input’))el.querySelector(‘input’).checked=true;}
+const allD=document.querySelectorAll('[id^="syropt_'+did+'*"]');
+allD.forEach(el=>{el.classList.remove('sel-org');if(el.querySelector('input'))el.querySelector('input').checked=false;});
+const el=document.getElementById('syropt*'+did+'*'+idx);
+if(el){el.classList.add('sel-org');if(el.querySelector('input'))el.querySelector('input').checked=true;}
 }
 function addDes(catId,did,ci){
 const cat=MENU.find(c=>c.id===catId);const d=cat.items.find(x=>x.id===did);
-const qty=parseInt(document.getElementById(’qty*’+did)?.value);if(!qty||qty<1){alert(‘Enter quantity.’);return;}
-const subR=document.querySelector(‘input[name=“syrd_’+did+’”]:checked’);const syrup=subR?subR.value:d.syrup;
+const qty=parseInt(document.getElementById('qty*'+did)?.value);if(!qty||qty<1){alert('Enter quantity.');return;}
+const subR=document.querySelector('input[name="syrd_'+did+'"]:checked');const syrup=subR?subR.value:d.syrup;
 const coldRows=[
-{lbl:d.label,container:qty+’ x 12” Cake Pan’+(qty>1?‘s’:’’)},
-{lbl:‘Syrup: ‘+syrup,container:‘32oz Container’},
+{lbl:d.label,container:qty+' x 12" Cake Pan'+(qty>1?'s':'')},
+{lbl:'Syrup: '+syrup,container:'32oz Container'},
 ];
-ST.cart.push({id:did,catId,name:d.label,qty,label:qty+’ order’+(qty>1?‘s’:’’)+’ of ‘+d.label,sub:syrup,hotRows:[],coldRows,chipNote:’’,ud:[{type:‘t9’,label:d.label,n:qty},{type:‘ladle’,label:‘Syrup’,n:qty}],type:‘dessert’});
-document.getElementById(‘at_’+did)?.classList.add(‘on’);rCart();bdg(ci,catId);
+ST.cart.push({id:did,catId,name:d.label,qty,label:qty+' order'+(qty>1?'s':'')+' of '+d.label,sub:syrup,hotRows:[],coldRows,chipNote:'',ud:[{type:'t9',label:d.label,n:qty},{type:'ladle',label:'Syrup',n:qty}],type:'dessert'});
+document.getElementById('at_'+did)?.classList.add('on');rCart();bdg(ci,catId);
 }
 
 // BEVERAGES
 function rBevs(cat,ci){
-return cat.items.map(b=>’<div class="mitem"><div class="mi-name">’+b.label+’</div>’
-+’<div class="qty-row"><span style="font-size:.7rem;color:var(--mut);font-weight:700">How many jugs:</span>’
-+’<input class="qty-in" type="number" id="qty_'+b.id+'" min="1" placeholder="0"/>’
-+’<span class="qty-unit">jugs</span>’
-+’<button class="add-btn" onclick="addBev(\''+cat.id+'\',\''+b.id+'\','+ci+')">Add to Order</button>’
-+’<span class="added-tag" id="at_'+b.id+'">Added</span></div></div>’).join(’’);
+return cat.items.map(b=>'<div class="mitem"><div class="mi-name">'+b.label+'</div>'
++'<div class="qty-row"><span style="font-size:.7rem;color:var(--mut);font-weight:700">How many jugs:</span>'
++'<input class="qty-in" type="number" id="qty_'+b.id+'" min="1" placeholder="0"/>'
++'<span class="qty-unit">jugs</span>'
++'<button class="add-btn" onclick="addBev(\''+cat.id+'\',\''+b.id+'\','+ci+')">Add to Order</button>'
++'<span class="added-tag" id="at_'+b.id+'">Added</span></div></div>').join('');
 }
 function addBev(catId,bid,ci){
 const cat=MENU.find(c=>c.id===catId);const b=cat.items.find(x=>x.id===bid);
-const qty=parseInt(document.getElementById(‘qty_’+bid)?.value);if(!qty||qty<1){alert(‘Enter quantity.’);return;}
+const qty=parseInt(document.getElementById('qty_'+bid)?.value);if(!qty||qty<1){alert('Enter quantity.');return;}
 const persons=qty*8;
 const coldRows=[
-{lbl:qty+’ x ‘+b.label,container:qty+’ Gallon Jug’+(qty>1?‘s’:’’)},
-{lbl:‘Ice’,container:icePan(persons)},
+{lbl:qty+' x '+b.label,container:qty+' Gallon Jug'+(qty>1?'s':'')},
+{lbl:'Ice',container:icePan(persons)},
 ];
-if(b.hasCups)coldRows.push({lbl:‘Plastic Cups’,container:ST.guests+’ cups (1 per guest)’});
-if(b.extra)coldRows.push({lbl:b.extra,container:‘Per jug’});
+if(b.hasCups)coldRows.push({lbl:'Plastic Cups',container:ST.guests+' cups (1 per guest)'});
+if(b.extra)coldRows.push({lbl:b.extra,container:'Per jug'});
 ST.hasBev=true;
-ST.cart.push({id:bid,catId,name:b.label,qty,label:qty+’ ‘+b.label+(qty>1?‘s’:’’),sub:’’,hotRows:[],coldRows,chipNote:’’,ud:[{type:‘sp9’,label:‘Ice’,n:1}],type:‘bev’,hasCups:b.hasCups});
-document.getElementById(‘at_’+bid)?.classList.add(‘on’);rCart();bdg(ci,catId);
+ST.cart.push({id:bid,catId,name:b.label,qty,label:qty+' '+b.label+(qty>1?'s':''),sub:'',hotRows:[],coldRows,chipNote:'',ud:[{type:'sp9',label:'Ice',n:1}],type:'bev',hasCups:b.hasCups});
+document.getElementById('at_'+bid)?.classList.add('on');rCart();bdg(ci,catId);
 }
 function icePan(persons){
 const full=Math.floor(persons/15),rem=persons-full*15,half=rem>0?Math.ceil(rem/8):0;
-const parts=[];if(full>0)parts.push(full+’ Full Pan’+(full>1?‘s’:’’)+’ Cold’);if(half>0)parts.push(half+’ Half Pan’+(half>1?‘s’:’’)+’ Cold’);
-return parts.join(’ + ’)||‘1 Half Pan Cold’;
+const parts=[];if(full>0)parts.push(full+' Full Pan'+(full>1?'s':'')+' Cold');if(half>0)parts.push(half+' Half Pan'+(half>1?'s':'')+' Cold');
+return parts.join(' + ')||'1 Half Pan Cold';
 }
 
 // CART
 function removeItem(id){
-ST.cart=ST.cart.filter(c=>c.id!==id);document.getElementById(‘at_’+id)?.classList.remove(‘on’);
+ST.cart=ST.cart.filter(c=>c.id!==id);document.getElementById('at_'+id)?.classList.remove('on');
 gChipQty=0;ST.hasBev=false;
-ST.cart.forEach(c=>{if(c.hasChips)gChipQty=Math.max(gChipQty,c.qty);if(c.type===‘bev’)ST.hasBev=true;});
+ST.cart.forEach(c=>{if(c.hasChips)gChipQty=Math.max(gChipQty,c.qty);if(c.type==='bev')ST.hasBev=true;});
 rCart();MENU.forEach((_,ci)=>{const catId=MENU[ci].id;bdg(ci,catId);});
 }
 function rCart(){
-const list=document.getElementById(‘cartList’);const btn=document.getElementById(‘reviewBtn’);
-if(!ST.cart.length){list.innerHTML=’<div class="cart-empty">No items added yet</div>’;btn.style.display=‘none’;return;}
-btn.style.display=‘block’;
-list.innerHTML=ST.cart.map(c=>’<div class="cart-item"><div class="ci-info"><div class="ci-name">’+c.name+’</div><div class="ci-sub">’+c.label+’</div>’+(c.sub&&c.sub!==c.label?’<div style="font-size:.69rem;color:var(--mut);font-weight:600">’+c.sub+’</div>’:’’)+’</div><button class="ci-rm" onclick="removeItem(\''+c.id+'\')">Remove</button></div>’).join(’’);
+const list=document.getElementById('cartList');const btn=document.getElementById('reviewBtn');
+if(!ST.cart.length){list.innerHTML='<div class="cart-empty">No items added yet</div>';btn.style.display='none';return;}
+btn.style.display='block';
+list.innerHTML=ST.cart.map(c=>'<div class="cart-item"><div class="ci-info"><div class="ci-name">'+c.name+'</div><div class="ci-sub">'+c.label+'</div>'+(c.sub&&c.sub!==c.label?'<div style="font-size:.69rem;color:var(--mut);font-weight:600">'+c.sub+'</div>':'')+'</div><button class="ci-rm" onclick="removeItem(\''+c.id+'\')">Remove</button></div>').join('');
 }
 
 // ═══════════════════════════════════════════
 // SUMMARY
 // ═══════════════════════════════════════════
 function buildSummary(){
-const arr=ST.time?new Date(‘1970-01-01T’+ST.time).toLocaleTimeString([],{hour:‘2-digit’,minute:‘2-digit’}):’–’;
+const arr=ST.time?new Date('1970-01-01T'+ST.time).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'–';
 const guests=ST.guests||0;
 
 // Calc utensils
@@ -790,131 +790,131 @@ const wtr=waterFrac(totalRacks);
 const mints=Math.ceil(guests/2);const qCards=Math.ceil(guests/2);
 const tents=Math.min(2,Math.ceil(guests/10)||1);const cups=ST.hasBev?guests:0;
 
-let html=’’;
+let html='';
 
 // ORDER INFO
-html+=’<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Order Info</div><div class="sum-body">’
-+’<div class="info-chip">Driver: <strong>’+ST.name+’</strong></div>’
-+’<div class="info-chip">Order: <strong>’+ST.order+’</strong></div>’
-+’<div class="info-chip">Total Guests: <strong>’+guests+’</strong></div>’
-+’<div class="info-chip">Arrival Time: <strong>’+arr+’</strong></div>’
-+’<div class="info-chip">Address: <strong>’+ST.address+’</strong></div>’
-+(ST.leaveTime?’<div class="info-chip info-chip-org">Leave Store By: <strong style="font-size:1.05rem;color:var(--org)">’+ST.leaveTime+’</strong>’+(ST.travelInfo?’ • ‘+ST.travelInfo:’’)+’</div>’:’’)
-+’</div></div>’;
+html+='<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Order Info</div><div class="sum-body">'
++'<div class="info-chip">Driver: <strong>'+ST.name+'</strong></div>'
++'<div class="info-chip">Order: <strong>'+ST.order+'</strong></div>'
++'<div class="info-chip">Total Guests: <strong>'+guests+'</strong></div>'
++'<div class="info-chip">Arrival Time: <strong>'+arr+'</strong></div>'
++'<div class="info-chip">Address: <strong>'+ST.address+'</strong></div>'
++(ST.leaveTime?'<div class="info-chip info-chip-org">Leave Store By: <strong style="font-size:1.05rem;color:var(--org)">'+ST.leaveTime+'</strong>'+(ST.travelInfo?' • '+ST.travelInfo:'')+'</div>':'')
++'</div></div>';
 
 // HOT ITEMS — WIRE RACK
 const allHotRows=[];ST.cart.forEach(c=>(c.hotRows||[]).forEach(r=>allHotRows.push({...r,from:c.name})));
 if(allHotRows.length){
-html+=’<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Hot Items — Wire Rack</div><div class="sum-body">’;
+html+='<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Hot Items — Wire Rack</div><div class="sum-body">';
 // Group by source
 ST.cart.forEach(c=>{
 if(!c.hotRows||!c.hotRows.length)return;
-html+=’<div class="rack-block"><div class="rack-title">’+c.name+’ — ‘+c.label+’</div>’;
-c.hotRows.forEach(r=>{html+=’<div class="rack-row"><span class="rack-item">’+r.lbl+’</span><span class="rack-val">’+r.container+’</span></div>’;});
-html+=’</div>’;
+html+='<div class="rack-block"><div class="rack-title">'+c.name+' — '+c.label+'</div>';
+c.hotRows.forEach(r=>{html+='<div class="rack-row"><span class="rack-item">'+r.lbl+'</span><span class="rack-val">'+r.container+'</span></div>';});
+html+='</div>';
 });
-html+=’</div></div>’;
+html+='</div></div>';
 }
 
 // COLD ITEMS — CLAMSHELLS
 const hasCold=ST.cart.some(c=>c.coldRows&&c.coldRows.length);
 if(hasCold){
-html+=’<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Cold Items & Clamshells</div><div class="sum-body">’;
+html+='<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Cold Items & Clamshells</div><div class="sum-body">';
 ST.cart.forEach(c=>{
 if(!c.coldRows||!c.coldRows.length)return;
-html+=’<div class="cold-block"><div class="cold-title">’+c.name+’</div>’;
-c.coldRows.forEach(r=>{html+=’<div class="cold-row"><span class="cold-item">’+r.lbl+(r.notes?’ <em style="font-size:.69rem;color:var(--mut)">’+r.notes+’</em>’:’’)+’</span><span class="cold-val">’+r.container+’</span></div>’;});
-html+=’</div>’;
+html+='<div class="cold-block"><div class="cold-title">'+c.name+'</div>';
+c.coldRows.forEach(r=>{html+='<div class="cold-row"><span class="cold-item">'+r.lbl+(r.notes?' <em style="font-size:.69rem;color:var(--mut)">'+r.notes+'</em>':'')+'</span><span class="cold-val">'+r.container+'</span></div>';});
+html+='</div>';
 });
-html+=’</div></div>’;
+html+='</div></div>';
 }
 
 // CHIPS & SALSA
 if(gChipQty>0){
 const salsaC=getContainer(gChipQty,'side');
-html+=’<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Chips & Salsa</div><div class="sum-body">’
-+’<div class="chips-block"><div class="chips-title">Combined Total Across Order</div>’
-+’<div class="chips-row"><span style="font-weight:600">Chips</span><span style="color:var(--org);font-weight:800">’+chipBags(gChipQty)+’</span></div>’
-+’<div class="chips-row"><span style="font-weight:600">Salsa</span><span style="color:var(--org);font-weight:800">’+salsaC.name+’</span></div>’
-+’</div></div></div>’;
+html+='<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Chips & Salsa</div><div class="sum-body">'
++'<div class="chips-block"><div class="chips-title">Combined Total Across Order</div>'
++'<div class="chips-row"><span style="font-weight:600">Chips</span><span style="color:var(--org);font-weight:800">'+chipBags(gChipQty)+'</span></div>'
++'<div class="chips-row"><span style="font-weight:600">Salsa</span><span style="color:var(--org);font-weight:800">'+salsaC.name+'</span></div>'
++'</div></div></div>';
 }
 
 // UTENSILS
 const uLines=[];
 const t6u=[...new Set(U.t6)];const totalT=U.t9+t6u.length;
-if(totalT>0){const parts=[];if(U.t9>0)parts.push(U.t9+’ Large Tong’+(U.t9>1?‘s’:’’)+’ — Chips / Sopapillas / Brownies’);t6u.forEach(l=>parts.push(‘1 Small Tong — ‘+l));uLines.push({name:totalT+’ Tong’+(totalT>1?‘s’:’’)+’ Total’,detail:parts.join(’<br>’)});}
-const lU=[...new Set(U.ladle)];if(lU.length)uLines.push({name:lU.length+’ Ladle’+(lU.length>1?‘s’:’’)+’ 2oz’,detail:lU.join(’, ‘)});
-const s9U=[...new Set(U.sp9)];if(s9U.length)uLines.push({name:s9U.length+’ Black 9” Spoon’+(s9U.length>1?‘s’:’’)+’ (Large)’,detail:s9U.join(’, ‘)});
-const s5U=[...new Set(U.sp5)];if(s5U.length)uLines.push({name:s5U.length+’ Black 5” Spoon’+(s5U.length>1?‘s’:’’)+’ (Small)’,detail:s5U.join(’, ‘)});
+if(totalT>0){const parts=[];if(U.t9>0)parts.push(U.t9+' Large Tong'+(U.t9>1?'s':'')+' — Chips / Sopapillas / Brownies');t6u.forEach(l=>parts.push('1 Small Tong — '+l));uLines.push({name:totalT+' Tong'+(totalT>1?'s':'')+' Total',detail:parts.join('<br>')});}
+const lU=[...new Set(U.ladle)];if(lU.length)uLines.push({name:lU.length+' Ladle'+(lU.length>1?'s':'')+' 2oz',detail:lU.join(', ')});
+const s9U=[...new Set(U.sp9)];if(s9U.length)uLines.push({name:s9U.length+' Black 9" Spoon'+(s9U.length>1?'s':'')+' (Large)',detail:s9U.join(', ')});
+const s5U=[...new Set(U.sp5)];if(s5U.length)uLines.push({name:s5U.length+' Black 5" Spoon'+(s5U.length>1?'s':'')+' (Small)',detail:s5U.join(', ')});
 if(uLines.length){
-html+=’<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Utensils Needed</div><div class="sum-body">’
-+’<div class="uten-block"><div class="uten-title">1 utensil per container/pan</div>’
-+uLines.map(u=>’<div class="uten-row"><div class="uten-name">’+u.name+’</div><div class="uten-detail">’+u.detail+’</div></div>’).join(’’)
-+’</div></div></div>’;
+html+='<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Utensils Needed</div><div class="sum-body">'
++'<div class="uten-block"><div class="uten-title">1 utensil per container/pan</div>'
++uLines.map(u=>'<div class="uten-row"><div class="uten-name">'+u.name+'</div><div class="uten-detail">'+u.detail+'</div></div>').join('')
++'</div></div></div>';
 }
 
 // WHAT TO BRING
-html+=’<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>What to Bring — Based on ‘+guests+’ Guests</div><div class="sum-body">’
-+’<div class="always-row"><span class="always-item">Plates</span><span class="always-qty">’+guests+’</span></div>’
-+’<div class="always-row"><span class="always-item">Utensils (cutlery)</span><span class="always-qty">’+guests+’</span></div>’
-+’<div class="always-row"><span class="always-item">Napkins</span><span class="always-qty">’+guests+’</span></div>’
-+’<div class="always-row"><span class="always-item">Mints</span><span class="always-qty">’+mints+’</span></div>’
-+’<div class="always-row"><span class="always-item">Queso Cards</span><span class="always-qty">’+qCards+’</span></div>’
-+(cups>0?’<div class="always-row"><span class="always-item">Plastic Cups (beverage)</span><span class="always-qty">’+cups+’</span></div>’:’’)
-+’<div class="always-row"><span class="always-item">Pop-Up Tents</span><span class="always-qty">’+tents+’</span></div>’
-+’<div class="always-row"><span class="always-item">Business Cards</span><span class="always-qty">3</span></div>’
-+’<div class="always-row"><span class="always-item">Catering Flyers</span><span class="always-qty">3</span></div>’
-+’<div class="always-row"><span class="always-item">Steak Knife</span><span class="always-qty">1</span></div>’
-+’<div class="always-row"><span class="always-item">Rag</span><span class="always-qty">1</span></div>’
-+’<div class="always-row"><span class="always-item">Gloves</span><span class="always-qty">4</span></div>’
-+’<div class="always-row"><span class="always-item">Lighters</span><span class="always-qty">1</span></div>’
-+’</div></div>’;
+html+='<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>What to Bring — Based on '+guests+' Guests</div><div class="sum-body">'
++'<div class="always-row"><span class="always-item">Plates</span><span class="always-qty">'+guests+'</span></div>'
++'<div class="always-row"><span class="always-item">Utensils (cutlery)</span><span class="always-qty">'+guests+'</span></div>'
++'<div class="always-row"><span class="always-item">Napkins</span><span class="always-qty">'+guests+'</span></div>'
++'<div class="always-row"><span class="always-item">Mints</span><span class="always-qty">'+mints+'</span></div>'
++'<div class="always-row"><span class="always-item">Queso Cards</span><span class="always-qty">'+qCards+'</span></div>'
++(cups>0?'<div class="always-row"><span class="always-item">Plastic Cups (beverage)</span><span class="always-qty">'+cups+'</span></div>':'')
++'<div class="always-row"><span class="always-item">Pop-Up Tents</span><span class="always-qty">'+tents+'</span></div>'
++'<div class="always-row"><span class="always-item">Business Cards</span><span class="always-qty">3</span></div>'
++'<div class="always-row"><span class="always-item">Catering Flyers</span><span class="always-qty">3</span></div>'
++'<div class="always-row"><span class="always-item">Steak Knife</span><span class="always-qty">1</span></div>'
++'<div class="always-row"><span class="always-item">Rag</span><span class="always-qty">1</span></div>'
++'<div class="always-row"><span class="always-item">Gloves</span><span class="always-qty">4</span></div>'
++'<div class="always-row"><span class="always-item">Lighters</span><span class="always-qty">1</span></div>'
++'</div></div>';
 
 // WIRE RACKS & WATER
-html+=’<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Wire Racks & Setup</div><div class="sum-body">’
-+’<div class="always-row"><span class="always-item">Wire Racks Needed</span><span class="always-qty">’+totalRacks+’</span></div>’
-+’<div class="always-row"><span class="always-item">Full Pans (1 per rack)</span><span class="always-qty">’+totalRacks+’</span></div>’
-+’<div class="always-row"><span class="always-item">Burners / Sternos</span><span class="always-qty">’+totalRacks+’</span></div>’
-+(wtr?’<div class="always-row"><span class="always-item">Water</span><span class="always-qty">’+wtr+’</span></div>’:’’)
-+’</div></div>’;
+html+='<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Wire Racks & Setup</div><div class="sum-body">'
++'<div class="always-row"><span class="always-item">Wire Racks Needed</span><span class="always-qty">'+totalRacks+'</span></div>'
++'<div class="always-row"><span class="always-item">Full Pans (1 per rack)</span><span class="always-qty">'+totalRacks+'</span></div>'
++'<div class="always-row"><span class="always-item">Burners / Sternos</span><span class="always-qty">'+totalRacks+'</span></div>'
++(wtr?'<div class="always-row"><span class="always-item">Water</span><span class="always-qty">'+wtr+'</span></div>':'')
++'</div></div>';
 
-html+=’<div class="rack-warn">Never leave wire rack spots empty — water boils out 3x faster when uncovered!</div>’;
+html+='<div class="rack-warn">Never leave wire rack spots empty — water boils out 3x faster when uncovered!</div>';
 
 // SETUP FLOW
-const steps=[‘Mark “On the Way” in EZ Cater before leaving’,‘Find ideal guest flow start area at venue’,‘Set out Plates, Utensils, Napkins, Queso Cards, Business Cards, Mints, Flyers & Pop-Up Tent’,‘If beverages — set up ice at sink, pour drinks, place cups. Second tent here.’,‘Set wire racks, light sternos. Sterno tops into white bag inside brown lid bag.’,‘Left to Right: Tortillas or Chips first’,‘Add filler items then hot sides’,‘Chips & Salsa after wire rack section’,‘Cold items / clamshells: Lettuce → Cheese → Pico → Sour Cream → Guac’,‘Salad (if ordered) then Dessert’,‘Remove all lids — stack in paper bag’,‘Place correct utensil in each item’,‘Walk setup with rag — leave it clean’,‘Pack trash, empty water container, head out’];
-html+=’<button class="setup-toggle" onclick="togSetup()">Setup Flow — Tap to Expand <svg id="sc" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>’
-+’<div class="setup-body" id="setupBody"><div style="height:10px"></div>’
-+steps.map((s,i)=>’<div class="flow-step"><div class="flow-num">’+(i+1)+’</div><div>’+s+’</div></div>’).join(’’)+’</div>’;
+const steps=['Mark "On the Way" in EZ Cater before leaving','Find ideal guest flow start area at venue','Set out Plates, Utensils, Napkins, Queso Cards, Business Cards, Mints, Flyers & Pop-Up Tent','If beverages — set up ice at sink, pour drinks, place cups. Second tent here.','Set wire racks, light sternos. Sterno tops into white bag inside brown lid bag.','Left to Right: Tortillas or Chips first','Add filler items then hot sides','Chips & Salsa after wire rack section','Cold items / clamshells: Lettuce → Cheese → Pico → Sour Cream → Guac','Salad (if ordered) then Dessert','Remove all lids — stack in paper bag','Place correct utensil in each item','Walk setup with rag — leave it clean','Pack trash, empty water container, head out'];
+html+='<button class="setup-toggle" onclick="togSetup()">Setup Flow — Tap to Expand <svg id="sc" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>'
++'<div class="setup-body" id="setupBody"><div style="height:10px"></div>'
++steps.map((s,i)=>'<div class="flow-step"><div class="flow-num">'+(i+1)+'</div><div>'+s+'</div></div>').join('')+'</div>';
 
-document.getElementById(‘sumBody’).innerHTML=html;
+document.getElementById('sumBody').innerHTML=html;
 }
-function togSetup(){const b=document.getElementById(‘setupBody’);b.classList.toggle(‘open’);document.getElementById(‘sc’).style.transform=b.classList.contains(‘open’)?‘rotate(180deg)’:’’;}
+function togSetup(){const b=document.getElementById('setupBody');b.classList.toggle('open');document.getElementById('sc').style.transform=b.classList.contains('open')?'rotate(180deg)':'';}
 
 // EMAIL
 function sendEmail(){
-const arr=ST.time?new Date(‘1970-01-01T’+ST.time).toLocaleTimeString([],{hour:‘2-digit’,minute:‘2-digit’}):’–’;
+const arr=ST.time?new Date('1970-01-01T'+ST.time).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'–';
 const guests=ST.guests||0;const mints=Math.ceil(guests/2);const qCards=Math.ceil(guests/2);
 const tents=Math.min(2,Math.ceil(guests/10)||1);const cups=ST.hasBev?guests:0;
 let totalSlots=0;ST.cart.forEach(c=>(c.hotRows||[]).forEach(r=>{if(r.slot)totalSlots+=r.slot;}));
 const totalRacks=Math.ceil(totalSlots);const wtr=waterFrac(totalRacks);
-const SEP=’––––––––––––––––––––––’;
-let b=‘HUEY LUEYS CATERING ORDER\n’+SEP+’\n\nDriver: ‘+ST.name+’\nOrder: ‘+ST.order+’\nGuests: ‘+guests+’\nArrival: ‘+arr+’\nAddress: ‘+ST.address+’\n’;
-if(ST.leaveTime)b+=‘Leave By: ‘+ST.leaveTime+(ST.travelInfo?’ (’+ST.travelInfo+’)’:’’)+’\n’;
-b+=’\n’+SEP+’\nHOT ITEMS (Wire Rack)\n’+SEP+’\n’;
-ST.cart.forEach(c=>{if(!c.hotRows||!c.hotRows.length)return;b+=’\n’+c.name+’ - ‘+c.label+’\n’;c.hotRows.forEach(r=>{b+=’  ‘+r.lbl+’: ‘+r.container+’\n’;});});
-b+=’\n’+SEP+’\nCOLD ITEMS & CLAMSHELLS\n’+SEP+’\n’;
-ST.cart.forEach(c=>{if(!c.coldRows||!c.coldRows.length)return;b+=’\n’+c.name+’\n’;c.coldRows.forEach(r=>{b+=’  ‘+r.lbl+’: ‘+r.container+’\n’;});});
-if(gChipQty>0){const sC=getContainer(gChipQty,'side');b+=’\nCHIPS & SALSA\n  Chips: ‘+chipBags(gChipQty)+’\n  Salsa: ‘+sC.name+’\n’;}
-b+=’\n’+SEP+’\nWHAT TO BRING\n’+SEP+’\n’;
-b+=‘Plates: ‘+guests+’\nUtensils: ‘+guests+’\nNapkins: ‘+guests+’\nMints: ‘+mints+’\nQueso Cards: ‘+qCards+’\n’;
-if(cups>0)b+=‘Plastic Cups: ‘+cups+’\n’;
-b+=‘Pop-Up Tents: ‘+tents+’\nBusiness Cards: 3\nCatering Flyers: 3\nSteak Knife: 1\nRag: 1\nGloves: 4\nLighters: 1\n’;
-b+=’\n’+SEP+’\nWIRE RACKS\n’+SEP+’\n’;
-b+=‘Wire Racks: ‘+totalRacks+’\nFull Pans: ‘+totalRacks+’\nBurners/Sternos: ‘+totalRacks+’\n’;
-if(wtr)b+=‘Water: ‘+wtr+’\n’;
-b+=’\nSent via Huey Lueys Catering Guide’;
-window.location.href=‘mailto:tylerhawthorne@hueylueys.com?subject=’+encodeURIComponent(‘Catering: ‘+ST.order+’ - Arrival ‘+arr)+’&body=’+encodeURIComponent(b);
-setTimeout(()=>{const s=document.getElementById(‘emlSt’);s.className=‘eml-st ok’;s.textContent=‘Email client opened - tap Send in your mail app.’;},800);
+const SEP='––––––––––––––––––––––';
+let b='HUEY LUEYS CATERING ORDER\n'+SEP+'\n\nDriver: '+ST.name+'\nOrder: '+ST.order+'\nGuests: '+guests+'\nArrival: '+arr+'\nAddress: '+ST.address+'\n';
+if(ST.leaveTime)b+='Leave By: '+ST.leaveTime+(ST.travelInfo?' ('+ST.travelInfo+')':'')+'\n';
+b+='\n'+SEP+'\nHOT ITEMS (Wire Rack)\n'+SEP+'\n';
+ST.cart.forEach(c=>{if(!c.hotRows||!c.hotRows.length)return;b+='\n'+c.name+' - '+c.label+'\n';c.hotRows.forEach(r=>{b+='  '+r.lbl+': '+r.container+'\n';});});
+b+='\n'+SEP+'\nCOLD ITEMS & CLAMSHELLS\n'+SEP+'\n';
+ST.cart.forEach(c=>{if(!c.coldRows||!c.coldRows.length)return;b+='\n'+c.name+'\n';c.coldRows.forEach(r=>{b+='  '+r.lbl+': '+r.container+'\n';});});
+if(gChipQty>0){const sC=getContainer(gChipQty,'side');b+='\nCHIPS & SALSA\n  Chips: '+chipBags(gChipQty)+'\n  Salsa: '+sC.name+'\n';}
+b+='\n'+SEP+'\nWHAT TO BRING\n'+SEP+'\n';
+b+='Plates: '+guests+'\nUtensils: '+guests+'\nNapkins: '+guests+'\nMints: '+mints+'\nQueso Cards: '+qCards+'\n';
+if(cups>0)b+='Plastic Cups: '+cups+'\n';
+b+='Pop-Up Tents: '+tents+'\nBusiness Cards: 3\nCatering Flyers: 3\nSteak Knife: 1\nRag: 1\nGloves: 4\nLighters: 1\n';
+b+='\n'+SEP+'\nWIRE RACKS\n'+SEP+'\n';
+b+='Wire Racks: '+totalRacks+'\nFull Pans: '+totalRacks+'\nBurners/Sternos: '+totalRacks+'\n';
+if(wtr)b+='Water: '+wtr+'\n';
+b+='\nSent via Huey Lueys Catering Guide';
+window.location.href='mailto:tylerhawthorne@hueylueys.com?subject='+encodeURIComponent('Catering: '+ST.order+' - Arrival '+arr)+'&body='+encodeURIComponent(b);
+setTimeout(()=>{const s=document.getElementById('emlSt');s.className='eml-st ok';s.textContent='Email client opened - tap Send in your mail app.';},800);
 }
 </script>
 
