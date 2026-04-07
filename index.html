@@ -255,23 +255,29 @@ queso_app:3,   // full portion (halved = 1.5)
 // ═══════════════════════════════════════════
 function getContainer(guests, itemType) {
   itemType = itemType || 'side';
+
+  // TORTILLAS: 3 per person — third pan fits up to ~25 ppl
   if (itemType === 'tortilla') {
-    if (guests <= 15) return {name:'Third Pan', slot:0.33, hot_eligible:true};
+    if (guests <= 25) return {name:'Third Pan', slot:0.33, hot_eligible:true};
     if (guests <= 79) return {name:'Half Pan',  slot:0.5,  hot_eligible:true};
     return {name:'Full Pan', slot:1, hot_eligible:true};
   }
+
+  // COLD - Shredded Lettuce / Shredded Cheese → Third Pan under 60
   if (itemType === 'cold_lc') {
-    // Shredded Lettuce, Shredded Cheese — Third Pan for < 60 guests
     if (guests < 60) return {name:'Third Pan', slot:0, hot_eligible:false};
     return {name:'Full Pan + Half Pan', slot:0, hot_eligible:false};
   }
+
+  // COLD - Pico / Guac / Sour Cream / Diced Tomatoes / Pickled Jalapeños → 32oz Clamshell under 60
   if (itemType === 'cold_pgs') {
-    // Pico, Guac, Sour Cream, Diced Tomatoes, Pickled Jalapeños — 32oz Clamshell for < 60 guests
     if (guests < 60) return {name:'32oz Clamshell', slot:0, hot_eligible:false};
     return {name:'Third Pan', slot:0, hot_eligible:false};
   }
-  if (guests <= 15) return {name:'Third Pan', slot:0.33, hot_eligible:true};
-  if (guests <= 39) return {name:'Half Pan',  slot:0.5,  hot_eligible:true};
+
+  // HOT SIDES (Rice, Beans, Queso) — confirmed: ≤25 = Third Pan
+  if (guests <= 25) return {name:'Third Pan', slot:0.33, hot_eligible:true};
+  if (guests <= 49) return {name:'Half Pan',  slot:0.5,  hot_eligible:true};
   return {name:'Full Pan', slot:1, hot_eligible:true};
 }
 function proteinPans(guests, label) {
