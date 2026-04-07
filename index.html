@@ -261,12 +261,14 @@ function getContainer(guests, itemType) {
     return {name:'Full Pan', slot:1, hot_eligible:true};
   }
   if (itemType === 'cold_lc') {
-    if (guests < 60) return {name:'Half Pan', slot:0, hot_eligible:false};
+    // Shredded Lettuce, Shredded Cheese — Third Pan for < 60 guests
+    if (guests < 60) return {name:'Third Pan', slot:0, hot_eligible:false};
     return {name:'Full Pan + Half Pan', slot:0, hot_eligible:false};
   }
   if (itemType === 'cold_pgs') {
-    if (guests < 60) return {name:'Third Pan', slot:0, hot_eligible:false};
-    return {name:'Full Pan', slot:0, hot_eligible:false};
+    // Pico, Guac, Sour Cream, Diced Tomatoes, Pickled Jalapeños — 32oz Clamshell for < 60 guests
+    if (guests < 60) return {name:'32oz Clamshell', slot:0, hot_eligible:false};
+    return {name:'Third Pan', slot:0, hot_eligible:false};
   }
   if (guests <= 15) return {name:'Third Pan', slot:0.33, hot_eligible:true};
   if (guests <= 39) return {name:'Half Pan',  slot:0.5,  hot_eligible:true};
@@ -290,6 +292,7 @@ if(g>=1){const w=Math.floor(g),r=g-w;if(r===0)return w+' gallon'+(w>1?'s':'');if
 if(g<=0.2)return'\u00BC gallon';if(g<=0.5)return'\u00BD gallon';if(g<=0.8)return'\u00BE gallon';return'1 gallon';
 }
 function chipBags(qty){const b=Math.ceil(qty/20);return b+' Large White Bag'+(b>1?'s':'')+' (20 persons/bag)';}
+function chipBagsNacho(){return '1 Large Bag Chips (halfway full)';}
 
 // ═══════════════════════════════════════════
 // UTENSIL TRACKING
@@ -407,13 +410,12 @@ hotSides:[
 ],
 coldSides:[
 {lbl:'Shredded Lettuce',uten:'t6'},
-{lbl:'Shredded Cheese',uten:'t6'},
 {lbl:'Diced Tomatoes',uten:null},
 {lbl:'Sour Cream',uten:'sp5'},
 {lbl:'Pickled Jalapenos',uten:'t6'},
 ],
 subs:[{id:'ns1',label:'Sub Regular Queso for Spicy'}],
-hasChips:true},
+hasChips:true, hasNachoChipPan:true},
 {id:'fajita',title:'Fajita Bar',desc:'Select protein — Charro Beans & Flour Tortillas auto-included',
 note:'Select protein. All hot items on wire racks. Cold sides in clamshells.',type:'bar',
 proteins:[
@@ -436,7 +438,7 @@ coldSides:[
 {lbl:'Sour Cream',uten:'sp5'},
 {lbl:'Guacamole',uten:'sp5'},
 ],
-garnish:'Radish Garnish + Lime Wedges',
+garnish:'3 Radish Coins and 6 Limes',
 subs:[{id:'fs1',label:'Sub Black Beans for Charro'},{id:'fs2',label:'Sub Refried Beans for Charro'},{id:'fs3',label:'Sub White Rice for Mexican Rice'},{id:'fs4',label:'Sub Corn Tortillas',tortOz:3.5},{id:'fs5',label:'Sub Hard Shell Tortillas',tortOz:3},{id:'fs6',label:'Sub Lettuce Cup'}],
 hasChips:true},
 {id:'salad',title:'Salads',desc:'Each salad serves 10 persons — select how many',
@@ -586,7 +588,8 @@ function addBar(catId,ci){
   if(sub&&sub.tortOz)tortOz=sub.tortOz;
   if(tortOz>0){
     const tc=getContainer(qty,'tortilla');
-    const tortLbl=sub&&sub.tortOz?sub.label.replace(/^Sub /,''):'Flour Tortillas (3 per person)';
+    const tortCount=qty*3;
+    const tortLbl=sub&&sub.tortOz?sub.label.replace(/^Sub /,''):('Flour Tortillas (3 per person — '+tortCount+' total)');
     hotRows.push({lbl:tortLbl,container:tc.name,slot:tc.slot,totalOz:qty*tortOz});
     ud.push({type:'t6',label:'Tortillas',n:1});
   }
@@ -609,7 +612,13 @@ function addBar(catId,ci){
     coldRows.push({lbl:s.lbl,container:cc.name});
     if(s.uten)ud.push({type:s.uten,label:s.lbl,n:1});
   });
-  if(cat.garnish)coldRows.push({lbl:'Garnish',container:'Clamshell',notes:cat.garnish});
+  if(cat.garnish){
+    if(cat.id==='fajita'){
+      coldRows.push({lbl:'Garnish',container:cat.garnish,notes:''});
+    } else {
+      coldRows.push({lbl:'Garnish',container:'Clamshell',notes:cat.garnish});
+    }
+  }
   if(cat.hasChips)gChipQty=Math.max(gChipQty,qty);
   ST.cart=ST.cart.filter(c=>c.catId!==catId);
   ST.cart.push({id:catId,catId,name:cat.title,qty,label:prot.label+(sub?' + '+sub.label:''),sub:sub?sub.label:'',hotRows,coldRows,chipNote:'',ud,type:'bar',hasChips:cat.hasChips});
@@ -777,6 +786,12 @@ if(gChipQty>0)U.t9=Math.max(U.t9,1);
 // Wire racks = ROUNDUP(sum of all hot slots)
 let totalSlots=0;
 ST.cart.forEach(c=>(c.hotRows||[]).forEach(r=>{if(r.slot)totalSlots+=r.slot;}));
+// Nacho Bar: add 1 full slot for the nacho chip serving pan on the wire rack
+const hasNachoBar=ST.cart.some(c=>c.catId==='nacho');
+if(hasNachoBar)totalSlots+=1;
+// Fajita Bar: add 0.5 slot for the half pan of chips on the last wire rack slot
+const hasFajitaBar=ST.cart.some(c=>c.catId==='fajita');
+if(hasFajitaBar)totalSlots+=0.5;
 const totalRacks=Math.ceil(totalSlots);
 const wtr=waterFrac(totalRacks);
 
@@ -825,12 +840,25 @@ html+='</div></div>';
 
 // CHIPS & SALSA
 if(gChipQty>0){
-const salsaC=getContainer(gChipQty,'side');
-html+='<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Chips & Salsa</div><div class="sum-body">'
-+'<div class="chips-block"><div class="chips-title">Combined Total Across Order</div>'
-+'<div class="chips-row"><span style="font-weight:600">Chips</span><span style="color:var(--org);font-weight:800">'+chipBags(gChipQty)+'</span></div>'
-+'<div class="chips-row"><span style="font-weight:600">Salsa</span><span style="color:var(--org);font-weight:800">'+salsaC.name+'</span></div>'
-+'</div></div></div>';
+  const hasNacho=ST.cart.some(c=>c.catId==='nacho');
+  const hasFajita=ST.cart.some(c=>c.catId==='fajita');
+  const salsaC=getContainer(gChipQty,'side');
+  html+='<div class="sum-card"><div class="sum-hd"><div class="sum-dot"></div>Chips & Salsa</div><div class="sum-body">'
+  +'<div class="chips-block"><div class="chips-title">Combined Total Across Order</div>';
+  if(hasNacho){
+    html+='<div class="chips-row"><span style="font-weight:600">Chips (bag — for service)</span><span style="color:var(--org);font-weight:800">1 Large Bag Chips (halfway full)</span></div>'
+    +'<div class="chips-row"><span style="font-weight:600">Chips (pan — for nachos, on wire rack)</span><span style="color:var(--org);font-weight:800">1 Full Pan of Chips</span></div>'
+    +'<div class="chips-row"><span style="font-weight:600">Chips (filler — close wire rack slot)</span><span style="color:var(--org);font-weight:800">1 Third Pan of Chips</span></div>'
+    +'<div class="chips-row"><span style="font-weight:600">Salsa</span><span style="color:var(--org);font-weight:800">32oz Deli Container</span></div>';
+  } else if(hasFajita){
+    html+='<div class="chips-row"><span style="font-weight:600">Chips (bag — for service)</span><span style="color:var(--org);font-weight:800">1 Large Bag Chips (halfway full)</span></div>'
+    +'<div class="chips-row"><span style="font-weight:600">Chips (half pan — fill last wire rack slot)</span><span style="color:var(--org);font-weight:800">1 Half Pan of Chips</span></div>'
+    +'<div class="chips-row"><span style="font-weight:600">Salsa</span><span style="color:var(--org);font-weight:800">'+salsaC.name+'</span></div>';
+  } else {
+    html+='<div class="chips-row"><span style="font-weight:600">Chips</span><span style="color:var(--org);font-weight:800">'+chipBags(gChipQty)+'</span></div>'
+    +'<div class="chips-row"><span style="font-weight:600">Salsa</span><span style="color:var(--org);font-weight:800">'+salsaC.name+'</span></div>';
+  }
+  html+='</div></div></div>';
 }
 
 // UTENSILS
@@ -890,6 +918,10 @@ const arr=ST.time?new Date('1970-01-01T'+ST.time).toLocaleTimeString([],{hour:'2
 const guests=ST.guests||0;const mints=Math.ceil(guests/2);const qCards=Math.ceil(guests/2);
 const tents=Math.min(2,Math.ceil(guests/10)||1);const cups=ST.hasBev?guests:0;
 let totalSlots=0;ST.cart.forEach(c=>(c.hotRows||[]).forEach(r=>{if(r.slot)totalSlots+=r.slot;}));
+const hasNachoBarE=ST.cart.some(c=>c.catId==='nacho');
+if(hasNachoBarE)totalSlots+=1;
+const hasFajitaBarE=ST.cart.some(c=>c.catId==='fajita');
+if(hasFajitaBarE)totalSlots+=0.5;
 const totalRacks=Math.ceil(totalSlots);const wtr=waterFrac(totalRacks);
 const SEP='––––––––––––––––––––––';
 let b='HUEY LUEYS CATERING ORDER\n'+SEP+'\n\nDriver: '+ST.name+'\nOrder: '+ST.order+'\nGuests: '+guests+'\nArrival: '+arr+'\nAddress: '+ST.address+'\n';
@@ -898,7 +930,23 @@ b+='\n'+SEP+'\nHOT ITEMS (Wire Rack)\n'+SEP+'\n';
 ST.cart.forEach(c=>{if(!c.hotRows||!c.hotRows.length)return;b+='\n'+c.name+' - '+c.label+'\n';c.hotRows.forEach(r=>{b+='  '+r.lbl+': '+r.container+'\n';});});
 b+='\n'+SEP+'\nCOLD ITEMS & CLAMSHELLS\n'+SEP+'\n';
 ST.cart.forEach(c=>{if(!c.coldRows||!c.coldRows.length)return;b+='\n'+c.name+'\n';c.coldRows.forEach(r=>{b+='  '+r.lbl+': '+r.container+'\n';});});
-if(gChipQty>0){const sC=getContainer(gChipQty,'side');b+='\nCHIPS & SALSA\n  Chips: '+chipBags(gChipQty)+'\n  Salsa: '+sC.name+'\n';}
+if(gChipQty>0){const sC=getContainer(gChipQty,'side');const hasNachoE=ST.cart.some(c=>c.catId==='nacho');
+  const hasFajitaE=ST.cart.some(c=>c.catId==='fajita');
+  b+='\nCHIPS & SALSA\n';
+  if(hasNachoE){
+    b+='  Chips (bag): 1 Large Bag Chips (halfway full)\n';
+    b+='  Chips (nacho pan - wire rack): 1 Full Pan of Chips\n';
+    b+='  Chips (filler): 1 Third Pan of Chips\n';
+    b+='  Salsa: 32oz Deli Container\n';
+  } else if(hasFajitaE){
+    b+='  Chips (bag): 1 Large Bag Chips (halfway full)\n';
+    b+='  Chips (half pan - fill wire rack): 1 Half Pan of Chips\n';
+    b+='  Salsa: '+sC.name+'\n';
+  } else {
+    b+='  Chips: '+chipBags(gChipQty)+'\n';
+    b+='  Salsa: '+sC.name+'\n';
+  }
+}
 b+='\n'+SEP+'\nWHAT TO BRING\n'+SEP+'\n';
 b+='Plates: '+guests+'\nUtensils: '+guests+'\nNapkins: '+guests+'\nMints: '+mints+'\nQueso Cards: '+qCards+'\n';
 if(cups>0)b+='Plastic Cups: '+cups+'\n';
